@@ -199,7 +199,7 @@
 	var/is_a_communist = 0
 	var/folds = 0
 	desc = "Actually, you got this hat from a fast-food restaurant, that's why it folds like it was made of paper."
-	armor_value_melee = 9 // Ditto
+	armor_value_melee = 10 // Ditto
 
 /obj/item/clothing/head/helmet/HoS/attack_self(mob/user as mob)
 	if(user.r_hand == src || user.l_hand == src)
@@ -224,7 +224,7 @@
 	item_state = "nthelm"
 	c_flags = SPACEWEAR | COVERSEYES | COVERSMOUTH
 	see_face = 0.0
-	armor_value_melee = 9 //ditto
+	armor_value_melee = 12 // is meant to go along with the heavy armor, so buffing this significantly
 
 /obj/item/clothing/head/helmet/space/industrial
 	name = "Industrial Space Helmet"
