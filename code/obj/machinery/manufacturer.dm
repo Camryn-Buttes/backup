@@ -1034,17 +1034,19 @@
 				if ("CON")
 					switch(secondpart)
 						if(2)
-							return (mat.getProperty(PROP_ELECTRICAL) >= 80)  || (mat.material_flags & MATERIAL_METAL)
+							return (mat.getProperty(PROP_ELECTRICAL) >= 80) || (mat.material_flags & MATERIAL_METAL) || (mat.material_flags & MATERIAL_CRYSTAL) //Wow! Claretine has a use again!
 						else
-							return (mat.getProperty(PROP_ELECTRICAL) >= 50) || (mat.material_flags & MATERIAL_METAL)
+							return (mat.getProperty(PROP_ELECTRICAL) >= 50) || (mat.material_flags & MATERIAL_METAL) || (mat.material_flags & MATERIAL_CRYSTAL)
 				if ("INS")
 					switch(secondpart)
 						if(2)
-							return mat.getProperty(PROP_ELECTRICAL) <= 20 || (mat.material_flags & MATERIAL_CLOTH ) || (mat.material_flags & MATERIAL_RUBBER)
+							return mat.getProperty(PROP_ELECTRICAL) <= 20 || (mat.material_flags & MATERIAL_CLOTH) || (mat.material_flags & MATERIAL_RUBBER)
 						else
 							return mat.getProperty(PROP_ELECTRICAL) <= 47 || (mat.material_flags & MATERIAL_CLOTH) || (mat.material_flags & MATERIAL_RUBBER)
 				if ("DEN")
 					switch(secondpart)
+						if(3)
+							return mat.getProperty(PROP_HARDNESS) >= 95   || (mat.material_flags & MATERIAL_CRYSTAL)
 						if(2)
 							return mat.getProperty(PROP_HARDNESS) >= 70   || (mat.material_flags & MATERIAL_CRYSTAL)
 						else
@@ -1052,6 +1054,8 @@
 				if ("POW")
 					if (mat.material_flags & MATERIAL_ENERGY)
 						switch(secondpart)
+							if(3)
+								return mat.getProperty(PROP_ENERGY) >= 60 //soulsteel and erebite basically
 							if(2)
 								return mat.getProperty(PROP_ENERGY) >= 10
 							else
