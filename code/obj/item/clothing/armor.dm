@@ -257,11 +257,11 @@
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
-	desc = "A heavily armored suit that protects against moderate damage."
+	desc = "A heavily armored suit that provides maximum riot protection. However, its hardened armor plating does little to absorb explosive shockwaves."
 	icon_state = "heavy"
 	item_state = "heavy"
-	armor_value_bullet = 2.5
-	armor_value_melee = 7
+	armor_value_bullet = 4.375 //matched these values to correspond with walk slowdown vs eod armor
+	armor_value_melee = 12.25 // seriously, what's the point of this armor if it was worse than the captain's armor but slower than EOD armor
 
 /obj/item/clothing/suit/armor/death_commando
 	name = "death commando armor"
@@ -326,9 +326,10 @@
 
 /obj/item/clothing/suit/armor/EOD
 	name = "bomb disposal suit"
-	desc = "A suit designed to absorb explosive force; very bulky and unwieldy to maneuver in."
+	desc = "A suit designed to absorb explosive force; very bulky and unwieldy to maneuver in. Now with 100% authentic blast resistant foam!"
 	icon_state = "eod"
 	item_state = "eod"
 	w_class = 3
 	armor_value_bullet = 3
 	armor_value_melee = 9
+	armor_value_explosion = 4 //now it actually protects against explosions *WOW*
