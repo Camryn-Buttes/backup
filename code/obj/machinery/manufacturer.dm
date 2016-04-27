@@ -1034,7 +1034,7 @@
 				if ("CON")
 					switch(secondpart)
 						if(2)
-							return (mat.getProperty(PROP_ELECTRICAL) >= 75)  || (mat.material_flags & MATERIAL_METAL)
+							return (mat.getProperty(PROP_ELECTRICAL) >= 80)  || (mat.material_flags & MATERIAL_METAL)
 						else
 							return (mat.getProperty(PROP_ELECTRICAL) >= 50) || (mat.material_flags & MATERIAL_METAL)
 				if ("INS")
@@ -1044,7 +1044,11 @@
 						else
 							return mat.getProperty(PROP_ELECTRICAL) <= 47 || (mat.material_flags & MATERIAL_CLOTH) || (mat.material_flags & MATERIAL_RUBBER)
 				if ("DEN")
-					return mat.getProperty(PROP_HARDNESS) >= 30   || (mat.material_flags & MATERIAL_CRYSTAL)
+					switch(secondpart)
+						if(2)
+							return mat.getProperty(PROP_HARDNESS) >= 70   || (mat.material_flags & MATERIAL_CRYSTAL)
+						else
+							return mat.getProperty(PROP_HARDNESS) >= 55   || (mat.material_flags & MATERIAL_CRYSTAL)
 				if ("POW")
 					if (mat.material_flags & MATERIAL_ENERGY)
 						switch(secondpart)
