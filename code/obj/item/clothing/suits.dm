@@ -731,8 +731,8 @@
 	body_parts_covered = TORSO|LEGS|ARMS
 	heat_transfer_coefficient = 0.02
 	mats = 15
-	armor_value_bullet = 1
-	armor_value_melee = 2
+	armor_value_bullet = 1.5 // industrial space armor should not have worse armor than normal space suits
+	armor_value_melee = 3 // But I'm afraid of buffing it too much, so I'll just set it at normal space suit levels
 	armor_value_explosion = 4
 	cold_resistance = 75
 	heat_resistance = 50
@@ -742,6 +742,8 @@
 		desc = "An armored space suit, not for your average expendable chumps. No sir."
 		icon_state = "indusred"
 		item_state = "indusred"
+		armor_value_bullet = 3 //because seriously, why are syndicate leaders not properly armored
+		armor_value_melee = 9 //I mean really
 
 /obj/item/clothing/suit/cultist
 	name = "cultist robe"
