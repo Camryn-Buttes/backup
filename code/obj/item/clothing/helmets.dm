@@ -78,21 +78,21 @@
 	icon_state = "swat"
 	c_flags = COVERSEYES
 	item_state = "swat"
-	armor_value_melee = 5
+	armor_value_melee = 7 //WHY WERE THESE WORSE THAN NORMAL HELMETS AND HARD HATS???
 
 /obj/item/clothing/head/helmet/turd
 	name = "T.U.R.D.S. helmet"
 	icon_state = "turdhelm"
 	c_flags = COVERSEYES
 	item_state = "turdhelm"
-	armor_value_melee = 5
+	armor_value_melee = 7 //Ditto
 
 /obj/item/clothing/head/helmet/thunderdome
 	name = "Thunderdome helmet"
 	icon_state = "thunderdome"
 	c_flags = COVERSEYES
 	item_state = "thunderdome"
-	armor_value_melee = 5
+	armor_value_melee = 7 //DITTO
 
 /obj/item/clothing/head/helmet/hardhat
 	name = "hard hat"
@@ -189,7 +189,7 @@
 	icon_state = "EOD"
 	item_state = "tdhelm"
 	c_flags = COVERSEYES
-	armor_value_melee = 8
+	armor_value_melee = 10 // Slight buff it bring it in line with the others
 
 /obj/item/clothing/head/helmet/HoS
 	name = "HoS Hat"
@@ -199,7 +199,7 @@
 	var/is_a_communist = 0
 	var/folds = 0
 	desc = "Actually, you got this hat from a fast-food restaurant, that's why it folds like it was made of paper."
-	armor_value_melee = 7
+	armor_value_melee = 9 // Ditto
 
 /obj/item/clothing/head/helmet/HoS/attack_self(mob/user as mob)
 	if(user.r_hand == src || user.l_hand == src)
@@ -224,7 +224,7 @@
 	item_state = "nthelm"
 	c_flags = SPACEWEAR | COVERSEYES | COVERSMOUTH
 	see_face = 0.0
-	armor_value_melee = 7
+	armor_value_melee = 9 //ditto
 
 /obj/item/clothing/head/helmet/space/industrial
 	name = "Industrial Space Helmet"
@@ -232,13 +232,14 @@
 	icon_state = "indus"
 	item_state = "indus"
 	mats = 7
-	armor_value_melee = 2
+	armor_value_melee = 6 // THIS SHOULD NOT BE WORSE THAN A NORMAL SPACE SUIT HELMET, AAAAAAAA
 
-	/*syndicate
+	syndicate
 		name = "Syndicate Command Helmet"
 		desc = "Ooh, fancy."
 		icon_state = "indusred"
-		item_state = "indusred" */
+		item_state = "indusred"
+		armor_value_melee = 10 //Gotta protect those valuable executive brains
 
 /obj/item/clothing/head/helmet/bucket
 	name = "bucket helmet"
