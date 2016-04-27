@@ -183,7 +183,7 @@ proc/build_syndi_buylist_cache()
 	name = "Cloaking Device"
 	item = /obj/item/cloaking_device
 	cost = 6
-	not_in_crates = 1
+//	not_in_crates = 1 //Commented this out because cloaking devices aren't rampage items anymore.
 	desc = "Hides you from normal sight. AI and Cyborgs will still see you and so will any human with thermals so be careful how you use it."
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 
@@ -617,6 +617,7 @@ proc/build_syndi_buylist_cache()
 /datum/syndicate_buylist/surplus/syndicate_armor
 	name = "Syndicate Command Armor"
 	item = /obj/item/clothing/suit/space/industrial/syndicate
+	item2 = /obj/item/clothing/head/helmet/space/industrial/syndicate //gotta look the part
 	cost = 5
 	desc = "A set of syndicate command armor. I guess the last owner must have died."
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
