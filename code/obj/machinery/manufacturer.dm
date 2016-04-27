@@ -1046,7 +1046,7 @@
 				if ("DEN")
 					switch(secondpart)
 						if(3)
-							return mat.getProperty(PROP_HARDNESS) >= 95   || (mat.material_flags & MATERIAL_CRYSTAL)
+							return mat.getProperty(PROP_HARDNESS) >= 90   || (mat.material_flags & MATERIAL_CRYSTAL)
 						if(2)
 							return mat.getProperty(PROP_HARDNESS) >= 70   || (mat.material_flags & MATERIAL_CRYSTAL)
 						else
