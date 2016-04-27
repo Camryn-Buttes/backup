@@ -170,7 +170,7 @@
 	name = "white shoes"
 	desc = "Protects you against biohazards that would enter your feet."
 	icon_state = "white"
-	permeability_coefficient = 0.25
+	permeability_coefficient = 0.05 //should actually protect now
 
 /obj/item/clothing/shoes/galoshes
 	name = "galoshes"
@@ -259,7 +259,7 @@
 	desc = "Sturdy shoes that minimize injury from falling objects or knives."
 	icon_state = "chef"
 	armor_value_melee = 1
-	permeability_coefficient = 0.30
+	permeability_coefficient = 0.05 //they're wooden for christ's sake
 
 /obj/item/clothing/shoes/swat
 	name = "military boots"
