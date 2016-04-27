@@ -292,7 +292,7 @@
 		setProperty(new/datum/material_property/value{ value = 3000 }())
 		setProperty(new/datum/material_property/hardness{ value = 10 }())
 		setProperty(new/datum/material_property/toughness{ value = 1 }())
-		setProperty(new/datum/material_property/electrical{ value = 75 }())
+		setProperty(new/datum/material_property/electrical{ value = 80 }())
 		addDelegate(triggersOnAdd, new /datum/materialProc/gold_add())
 		return ..()
 
@@ -307,7 +307,7 @@
 		setProperty(new/datum/material_property/value{ value = 100 }())
 		setProperty(new/datum/material_property/hardness{ value = 15 }())
 		setProperty(new/datum/material_property/toughness{ value = 5 }())
-		setProperty(new/datum/material_property/electrical{ value = 75 }())
+		setProperty(new/datum/material_property/electrical{ value = 80 }())
 		return ..()
 
 // Special Metals
@@ -399,7 +399,7 @@
 	color = "#C2280A"
 
 	New()
-		setProperty(new/datum/material_property/electrical{ value = 85 }())
+		setProperty(new/datum/material_property/electrical{ value = 90 }())
 		setProperty(new/datum/material_property/permittivity{ value = 20 }())
 		setProperty(new/datum/material_property/dielectric{ value = 5 }())
 		return ..()
@@ -607,7 +607,7 @@
 
 	New()
 		setProperty(new/datum/material_property/corrosion { value = 30 }())
-		setProperty(new/datum/material_property/hardness{ value = 15 }())
+		setProperty(new/datum/material_property/hardness{ value = 80 }())
 		setProperty(new/datum/material_property/toughness{ value = 80 }())
 		setProperty(new/datum/material_property/compressive{ value = 50 }())
 		setProperty(new/datum/material_property/shear{ value = 5 }())
@@ -785,8 +785,8 @@
 	New()
 		setProperty(new/datum/material_property/reflectivity { value = 90 }())
 		setProperty(new/datum/material_property/scattering { value = 50 }())
-		setProperty(new/datum/material_property/hardness { value = 50 }())
-		setProperty(new/datum/material_property/toughness { value = 50 }())
+		setProperty(new/datum/material_property/hardness { value = 60 }())
+		setProperty(new/datum/material_property/toughness { value = 60 }())
 		return ..()
 
 /datum/material/organic/viscerite
