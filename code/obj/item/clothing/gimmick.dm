@@ -223,6 +223,8 @@
 	permeability_coefficient = 0.02
 	protective_temperature = 1000
 	heat_transfer_coefficient = 0.02
+	cold_resistance = 50 // Attemtpted fix for not actually working at all
+	heat_resistance = 20 // who knew
 
 // Duke Nukem
 
@@ -262,6 +264,7 @@
 	desc = "I'M THE GODDAMN BATMAN."
 	icon_state = "batman"
 	item_state = "bl_suit"
+	c_flags = SPACEWEAR | COVERSEYES | COVERSMOUTH | MASKINTERNALS //THe bat respirator is a real thing
 
 /obj/item/clothing/head/helmet/batman
 	name = "batcowl"
