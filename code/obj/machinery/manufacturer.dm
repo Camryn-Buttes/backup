@@ -1666,7 +1666,8 @@
 
 	hidden = list(/datum/manufacture/flash,
 	/datum/manufacture/cybereye_thermal,
-	/datum/manufacture/cyberbutt)
+	/datum/manufacture/cyberbutt,
+	/datum/manufacture/robup_expand)
 
 /obj/machinery/manufacturer/medical
 	name = "Medical Fabricator"
