@@ -282,7 +282,7 @@
 		if (client && client.hellbanned)
 			reduction = 0
 			severity = in_severity
-	else if (src.wear_suit && src.wear_suit.armor_value_explosion)
+	if (src.wear_suit && src.wear_suit.armor_value_explosion) // EOD armor buff so there's a reason to use it over industrial space armor
 		var/sevmod = max(0,round(src.wear_suit.armor_value_explosion / 4))
 		severity += sevmod
 		reduction = rand(src.wear_suit.armor_value_explosion, src.wear_suit.armor_value_explosion * 4)
