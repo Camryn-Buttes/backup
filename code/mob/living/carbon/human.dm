@@ -2387,7 +2387,7 @@
 				tally += 2
 			if (/obj/item/clothing/suit/space/emerg)
 				if (!istype(src.loc, /turf/space))
-					tally += 3.0 // cogwerks - lowered this from 10
+					tally += 2 // cogwerks - lowered this from 10 //Noah Buttes - Lowered this from 3 because they're practically useless as is
 			if (/obj/item/clothing/suit/space/suv)
 				tally += 1.0
 
@@ -6097,8 +6097,8 @@
 		space_suit++
 	if (head && (head.c_flags & SPACEWEAR))
 		space_suit++
-	//if (wear_mask && (wear_mask.c_flags & SPACEWEAR))
-		//space_suit++
+	if (wear_mask && (wear_mask.c_flags & SPACEWEAR)) // why on earth was this commented out?
+		space_suit++
 
 	if (space_suit >= 2)
 		return 1
