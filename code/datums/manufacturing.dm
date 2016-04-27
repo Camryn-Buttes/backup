@@ -596,7 +596,7 @@
 /datum/manufacture/RCD
 	name = "Rapid Construction Device"
 	item_paths = list("MET-3","DEN-1","CON-1")
-	item_names = list("Heavy Metal","High Density Material","Conductive Material")
+	item_names = list("Heavy Metal","High Density Crystalline Material","Conductive Material")
 	item_amounts = list(5,1,10)
 	item_outputs = list(/obj/item/rcd)
 	time = 90
@@ -606,7 +606,7 @@
 /datum/manufacture/RCDammo
 	name = "Compressed Matter Cartridge"
 	item_paths = list("DEN-1")
-	item_names = list("High Density Material")
+	item_names = list("High Density Crystalline Material")
 	item_amounts = list(5)
 	item_outputs = list(/obj/item/rcd_ammo)
 	time = 10
@@ -616,7 +616,7 @@
 /datum/manufacture/RCDammolarge
 	name = "Large Compressed Matter Cartridge"
 	item_paths = list("DEN-1")
-	item_names = list("High Density Material")
+	item_names = list("High Density Crystalline Material")
 	item_amounts = list(45)
 	item_outputs = list(/obj/item/rcd_ammo/big)
 	time = 30
@@ -1216,7 +1216,7 @@
 /datum/manufacture/robup_efficiency
 	name = "Efficiency Upgrade"
 	item_paths = list("DEN-1","CON-2")
-	item_names = list("High Density Matter","High Energy Conductor")
+	item_names = list("High Density Crystalline Matter","High Energy Conductor")
 	item_amounts = list(3,10)
 	item_outputs = list(/obj/item/roboupgrade/efficiency)
 	time = 120
@@ -1226,7 +1226,7 @@
 /datum/manufacture/robup_repair
 	name = "Self-Repair Upgrade"
 	item_paths = list("DEN-1","MET-3")
-	item_names = list("High Density Matter","Dense Metal")
+	item_names = list("High Density Crystalline Matter","Dense Metal")
 	item_amounts = list(3,10)
 	item_outputs = list(/obj/item/roboupgrade/repair)
 	time = 120
@@ -1236,7 +1236,7 @@
 /datum/manufacture/robup_teleport
 	name = "Teleport Upgrade"
 	item_paths = list("CON-1","DEN-1", "POW-2") //Okay enough roundstart teleportborgs. Fuck.
-	item_names = list("Conductive Material","High Density Matter", "Significant Power Source")
+	item_names = list("Conductive Material","High Density Crystalline Matter", "Significant Power Source")
 	item_amounts = list(10,1, 10)
 	item_outputs = list(/obj/item/roboupgrade/teleport)
 	time = 120
@@ -1245,8 +1245,8 @@
 
 /datum/manufacture/robup_expand
 	name = "Expansion Upgrade"
-	item_paths = list("DEN-1","POW-1")
-	item_names = list("High Density Matter","Power Source")
+	item_paths = list("DEN-3","POW-3")
+	item_names = list("Extraordinarily Dense Crystalline Matter","Extreme Power Source")
 	item_amounts = list(3,1)
 	item_outputs = list(/obj/item/roboupgrade/expand)
 	time = 120
@@ -1308,7 +1308,7 @@
 /datum/manufacture/mining_magnet
 	name = "Mining Magnet Replacement Parts"
 	item_paths = list("DEN-1","MET-3","CON-2")
-	item_names = list("High Density Matter","Dense Metal","High Energy Conductor")
+	item_names = list("High Density Crystalline Matter","Dense Metal","High Energy Conductor")
 	item_amounts = list(5,30,30)
 	item_outputs = list(/obj/item/magnet_parts)
 	time = 120
@@ -1358,7 +1358,7 @@
 /datum/manufacture/powerhammer
 	name = "Power Hammer"
 	item_paths = list("DEN-1","CON-1")
-	item_names = list("High Density Matter","Conductive Material")
+	item_names = list("High Density Crystalline Matter","Conductive Material")
 	item_amounts = list(1,8)
 	item_outputs = list(/obj/item/mining_tool/powerhammer)
 	time = 70
@@ -1388,7 +1388,7 @@
 /datum/manufacture/ore_accumulator
 	name = "Mineral Accumulator"
 	item_paths = list("MET-2","CON-2","DEN-1")
-	item_names = list("Sturdy Metal","High Energy Conductor","High Density Matter")
+	item_names = list("Sturdy Metal","High Energy Conductor","High Density Crystalline Matter")
 	item_amounts = list(25,15,2)
 	item_outputs = list(/obj/machinery/oreaccumulator)
 	time = 120
@@ -1417,8 +1417,8 @@
 
 /datum/manufacture/industrialarmor
 	name = "Industrial Space Armor Set"
-	item_paths = list("MET-3","CON-2","DEN-1")
-	item_names = list("Dense Metal","High Energy Conductor","High Density Matter")
+	item_paths = list("MET-3","CON-2","DEN-2")
+	item_names = list("Dense Metal","High Energy Conductor","Very High Density Crystalline Matter")
 	item_amounts = list(15,7,3)
 	item_outputs = list(/obj/item/clothing/suit/space/industrial,/obj/item/clothing/head/helmet/space/industrial)
 	time = 90
@@ -1561,7 +1561,7 @@
 /datum/manufacture/shipRCD
 	name = "Duracorp Construction Device"
 	item_paths = list("MET-3","DEN-1","CON-1")
-	item_names = list("Dense Metal","High Density Matter","Conductive Material")
+	item_names = list("Dense Metal","High Density Crystalline Matter","Conductive Material")
 	item_amounts = list(5,1,10)
 	item_outputs = list(/obj/item/shipcomponent/secondary_system/cargo)
 	time = 90
@@ -1885,7 +1885,7 @@
 /datum/manufacture/pod/armor_industrial
 	name = "Industrial Pod Armor"
 	item_paths = list("MET-3","CON-2","DEN-1")
-	item_names = list("Dense Metal","High Energy Conductor","High Density Matter")
+	item_names = list("Dense Metal","High Energy Conductor","High Density Crystalline Matter")
 	item_amounts = list(25,10,5)
 	item_outputs = list(/obj/item/pod/armor_industrial)
 	time = 50
