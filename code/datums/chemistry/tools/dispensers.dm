@@ -231,7 +231,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("helium",1000)
+		reagents.add_reagent("helium",4000) //1000 is actually surprisingly little for making balloons with, you'll typically run out of helium before you run out of balloons
 
 /obj/reagent_dispensers/beerkeg
 	name = "beer keg"
