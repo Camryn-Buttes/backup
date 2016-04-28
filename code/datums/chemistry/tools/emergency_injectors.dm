@@ -175,7 +175,7 @@
 	label = "black"
 	New()
 		..()
-		reagents.add_reagent("[pick("methamphetamine", "formaldehyde", "lipolicide", "pancuronium", "sulfonal", "morphine", "toxin", "bee", "LSD", "space_drugs", "THC", "mucus", "green_mucus")]", 10)
+		reagents.add_reagent("[pick("methamphetamine", "formaldehyde", "lipolicide", "pancuronium", "sulfonal", "morphine", "toxin", "bee", "LSD", "space_drugs", "THC", "mucus", "green_mucus","crank","bathsalts","krokodil","catdrugs","jenkem","psilocybin","omnizine")]", 10) //more drugs are always good, always.
 
 /obj/item/reagent_containers/emergency_injector/vr/epinephrine
 	name = "emergency auto-injector (epinephrine)"
