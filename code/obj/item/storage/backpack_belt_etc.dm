@@ -148,7 +148,7 @@
 	icon_state = "machobelt"
 	item_state = "machobelt"
 	contraband = 8
-	syndicate = 1
+	is_syndicate = 1
 	mats = 18 //SPACE IS THE PLACE FOR WRESTLESTATION 13
 
 	equipped(var/mob/user)
