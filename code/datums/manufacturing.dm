@@ -1829,6 +1829,16 @@
 	time = 5
 	create = 1
 	category = "Clothing"
+	
+/datum/manufacture/hermes
+	name = "Offering to the Fabricator Gods"
+	item_paths = list("MET-3","CON-2","POW-3","DEN-3","FAB-1","INS-1")
+	item_names = list("Dense Metal","High Energy Conductor","Extreme Power Source","Extraordinarily Dense Crystalline Matter","Fabric","Insulative Material")
+	item_amounts = list(30,30,6,1,30,30)
+	item_outputs = list(/obj/item/clothing/shoes/magnetic/hermes)
+	time = 120 //suspense
+	create = 3 //because a shoe god has to have acolytes
+	category = "Clothing"
 
 /////// pod construction components
 
