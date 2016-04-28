@@ -1763,6 +1763,7 @@
 	/datum/manufacture/hat_red,
 	/datum/manufacture/hat_green,
 	/datum/manufacture/hat_tophat)
+	hidden = list(/datum/manufacture/hermes,/datum/manufacture/breathmask,/datum/manufacture/patch) //all hail the shoe lord
 
 /// cogwerks - a gas extractor for the engine
 
