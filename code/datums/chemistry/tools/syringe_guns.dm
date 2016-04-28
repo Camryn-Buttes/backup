@@ -1,4 +1,4 @@
-
+//I'm sorry, but why on earth are these things in datums?
 /* ============================================= */
 /* -------------------- Gun -------------------- */
 /* ============================================= */
@@ -12,6 +12,8 @@
 	throw_speed = 2
 	throw_range = 10
 	force = 4.0
+	mats = 12 //These are some of the few syndicate items that would be genuinely useful to non-antagonists when scanned.
+	syndicate = 0 // Gonna let mechanics scan these, even without the syndicate scanner. THIS MAY BE A BAD IDEA.
 	current_projectile = new/datum/projectile/syringe
 	m_amt = 2000
 	contraband = 3
