@@ -148,6 +148,7 @@
 	icon_state = "machobelt"
 	item_state = "machobelt"
 	contraband = 8
+	mats = 18 //SPACE IS THE PLACE FOR WRESTLESTATION 13
 
 	equipped(var/mob/user)
 		user.make_wrestler(0, 1, 0)
