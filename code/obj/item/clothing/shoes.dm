@@ -159,7 +159,7 @@
 	hermes
 		name = "sacred sandals" // The ultimate goal of material scientists.
 		desc = "Sandals blessed by the all-powerful goddess of victory and footwear."
-		icon_state = "wizard"
+		icon_state = "wizard" //TODO: replace with custom sprite, thinking winged sandals
 		c_flags = NOSLIP
 		mats = 0
 		magical = 1
