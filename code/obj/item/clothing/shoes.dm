@@ -155,7 +155,17 @@
 	mats = 8
 	burn_possible = 0
 	module_research = list("efficiency" = 5, "engineering" = 5)
-
+	
+	hermes
+		name = "sacred sandals" // The ultimate goal of material scientists.
+		desc = "Sandals blessed by the all-powerful goddess of victory and footwear."
+		icon_state = "wizard"
+		c_flags = NOSLIP
+		mats = 0
+		magical = 1
+		movement_speed_mod = -4
+		burn_possible = 0
+	
 /obj/item/clothing/shoes/industrial
 	name = "mechanised boots"
 	desc = "Industrial-grade boots fitted with mechanised balancers and stabilisers to increase running speed under a heavy workload."
