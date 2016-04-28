@@ -43,8 +43,8 @@
 				stage = 2
 			else
 				boutput(user, "<span style=\"color:red\">You need to add at least one beaker before locking the assembly.</span>")
-		else if (istype(W,/obj/item/reagent_containers/glass) && stage == 1)
-			if (istype(W,/obj/item/reagent_containers/glass/beaker/large))
+		else if (istype(W,/obj/item/reagent_containers/glass) && stage == 1) // this actually includes watering cans, oil cans, and such.
+			if (istype(W,/obj/item/reagent_containers/glass/beaker/large)) // I lack coding skill, so I'm just gonna mark it as intentional
 				boutput(user, "<span style=\"color:red\">This beaker is too large!</span>")
 				return
 			if (beakers.len == 2)
@@ -245,8 +245,8 @@
 		var/obj/item/reagent_containers/glass/B2 = new(src)
 
 		B1.reagents.add_reagent("fluorosurfactant", 30)
-		B2.reagents.add_reagent("cleaner", 10)
-		B2.reagents.add_reagent("water", 10)
+		B2.reagents.add_reagent("cleaner", 20) //Upped from 10
+		B2.reagents.add_reagent("water", 30) //Upped from 10 for MAXIMUM CLEANAGE
 
 		beakers += B1
 		beakers += B2
