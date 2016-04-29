@@ -6096,11 +6096,11 @@
 	if (w_uniform && (w_uniform.c_flags & SPACEWEAR))
 		space_suit++
 	if (head && (head.c_flags & SPACEWEAR))
-		space_suit++
+		space_suit += 0.5
 	if (wear_mask && (wear_mask.c_flags & SPACEWEAR)) // why on earth was this commented out?
-		space_suit++
+		space_suit += 0.5 // so you can't just wear helmets and masks and be safe
 
-	if (space_suit >= 2)
+	if (space_suit >= 1.5)
 		return 1
 	else
 		return 0
