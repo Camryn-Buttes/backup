@@ -44,7 +44,7 @@
 			else
 				boutput(user, "<span style=\"color:red\">You need to add at least one beaker before locking the assembly.</span>")
 		else if (istype(W,/obj/item/reagent_containers/glass) && stage == 1) // this actually includes watering cans, oil cans, and such.
-			if (istype(W,/obj/item/reagent_containers/glass/beaker/large)) // I lack coding skill, so I'm just gonna mark it as intentional
+			if (istype(W,/obj/item/reagent_containers/glass/beaker/large) || istype(W,/obj/item/reagent_containers/glass/wateringcan) || istype(W,/obj/item/reagent_containers/glass/oilcan)) //no more 240 unit grenades, sorry.
 				boutput(user, "<span style=\"color:red\">This beaker is too large!</span>")
 				return
 			if (beakers.len == 2)
