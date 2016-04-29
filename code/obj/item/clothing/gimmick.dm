@@ -264,7 +264,7 @@
 	desc = "I'M THE GODDAMN BATMAN."
 	icon_state = "batman"
 	item_state = "bl_suit"
-	c_flags = SPACEWEAR | COVERSEYES | COVERSMOUTH | MASKINTERNALS //THe bat respirator is a real thing
+	c_flags = SPACEWEAR | COVERSEYES | COVERSMOUTH | MASKINTERNALS //The bat respirator is a real thing. See also: Batman can breathe in space.
 
 /obj/item/clothing/head/helmet/batman
 	name = "batcowl"
@@ -500,7 +500,7 @@
 	name = "horse mask"
 	desc = "Neigh."
 	icon_state = "horse"
-	c_flags = SPACEWEAR | COVERSMOUTH | COVERSEYES | MASKINTERNALS
+	c_flags = COVERSMOUTH | COVERSEYES | MASKINTERNALS //| SPACEWEAR sorry, no more space horses.
 	see_face = 0.0
 
 /obj/item/clothing/head/genki
@@ -508,7 +508,7 @@
 	desc = "This cat head was built to the highest ethical standards.  50% less child labor used in production than competing novelty cat heads."
 	icon_state = "genki"
 	permeability_coefficient = 0.01
-	c_flags = SPACEWEAR | COVERSEYES | COVERSMOUTH | MASKINTERNALS
+	c_flags = COVERSEYES | COVERSMOUTH | MASKINTERNALS //| SPACEWEAR Only found in costume crates and the mars outpost, but I don't really see a reason this should be spacewear
 
 //birdman for nieks
 
@@ -517,7 +517,7 @@
 	desc = "bird bird bird"
 	icon_state = "birdman"
 	see_face = 0
-	c_flags = SPACEWEAR | COVERSEYES | COVERSMOUTH | MASKINTERNALS
+	c_flags = SPACEWEAR | COVERSEYES | COVERSMOUTH | MASKINTERNALS //FACT: space birds can breathe in space, 
 
 /obj/item/clothing/under/gimmick/birdman
 	name = "birdman suit"
@@ -700,14 +700,14 @@
 	name = "Nicolas Cage mask"
 	desc = "An eerily realistic mask of 20th century film actor Nicolas Cage."
 	icon_state = "niccage"
-	c_flags = SPACEWEAR | COVERSMOUTH | COVERSEYES | MASKINTERNALS
+	c_flags = SPACEWEAR | COVERSMOUTH | COVERSEYES | MASKINTERNALS //Only found on the biodome, guarded by wasps, can afford to be creepy spacewear
 	see_face = 0.0
 
 /obj/item/clothing/mask/waltwhite
 	name = "meth scientist mask"
 	desc = "A crappy looking mask that you swear you've seen a million times before. 'Spook*Corp Costumes' is embedded on the side of it. "
 	icon_state = "waltwhite"
-	c_flags = SPACEWEAR | COVERSMOUTH | COVERSEYES | MASKINTERNALS
+	c_flags = COVERSMOUTH | COVERSEYES | MASKINTERNALS //| SPACEWEAR Walter White is like Batman in many ways. Breathing in space is not one of them.
 	see_face = 0.0
 
 /obj/item/clothing/suit/gimmick/light_borg //YJHGHTFH's light borg costume
