@@ -217,6 +217,13 @@
 			boutput(usr, "<span style=\"color:blue\">You unfold the beret back into a hat.</span>")
 		return
 
+/obj/item/clothing/head/helmet/riot
+	name = "Riot Helmet"
+	desc = "Good Lord, this thing is heavy."
+	icon_state = "security"//placeholder
+	item_state = "buckethelm-r"//placeholder
+	armor_value_melee = 12
+
 /obj/item/clothing/head/helmet/NT
 	name = "Nanotrasen Helmet"
 	desc = "Security has the constitutionality of a vending machine."
@@ -224,7 +231,7 @@
 	item_state = "nthelm"
 	c_flags = SPACEWEAR | COVERSEYES | COVERSMOUTH
 	see_face = 0.0
-	armor_value_melee = 12 // is meant to go along with the heavy armor, so buffing this significantly
+	armor_value_melee = 9
 
 /obj/item/clothing/head/helmet/space/industrial
 	name = "Industrial Space Helmet"
