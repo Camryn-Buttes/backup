@@ -49,7 +49,7 @@
 	name = "gas mask"
 	desc = "A close-fitting mask that can filter some environmental toxins or be connected to an air supply."
 	icon_state = "gas_mask"
-	c_flags = SPACEWEAR | COVERSMOUTH | COVERSEYES | MASKINTERNALS
+	c_flags = COVERSMOUTH | COVERSEYES | MASKINTERNALS //| SPACEWEAR probably shouldn't have spacewear lying around everywhere
 	w_class = 3.0
 	see_face = 0.0
 	item_state = "gas_mask"
@@ -78,6 +78,7 @@
 	name = "SWAT Mask"
 	desc = "A close-fitting tactical mask that can filter some environmental toxins or be connected to an air supply."
 	icon_state = "swat"
+	c_flags = SPACEWEAR | COVERSMOUTH | COVERSEYES | MASKINTERNALS //probably alright for syndicates to have spacewear gas masks
 	armor_value_melee = 1
 
 /obj/item/clothing/mask/gas/voice
@@ -115,6 +116,7 @@
 	name = "Death Commando Mask"
 	icon_state = "death_commando_mask"
 	item_state = "death_commando_mask"
+	c_flags = SPACEWEAR | COVERSMOUTH | COVERSEYES | MASKINTERNALS //probably alright for non-existent death commandos to have spacewear masks
 	armor_value_melee = 5
 
 /obj/item/clothing/mask/clown_hat
