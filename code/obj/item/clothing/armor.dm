@@ -332,4 +332,5 @@
 	w_class = 3
 	armor_value_bullet = 3
 	armor_value_melee = 9
-	armor_value_explosion = 4 //now it actually protects against explosions *WOW*
+	//armor_value_explosion = 4 //now it actually protects against explosions *WOW*
+	//TURNS OUT, IT ALREADY DID, WHOOPS!
