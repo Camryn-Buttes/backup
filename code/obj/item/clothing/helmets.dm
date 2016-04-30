@@ -219,7 +219,7 @@
 
 /obj/item/clothing/head/helmet/riot
 	name = "Riot Helmet"
-	desc = "Good Lord, this thing is heavy."
+	desc = "Good Lord, this thing is heavy. How the hell is anyone supposed to see out of this?"
 	icon_state = "security"//placeholder
 	item_state = "buckethelm-r"//placeholder
 	armor_value_melee = 12
