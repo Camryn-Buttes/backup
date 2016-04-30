@@ -4945,6 +4945,10 @@
 			color_mod_r *= 0.95 // darken a little
 			color_mod_g *= 0.95
 			color_mod_b *= 0.9
+		if (istype(src.head, /obj/item/clothing/head/helmet/riot))
+			color_mod_r *= 0.5 // darken a medium amount, that thick visor glass really dims things!
+			color_mod_g *= 0.5
+			color_mod_b *= 0.6 // slight blue tint
 		if (istype(src.head, /obj/item/clothing/head/helmet/welding) && !src.head:up)
 			color_mod_r *= 0.3 // darken
 			color_mod_g *= 0.3
