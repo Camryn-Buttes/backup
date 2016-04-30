@@ -4506,7 +4506,7 @@
 				if (src.health < 0)
 					R.inactive = 1
 					src.reagents.add_reagent("salbutamol", 20) // changed this from dexP // cogwerks
-					src.reagents.add_reagent("inaprovaline", 15)
+					src.reagents.add_reagent("epinephrine", 15) //inaprovaline no longer exists
 					src.reagents.add_reagent("omnizine", 25)
 					src.reagents.add_reagent("teporone", 20)
 					if (src.mind) boutput(src, "<span style=\"color:blue\">Your Robusttec-Implant uses all of its remaining energy to save you and deactivates.</span>")
