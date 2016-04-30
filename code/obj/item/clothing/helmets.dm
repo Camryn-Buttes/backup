@@ -220,8 +220,8 @@
 /obj/item/clothing/head/helmet/riot
 	name = "Riot Helmet"
 	desc = "Good Lord, this thing is heavy. How the hell is anyone supposed to see out of this?"
-	icon_state = "security"//placeholder
-	item_state = "buckethelm-r"//placeholder
+	icon_state = "riot"//Awww yeah, sprites
+	item_state = "riot"//go buttes, go
 	armor_value_melee = 12
 
 /obj/item/clothing/head/helmet/NT
