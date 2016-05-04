@@ -448,10 +448,10 @@
 
 	New()
 		setProperty(new/datum/material_property/hardness{ value = 65 }())
-		setProperty(new/datum/material_property/toughness{ value = 20 }())
-		setProperty(new/datum/material_property/compressive{ value = 5 }())
-		setProperty(new/datum/material_property/shear{ value = 5 }())
-		setProperty(new/datum/material_property/tensile{ value = 5 }())
+		setProperty(new/datum/material_property/toughness{ value = 45 }())
+		setProperty(new/datum/material_property/compressive{ value = 20 }()) //should be better than molitz and glass in terms of blunt resistance
+		setProperty(new/datum/material_property/shear{ value = 10 }()) //should be at least as good as default
+		setProperty(new/datum/material_property/tensile{ value = 10 }()) //ditto
 		return ..()
 
 /datum/material/crystal/gemstone
@@ -466,14 +466,17 @@
 	New()
 		switch(gem_tier)
 			if(1)
-				setProperty(new/datum/material_property/hardness{ value = 95 }())
-				setProperty(new/datum/material_property/value{ value = 5000 }())
+				setProperty(new/datum/material_property/hardness{ value = 95 }()) //look, if someone goes through the effort
+				setProperty(new/datum/material_property/toughness{ value = 95 }()) //those diamond windows should be strong enough
+				setProperty(new/datum/material_property/value{ value = 5000 }()) //to justify this pricetag
 				addDelegate(triggersOnAdd, new /datum/materialProc/gold_add())
 			if(2)
 				setProperty(new/datum/material_property/hardness{ value = 60 }())
-				setProperty(new/datum/material_property/value{ value = 2500 }())
+				setProperty(new/datum/material_property/toughness{ value = 60 }()) //for the security conscious
+				setProperty(new/datum/material_property/value{ value = 2500 }()) //yet thrifty
 			if(3)
 				setProperty(new/datum/material_property/hardness{ value = 30 }())
+				setProperty(new/datum/material_property/toughness{ value = 30 }()) //you get what you pay for
 				setProperty(new/datum/material_property/value{ value = 1000 }())
 		return ..()
 
@@ -610,8 +613,8 @@
 		setProperty(new/datum/material_property/hardness{ value = 80 }())
 		setProperty(new/datum/material_property/toughness{ value = 80 }())
 		setProperty(new/datum/material_property/compressive{ value = 50 }())
-		setProperty(new/datum/material_property/shear{ value = 5 }())
-		setProperty(new/datum/material_property/tensile{ value = 5 }())
+		setProperty(new/datum/material_property/shear{ value = 5 }()) //these can stay
+		setProperty(new/datum/material_property/tensile{ value = 5 }()) //uqill shouldn't be the end all be all of crystals
 		return ..()
 
 /datum/material/crystal/telecrystal
