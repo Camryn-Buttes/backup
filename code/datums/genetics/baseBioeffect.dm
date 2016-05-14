@@ -61,6 +61,7 @@ var/const/effectTypePower = 3
 	var/altered = 0
 	var/add_delay = 0
 	var/wildcard = 0
+	var/safety = 0
 
 	var/datum/dnaBlocks/dnaBlocks = null
 
