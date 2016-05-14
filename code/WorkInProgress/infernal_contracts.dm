@@ -85,10 +85,11 @@
 		if (istype(W, /obj/item/pen))
 			if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in blood upon the [src]!</b></span>")
+				spawn(2)
 				user.satanclownize()
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
-				spawn(50)
+				spawn(2)
 				return
 		else
 			return
