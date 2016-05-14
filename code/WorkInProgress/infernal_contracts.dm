@@ -26,11 +26,11 @@
 		else
 			asize++
 		acount++
-	src.playsound_local(src.loc,"sound/effects/screech.ogg", 100, 1)
-	shake_camera(src, 20, 1)
-	boutput(src, "<font color=red>[screamstring]</font>")
-	boutput(src, "<i><b><font face = Tempus Sans ITC>His Grace accepts thee, spread His will! All who look close to the Enlightened may share His gifts.</font></b></i>")
-	return
+	src.playsound_local(C.loc,"sound/effects/screech.ogg", 100, 1)
+	shake_camera(C, 20, 1)
+	boutput(C, "<font color=red>[screamstring]</font>")
+	boutput(C, "<i><b><font face = Tempus Sans ITC>You have sold your soul and become an avatar of evil! Spread darkness across the land!</font></b></i>")
+	
 	spawn(10)
 		qdel(src)
 
@@ -54,4 +54,4 @@
 	color = "#FFEE44"
 	throw_speed = 4
 	throw_range = 20
-	desc = "This contract promises nearly limitless vital "
+	desc = "This contract promises to whoever signs it near immortality, great power, and some other stuff you can't bother to read."
