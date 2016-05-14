@@ -73,3 +73,15 @@
 	throw_speed = 4
 	throw_range = 20
 	desc = "This contract promises to whoever signs it near immortality, great power, and some other stuff you can't bother to read."
+
+	attackby(obj/item/W as obj, mob/user as mob)
+		if (istype(W, /obj/item/pen)
+			if (istype(W, /obj/item/pen/satan))
+				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in blood upon the [src]!</b></span>")
+				user.satanclownize()
+			else
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
+				spawn(50)
+				return
+		else
+			return
