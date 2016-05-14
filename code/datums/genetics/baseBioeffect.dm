@@ -78,6 +78,8 @@ var/const/effectTypePower = 3
 			if(isliving(owner))
 				var/mob/living/L = owner
 				L.UpdateOverlays(overlay_image, id)
+		if(variant = 666) //I AM SO SORRY FOR THIS
+			curable_by_mutadone = 0 //SO VERY SORRY
 		return
 
 	proc/OnRemove()  //Called when the effect is removed.
