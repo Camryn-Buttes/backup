@@ -78,7 +78,7 @@ var/const/effectTypePower = 3
 			if(isliving(owner))
 				var/mob/living/L = owner
 				L.UpdateOverlays(overlay_image, id)
-		if(src.variant = 666) //I AM SO SORRY FOR THIS
+		if(src.variant == 666) //I AM SO SORRY FOR THIS
 			curable_by_mutadone = 0 //SO VERY SORRY
 			stability_loss = 0 //YES, THIS IS A MASSIVE HACK, I AM SORRY.
 			can_scramble = 0 //FORGIVE ME, CODER GODS.
