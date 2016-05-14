@@ -1,0 +1,20 @@
+/mob/proc/satanclownize()
+	src.transforming = 1
+	src.canmove = 0
+	src.invisibility = 101
+	for(var/obj/item/clothing/Q in src)
+		src.u_equip(Q)
+		if (Q)
+			Q.set_loc(src.loc)
+			Q.dropped(src)
+			Q.layer = initial(Q.layer)
+
+	var/mob/living/carbon/human/cluwne/satan/C = new(src.loc)
+	if(src.mind)
+		src.mind.transfer_to(C)
+	else
+		C.key = src.key
+
+	spawn(10)
+		qdel(src)
+
