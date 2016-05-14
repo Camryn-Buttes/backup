@@ -1,3 +1,5 @@
+*/ TODO */
+
 /mob/proc/satanclownize()
 	src.transforming = 1
 	src.canmove = 0
