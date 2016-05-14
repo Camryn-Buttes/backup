@@ -32,7 +32,7 @@
 		boutput(C, "<font color=red>[screamstring]</font>")
 		boutput(C, "<i><b><font face = Tempus Sans ITC>You have sold your soul and become an avatar of evil! Spread darkness across the land!</font></b></i>")
 		C.mind.special_role = "Faustian Cluwne"
-		logTheThing("admin", Q, null, "has sold his soul to satan at [log_loc(C)]!")
+		logTheThing("admin", null, null, "someone has sold /his soul to satan at [log_loc(C)]!")
 		ticker.mode.Agimmicks.Add(C)
 		C.choose_name(3)
 	else
@@ -83,7 +83,7 @@
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
-			if (istype(W, /obj/item/pen/satan))
+			if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in blood upon the [src]!</b></span>")
 				user.satanclownize()
 			else
