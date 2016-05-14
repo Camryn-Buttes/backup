@@ -26,7 +26,7 @@
 			var/mob/living/carbon/human/H = owner
 			H.hud.update_ability_hotbar()
 			check_ability_owner()
-		if (variant = 666)
+		if (variant == 666)
 			safety = 1
 		return
 
