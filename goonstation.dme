@@ -1068,6 +1068,7 @@ var/datum/preMapLoad/preMapLoad = new
 #include "code\WorkInProgress\halloween.dm"
 #include "code\WorkInProgress\hospital.dm"
 #include "code\WorkInProgress\IconProcs.dm"
+#include "code\WorkInProgress\infernal_contracts.dm"
 #include "code\WorkInProgress\ISNStuff2.dm"
 #include "code\WorkInProgress\KingInYellow.dm"
 #include "code\WorkInProgress\lavamoon.dm"
