@@ -51,6 +51,21 @@
 	ex_act()
 		return
 
+mob/living/carbon/human/cluwne/satan
+	New()
+		..()
+		spawn(0)
+			src.bioHolder.AddEffect("horns", 666)
+			src.bioHolder.AddEffect("aura_fire", 666)
+			src.bioHolder.AddEffect("superfart", 666)
+			src.bioHolder.AddEffect("bigpuke", 666)
+			src.bioHolder.AddEffect("melt", 666)
+
+mob/living/carbon/human/cluwne/satan/megasatan
+	New()
+		..()
+		spawn(0)
+			src.unkillable = 1 //for the megasatan in you
 
 // how you gonna have father ted and father jack and not father dougal? smh
 
