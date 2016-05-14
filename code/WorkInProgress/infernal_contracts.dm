@@ -55,7 +55,7 @@
 	throw_range = 4
 	w_class = 4.0
 	max_wclass = 3
-	desc = "A diabolical human leather-bound briefcase, capable of holding a number of small objects and of tormenting souls."
+	desc = "A diabolical human leather-bound briefcase, capable of holding a number of small objects and tormented souls."
 	stamina_damage = 70 //is this a bad idea?
 	stamina_cost = 30
 	stamina_crit_chance = 40 //yes, yes it is.
