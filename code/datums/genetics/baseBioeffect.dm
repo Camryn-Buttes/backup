@@ -83,6 +83,7 @@ var/const/effectTypePower = 3
 			stability_loss = 0 //YES, THIS IS A MASSIVE HACK, I AM SORRY.
 			can_scramble = 0 //FORGIVE ME, CODER GODS.
 			can_reclaim = 0 //I AM TERRIBLE.
+			safety = 1 //I SWEAR, IT'S WORTH IT.
 		return
 
 	proc/OnRemove()  //Called when the effect is removed.
