@@ -30,8 +30,10 @@
 	shake_camera(C, 20, 1)
 	boutput(C, "<font color=red>[screamstring]</font>")
 	boutput(C, "<i><b><font face = Tempus Sans ITC>You have sold your soul and become an avatar of evil! Spread darkness across the land!</font></b></i>")
-	C.mind.assigned_role = "Faustian Cluwne"
+	C.mind.special_role = "Faustian Cluwne"
 	logTheThing("admin", Q, null, "has sold his soul to satan at [log_loc(C)]!")
+	ticker.mode.Agimmicks.Add(C)
+	C.choose_name(3)
 	
 	spawn(10)
 		qdel(src)
