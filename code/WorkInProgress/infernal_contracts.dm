@@ -43,6 +43,24 @@
 	color = "#FF0000"
 	font_color = "#FF0000"
 	
+/obj/item/storage/briefcase/satan
+	name = "Devilish Briefcase"
+	icon_state = "briefcase"
+	item_state = "briefcase"
+	flags = FPRINT | TABLEPASS| CONDUCT | NOSPLASH
+	color = "#FF0000" //look, I can't sprite for shit, so I'm just making all these things satan red. It worked for toolboxes!
+	force = 15
+	throwforce = 15
+	throw_speed = 1
+	throw_range = 4
+	w_class = 4.0
+	max_wclass = 3
+	desc = "A diabolical human leather-bound briefcase, capable of holding a number of small objects and of tormenting souls."
+	stamina_damage = 70 //is this a bad idea?
+	stamina_cost = 30
+	stamina_crit_chance = 40 //yes, yes it is.
+	spawn_contents = list(/obj/item/contract = 2, /obj/item/pen/fancy/satan = 2)
+	
 /obj/item/contract
 	name = "Infernal Contract"
 	icon = 'icons/obj/wizard.dmi'
@@ -51,7 +69,7 @@
 	flags = FPRINT | TABLEPASS
 	w_class = 2.0
 	item_state = "paper"
-	color = "#FFEE44"
+	color = "#FF0000"
 	throw_speed = 4
 	throw_range = 20
 	desc = "This contract promises to whoever signs it near immortality, great power, and some other stuff you can't bother to read."
