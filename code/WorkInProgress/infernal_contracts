@@ -1,5 +1,3 @@
-*/ TODO */
-
 /mob/proc/satanclownize()
 	src.transforming = 1
 	src.canmove = 0
@@ -20,3 +18,12 @@
 	spawn(10)
 		qdel(src)
 
+/obj/item/pen/fancy/satan
+	name = "infernal pen"
+	desc = "A pen once owned by Old Nick himself."
+	force = 15
+	throwforce = 15
+	hit_type = DAMAGE_STAB
+	color = "#FF0000"
+	font_color = "#FF0000"
+	
