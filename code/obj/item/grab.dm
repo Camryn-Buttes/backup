@@ -92,6 +92,9 @@
 					if (H.bioHolder.HasEffect("fat"))
 						boutput(src.assailant, "<span style=\"color:blue\">You can't strangle [src.affecting] through all that fat!</span>")
 						return
+					if (H.bioHolder.HasEffect("breathless"))
+						boutput(src.assailant, "<span style=\"color:blue\">You can't strangle [src.affecting]! It won't do anything!</span>")
+						return
 					for (var/obj/item/clothing/C in list(H.head, H.wear_suit, H.wear_mask, H.w_uniform))
 						if (C.body_parts_covered & HEAD)
 							boutput(src.assailant, "<span style=\"color:blue\">You have to take off [src.affecting]'s [C.name] first!</span>")
