@@ -164,7 +164,7 @@ object/item/contract/wrestle
 				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in slim jims upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
 				spawn(5)
-				user.satanclownize()
+				user.make_wrestler(1)
 				
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
