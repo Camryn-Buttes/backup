@@ -1,3 +1,43 @@
+/mob/proc/shittymachoize()
+	if (src.mind || src.client)
+		message_admins("[key_name(usr)] made [key_name(src)] a faustian macho man.")
+		logTheThing("admin", usr, src, "made %target% a faustian macho man.")
+		var/mob/living/carbon/human/machoman/W = new/mob/living/carbon/human/machoman(src)
+
+		var/turf/T = get_turf(src)
+		if (!(T && isturf(T)) || (isrestrictedz(T.z) && !(src.client && src.client.holder)))
+			var/ASLoc = pick(latejoin)
+			if (ASLoc)
+				W.set_loc(ASLoc)
+			else
+				W.set_loc(locate(1, 1, 1))
+		else
+			W.set_loc(T)
+
+		if (src.mind)
+			src.mind.transfer_to(W)
+			src.mind.special_role = "faustian macho man"
+		else
+			var/key = src.client.key
+			if (src.client)
+				src.client.mob = W
+			W.mind = new /datum/mind()
+			ticker.minds += W.mind
+			W.mind.key = key
+			W.mind.current = W
+		qdel(src)
+
+		spawn (25) // Don't remove.
+			if (W) W.assign_gimmick_skull()
+			if (W) W.max_health = 1
+
+		boutput(W, "<span style=\"color:blue\">You are now a miserable sham mockery of a macho man!</span>")
+		
+		
+
+		return W
+	return 0
+
 /mob/proc/satanclownize()
 	src.transforming = 1
 	src.canmove = 0
@@ -32,7 +72,7 @@
 		boutput(C, "<font color=red>[screamstring]</font>")
 		boutput(C, "<i><b><font face = Tempus Sans ITC>You have sold your soul and become an avatar of evil! Spread darkness across the land!</font></b></i>")
 		C.mind.special_role = "Faustian Cluwne"
-		logTheThing("admin", null, null, "someone has sold /his soul to satan at [log_loc(C)]!")
+		logTheThing("admin", src, null, "has transformed into a demonic cluwne at [log_loc(C)]!")
 		ticker.mode.Agimmicks.Add(C)
 		C.choose_name(3)
 	else
@@ -79,17 +119,39 @@
 	color = "#FF0000"
 	throw_speed = 4
 	throw_range = 20
-	desc = "This contract promises to whoever signs it near immortality, great power, and some other stuff you can't bother to read."
+	desc = "A blank contract that's gone missing from hell."
 
+object/item/contract/satan
+	desc = "This contract promises to whomever signs it near immortality, great power, and some other stuff you can't be bothered to read."
+	
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
 			if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in blood upon the [src]!</b></span>")
-				spawn(2)
+				logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!"
+				spawn(5)
 				user.satanclownize()
+				
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
-				spawn(2)
 				return
 		else
 			return
+
+object/item/contract/macho
+	desc = "This contract promises to whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
+
+	attackby(obj/item/W as obj, mob/user as mob)
+		if (istype(W, /obj/item/pen))
+			if (istype(W, /obj/item/pen/fancy/satan))
+				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in slim jims upon the [src]!</b></span>")
+				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
+				spawn(5)
+				user.satanclownize()
+				
+			else
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
+				return
+		else
+			return
+	
