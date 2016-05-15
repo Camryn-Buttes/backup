@@ -41,21 +41,24 @@
 		if (src.state >= 2)
 			if (!src.affecting.buckled)
 				src.affecting.set_loc(src.assailant.loc)
-			if(H) H.remove_stamina(STAMINA_REGEN+7)
+			if(H)
+				H.remove_stamina(STAMINA_REGEN+7) //keeping this for breathless people in order to simulate struggle/extertion
+				H.stamina_stun() //calling this here rather than below
+			
 		if (src.state == 3)
 			//src.affecting.losebreath++
 			//if (src.affecting.paralysis < 2)
 			//	src.affecting.paralysis = 2
 			if(H)
-				choke_count++
-				H.remove_stamina(STAMINA_REGEN+7)
-				H.stamina_stun()
-				if(H.stamina <= -75)
-					H.losebreath += 2
-				else if(H.stamina <= -50)
-					H.losebreath++
-				else if(H.stamina <= -33)
-					if(prob(33)) H.losebreath++
+				choke_count++ //not moving this under breathless since it's used for logging and intent is probably important
+				if(!H.bioHolder.HasEffect("breathless"))
+					H.remove_stamina(STAMINA_REGEN+7) //wait, why is the stamina loss doubled, isn't it already accounted for above?
+					if(H.stamina <= -75) //I mean, I'm not touching it, but I'm curious if this was intentional.
+						H.losebreath += 2
+					else if(H.stamina <= -50)
+						H.losebreath++
+					else if(H.stamina <= -33)
+						if(prob(33)) H.losebreath++
 		update_icon()
 
 	attack(atom/target, mob/user)
