@@ -147,7 +147,7 @@ object/item/contract/macho
 				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in slim jims upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
 				spawn(5)
-				user.satanclownize()
+				user.shittymachoize()
 				
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
@@ -155,3 +155,19 @@ object/item/contract/macho
 		else
 			return
 	
+object/item/contract/wrestle
+	desc = "This contract promises to whomever signs it athletic prowess, showmanship, and some other stuff you can't be bothered to read."
+
+	attackby(obj/item/W as obj, mob/user as mob)
+		if (istype(W, /obj/item/pen))
+			if (istype(W, /obj/item/pen/fancy/satan))
+				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in slim jims upon the [src]!</b></span>")
+				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
+				spawn(5)
+				user.satanclownize()
+				
+			else
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
+				return
+		else
+			return
