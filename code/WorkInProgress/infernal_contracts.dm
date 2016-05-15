@@ -29,9 +29,13 @@
 
 		spawn (25) // Don't remove.
 			if (W) W.assign_gimmick_skull()
-			if (W) W.max_health = 1
+			if (W) W.max_health = 43 // just setting it to one health was kind of harsh but...
+			if (W)
+				for(var/mob/living/carbon/human/machoman/verb/V in W)
+					W.verbs -= V //this is just diabolical
+					W.reagents.add_reagent("anti_fart", 800) //as is this
 
-		boutput(W, "<span style=\"color:blue\">You are now a miserable sham mockery of a macho man!</span>")
+		boutput(W, "<span style=\"color:blue\">You are now a miserable mockery of the true macho man! Take out your envy upon the station!</span>")
 		
 		
 
