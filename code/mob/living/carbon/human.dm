@@ -4327,8 +4327,11 @@
 			switch (src.blood_volume)
 
 				if (-INFINITY to 0)
+					if (src.get_oxygen_deprivation())
+						src.take_brain_damage(2)
+					else if (prob(10))
+						src.take_brain_damage(1)
 					src.take_oxygen_deprivation(1)
-					src.take_brain_damage(2)
 					src.losebreath ++
 					src.drowsyness = max(src.drowsyness, 4)
 					if (prob(10))
@@ -4342,8 +4345,11 @@
 					src.contract_disease(/datum/ailment/disease/shock, null, null, 1) // if you have no blood you're gunna be in shock
 
 				if (1 to 100)
+					if (src.get_oxygen_deprivation())
+						src.take_brain_damage(1)
+					else if (prob(10))
+						src.take_brain_damage(0.5)
 					src.take_oxygen_deprivation(1)
-					src.take_brain_damage(1)
 					src.losebreath ++
 					src.drowsyness = max(src.drowsyness, 3)
 					if (prob(6))
