@@ -92,9 +92,6 @@
 					if (H.bioHolder.HasEffect("fat"))
 						boutput(src.assailant, "<span style=\"color:blue\">You can't strangle [src.affecting] through all that fat!</span>")
 						return
-					if (H.bioHolder.HasEffect("breathless"))
-						boutput(src.assailant, "<span style=\"color:blue\">You can't strangle [src.affecting]! It won't do anything!</span>")
-						return
 					for (var/obj/item/clothing/C in list(H.head, H.wear_suit, H.wear_mask, H.w_uniform))
 						if (C.body_parts_covered & HEAD)
 							boutput(src.assailant, "<span style=\"color:blue\">You have to take off [src.affecting]'s [C.name] first!</span>")
@@ -126,9 +123,9 @@
 				//src.affecting.losebreath++
 				//if (src.affecting.paralysis < 2)
 				//	src.affecting.paralysis = 2
-				src.affecting.stunned = max(src.affecting.stunned, 3)
-				if (ishuman(src.affecting))
+				if (ishuman(src.affecting) && !src.affecting.bioHolder.HasEffect("breathless"))
 					var/mob/living/carbon/human/H = src.affecting
+					H.stunned = max(H.stunned, 3)
 					H.set_stamina(min(0, H.stamina))
 				if (/*!disable_next_click && */user)
 					user.next_click = world.time + 10
