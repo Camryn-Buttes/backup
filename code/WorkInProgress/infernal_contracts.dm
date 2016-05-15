@@ -1,7 +1,7 @@
 /mob/proc/shittymachoize()
 	if (src.mind || src.client)
-		message_admins("[key_name(usr)] made [key_name(src)] a faustian macho man.")
-		logTheThing("admin", usr, src, "made %target% a faustian macho man.")
+		message_admins("[key_name(src)] has been made a faustian macho man.")
+		logTheThing("admin", null, src, "%target% has been made a faustian macho man.")
 		var/mob/living/carbon/human/machoman/W = new/mob/living/carbon/human/machoman(src)
 
 		var/turf/T = get_turf(src)
