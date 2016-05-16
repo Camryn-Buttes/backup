@@ -9,6 +9,7 @@ datum/mind
 	var/last_miranda_time = 0 // this is different than last_memory_time, this is when the rights were last SAID, not last CHANGED
 
 	var/violated_hippocratic_oath = 0
+	var/sold_soul = 0 //have we sold our soul to some otherworldly entity?
 
 	var/assigned_role
 	var/special_role
