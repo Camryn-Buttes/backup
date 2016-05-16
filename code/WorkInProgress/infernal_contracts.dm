@@ -115,11 +115,20 @@
 	w_class = 4.0
 	max_wclass = 3
 	desc = "A diabolical human leather-bound briefcase, capable of holding a number of small objects and tormented souls."
-	stamina_damage = 70 //is this a bad idea?
+	stamina_damage = 90 //is this a bad idea?
 	stamina_cost = 30
-	stamina_crit_chance = 40 //yes, yes it is.
-	spawn_contents = list(/obj/item/contract/satan, obj/item/contract/macho, obj/item/contract/wrestle, obj/item/contract/yeti, /obj/item/pen/fancy/satan = 2, /obj/item/clothing/under/misc/lawyer/red)
+	stamina_crit_chance = 45 //yes, yes it is.
+	spawn_contents = list(/obj/item/contract/satan, obj/item/contract/macho, obj/item/contract/wrestle, /obj/item/pen/fancy/satan = 2, /obj/item/clothing/under/misc/lawyer/red)
 	
+	make_my_stuff() //hijacking this from space loot secure safes
+		..()
+		var/loot = rand(1,9)
+		switch (loot)
+			if (1)
+				new obj/item/contract/yeti(src)
+			if (2)
+				new obj/item/contract/genetic(src)
+
 /obj/item/contract
 	name = "Infernal Contract"
 	icon = 'icons/obj/wizard.dmi'
@@ -133,15 +142,22 @@
 	throw_range = 20
 	desc = "A blank contract that's gone missing from hell."
 	oneuse = 0
+	
+	New()
+		src.color = random_color_hex()
 
 obj/item/contract/satan
 	desc = "This contract promises to whomever signs it near immortality, great power, and some other stuff you can't be bothered to read."
 	
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
+			if (user.mind.sold_soul == 1)
+				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
+				return
 			if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in blood upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!"
+				user.mind.sold_soul = 1
 				spawn(5)
 				user.satanclownize()
 				if (src.oneuse == 1)
@@ -161,9 +177,13 @@ obj/item/contract/macho
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
+			if (user.mind.sold_soul == 1)
+				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
+				return
 			if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in slim jims upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
+				user.mind.sold_soul = 1
 				spawn(5)
 				user.shittymachoize()
 				if (src.oneuse == 1)
@@ -184,9 +204,13 @@ obj/item/contract/wrestle
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
+			if (user.mind.sold_soul == 1)
+				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
+				return
 			if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in cocaine upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding cocaine contract at [log_loc(user)]!"
+				user.mind.sold_soul = 1
 				spawn(5)
 				user.make_wrestler(1)
 				user.traitHolder.addTrait("addict") //HEH
@@ -211,9 +235,13 @@ obj/item/contract/yeti
 	
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
+			if (user.mind.sold_soul == 1)
+				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
+				return
 			if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in blood upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!"
+				user.mind.sold_soul = 1
 				spawn(5)
 				user.makesuperyeti()
 				if (src.oneuse == 1)
@@ -235,9 +263,13 @@ obj/item/contract/admin
 	
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
+			if (user.mind.sold_soul == 1)
+				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
+				return
 			if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in slim jims upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
+				user.mind.sold_soul = 1
 				spawn(5)
 				user.machoize()
 				if (src.oneuse == 1)
@@ -248,6 +280,41 @@ obj/item/contract/admin
 				
 				
 			else
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
+				return
+		else
+			return
+
+obj/item/contract/genetic
+	desc = "This contract promises to unlock the hidden potential of whomever signs it."
+	oneuse = 0
+	
+	New()
+		..()
+		if (prob(10))
+			src.oneuse = 1
+
+	attackby(obj/item/W as obj, mob/user as mob)
+		if (istype(W, /obj/item/pen))
+			if (user.mind.sold_soul == 1)
+				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
+				return
+			if (istype(W, /obj/item/pen/fancy/satan))
+				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in blood upon the [src]!</b></span>")
+				logTheThing("admin", user, null, "signed a soul-binding genetic modifiying contract at [log_loc(user)]!"
+				user.mind.sold_soul = 1
+				spawn(5)
+				user.bioholder.AddEffect("activator",666)
+				user.bioholder.AddEffect("mutagenic_field",666)
+				if (src.oneuse == 1)
+					user.unkillable = 1 //This isn't nearly as much of a boon as one might think.
+					user.bioholder.AddEffect("mutagenic_field_prenerf",666) //The reason being that
+					spawn(10) //after they come back to life, all the powers they had activated by the activator
+					qdel(src) //will no longer be considered as activated from their potential, so all the stability effects
+				else //will kick in at that point and they'll
+					return // be reduced to a genetic monstrosity in short order.
+				
+			else //This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
 				return
 		else
