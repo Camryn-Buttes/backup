@@ -214,6 +214,12 @@ obj/critter/bear/care
 
 		sleeping = 1
 
+/obj/critter/yeti/super
+	name = "super space yeti"
+	desc = "Well-known as the single most aggressive, dangerous, intelligent, sturdy and hungry thing in the universe."
+	health = 225
+	opensdoors = 1
+
 /obj/critter/shark
 	name = "space shark"
 	desc = "This is the third most terrifying thing you've ever laid eyes on."
