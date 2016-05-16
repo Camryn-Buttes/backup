@@ -16,7 +16,8 @@
 
 		if (src.mind)
 			src.mind.transfer_to(W)
-			src.mind.special_role = "faustian macho man"
+			W.mind.special_role = "faustian macho man"
+			ticker.mode.Agimmicks.Add(W)
 		else
 			var/key = src.client.key
 			if (src.client)
