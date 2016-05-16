@@ -1,3 +1,7 @@
+/mob/proc/makesuperyeti()
+	new /obj/critter/yeti/super(src.loc)
+	src.partygib
+
 /mob/proc/shittymachoize()
 	if (src.mind || src.client)
 		message_admins("[key_name(src)] has been made a faustian macho man.")
@@ -128,6 +132,7 @@
 	throw_speed = 4
 	throw_range = 20
 	desc = "A blank contract that's gone missing from hell."
+	oneuse = 0
 
 object/item/contract/satan
 	desc = "This contract promises to whomever signs it near immortality, great power, and some other stuff you can't be bothered to read."
@@ -139,6 +144,11 @@ object/item/contract/satan
 				logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!"
 				spawn(5)
 				user.satanclownize()
+				if (src.oneuse == 0)
+					spawn(10)
+					qdel(src)
+				else
+					return
 				
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
@@ -156,6 +166,12 @@ object/item/contract/macho
 				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
 				spawn(5)
 				user.shittymachoize()
+				if (src.oneuse == 0)
+					spawn(10)
+					qdel(src)
+				else
+					return
+				
 				
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
@@ -177,6 +193,34 @@ object/item/contract/wrestle
 				boutput(user, "<span style=\"color:blue\">Oh cripes, looks like your years of drug abuse caught up with you! </span>")
 				user.mind.special_role = "Faustian Wrestler"
 				ticker.mode.Agimmicks.Add(user)
+				if (src.oneuse == 0)
+					spawn(10)
+					qdel(src)
+				else
+					return
+				
+			else
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
+				return
+		else
+			return
+
+object/item/contract/yeti
+	desc = "This contract promises to whomever signs it near infinite power, an unending hunger, and some other stuff you can't be bothered to read."
+	oneuse = 1
+	
+	attackby(obj/item/W as obj, mob/user as mob)
+		if (istype(W, /obj/item/pen))
+			if (istype(W, /obj/item/pen/fancy/satan))
+				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in blood upon the [src]!</b></span>")
+				logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!"
+				spawn(5)
+				user.makesuperyeti()
+				if (src.oneuse == 0)
+					spawn(10)
+					qdel(src)
+				else
+					return
 				
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
