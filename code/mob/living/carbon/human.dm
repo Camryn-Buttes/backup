@@ -2376,7 +2376,10 @@
 				tally += 1.7
 			if (/obj/item/clothing/suit/space)
 				if (!istype(src.loc, /turf/space))		//	space suits slow you down a bit unless in space;
-					tally += 0.7
+					tally += 0.6
+			if (/obj/item/clothing/suit/space/engineer)
+				if (!istype(src.loc, /turf/space))//	bulky engineering space suits slow you down quite a lot unless in space;
+					tally += 1.2
 			if (/obj/item/clothing/suit/space/captain)
 				tally -=0.1
 			if (/obj/item/clothing/suit/armor/heavy)
@@ -2387,7 +2390,7 @@
 				tally += 2
 			if (/obj/item/clothing/suit/space/emerg)
 				if (!istype(src.loc, /turf/space))
-					tally += 2 // cogwerks - lowered this from 10 //Noah Buttes - Lowered this from 3 because they're practically useless as is
+					tally += 2.3 // cogwerks - lowered this from 10 //Noah Buttes - Lowered this from 3 because they're practically useless as is
 			if (/obj/item/clothing/suit/space/suv)
 				tally += 1.0
 
