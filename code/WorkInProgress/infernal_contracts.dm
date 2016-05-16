@@ -118,7 +118,7 @@
 	stamina_damage = 70 //is this a bad idea?
 	stamina_cost = 30
 	stamina_crit_chance = 40 //yes, yes it is.
-	spawn_contents = list(/obj/item/contract/satan = 3, /obj/item/pen/fancy/satan = 3, /obj/item/clothing/under/misc/lawyer/red)
+	spawn_contents = list(/obj/item/contract/satan, obj/item/contract/macho, obj/item/contract/wrestle,  /obj/item/pen/fancy/satan = 2, /obj/item/clothing/under/misc/lawyer/red)
 	
 /obj/item/contract
 	name = "Infernal Contract"
@@ -134,7 +134,7 @@
 	desc = "A blank contract that's gone missing from hell."
 	oneuse = 0
 
-object/item/contract/satan
+obj/item/contract/satan
 	desc = "This contract promises to whomever signs it near immortality, great power, and some other stuff you can't be bothered to read."
 	
 	attackby(obj/item/W as obj, mob/user as mob)
@@ -156,7 +156,7 @@ object/item/contract/satan
 		else
 			return
 
-object/item/contract/macho
+obj/item/contract/macho
 	desc = "This contract promises to whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
 
 	attackby(obj/item/W as obj, mob/user as mob)
@@ -179,7 +179,7 @@ object/item/contract/macho
 		else
 			return
 	
-object/item/contract/wrestle
+obj/item/contract/wrestle
 	desc = "This contract promises to whomever signs it athletic prowess, showmanship, and some other stuff you can't be bothered to read."
 
 	attackby(obj/item/W as obj, mob/user as mob)
@@ -205,7 +205,7 @@ object/item/contract/wrestle
 		else
 			return
 
-object/item/contract/yeti
+obj/item/contract/yeti
 	desc = "This contract promises to whomever signs it near infinite power, an unending hunger, and some other stuff you can't be bothered to read."
 	oneuse = 1
 	
