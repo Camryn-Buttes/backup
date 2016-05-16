@@ -1,6 +1,6 @@
-/mob/proc/makesuperyeti()
+/mob/proc/makesuperyeti() //this is my magnum opus
 	new /obj/critter/yeti/super(src.loc)
-	src.partygib
+	src.partygib //it brings a tear to my eye
 
 /mob/proc/shittymachoize()
 	if (src.mind || src.client)
