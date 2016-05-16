@@ -643,10 +643,10 @@ var/reverse_mode = 0
 						spawn(600) using = 0
 					if("Attempt to absorb the relics power")
 						if(prob(1))
-							user.bioHolder.AddEffect("telekinesis")
-							user.bioHolder.AddEffect("thermal_resist")
-							user.bioHolder.AddEffect("xray")
-							user.bioHolder.AddEffect("hulk")
+							user.bioHolder.AddEffect("telekinesis",666) //because really
+							user.bioHolder.AddEffect("thermal_resist",666) //if they're lucky enough to get this
+							user.bioHolder.AddEffect("xray",666) //they're lucky enough to keep it
+							user.bioHolder.AddEffect("hulk",666) //probably
 							boutput(user, "<span style=\"color:red\">The relic crumbles into nothingness</span>")
 							src.invisibility = 101
 							var/obj/effects/explosion/E = new/obj/effects/explosion( get_turf(src) )
