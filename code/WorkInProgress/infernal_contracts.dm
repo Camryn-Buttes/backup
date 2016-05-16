@@ -118,7 +118,7 @@
 	stamina_damage = 70 //is this a bad idea?
 	stamina_cost = 30
 	stamina_crit_chance = 40 //yes, yes it is.
-	spawn_contents = list(/obj/item/contract/satan, obj/item/contract/macho, obj/item/contract/wrestle,  /obj/item/pen/fancy/satan = 2, /obj/item/clothing/under/misc/lawyer/red)
+	spawn_contents = list(/obj/item/contract/satan, obj/item/contract/macho, obj/item/contract/wrestle, obj/item/contract/yeti, /obj/item/pen/fancy/satan = 2, /obj/item/clothing/under/misc/lawyer/red)
 	
 /obj/item/contract
 	name = "Infernal Contract"
