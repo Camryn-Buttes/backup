@@ -680,7 +680,7 @@
 		rip = -1
 
 /obj/item/clothing/suit/space/emerg/proc/ripcheck(var/mob/user)
-	if(rip >= 14 && rip != -1 && prob(10))
+	if(rip >= 36 && rip != -1 && prob(10)) //upped from rip >= 14 by Buttes
 		boutput(user, "<span style=\"color:red\">The emergency suit tears off!</span>")
 		var/turf/T = src.loc
 		if (ismob(T))
@@ -716,7 +716,8 @@
 	desc = "An overly bulky space suit designed mainly for maintenance and mining."
 	icon_state = "espace"
 	item_state = "es_suit"
-
+	protective_temperature = 3000 //buff for engineers to compensate for slower speed
+	heat_resistance = 30 //this too
 	april_fools
 		icon_state = "espace-alt"
 		item_state = "espace-alt"
@@ -730,7 +731,7 @@
 	c_flags = SPACEWEAR
 	body_parts_covered = TORSO|LEGS|ARMS
 	heat_transfer_coefficient = 0.02
-	mats = 15
+	mats = 45 //should not be cheap to make at mechanics, increased from 15.
 	armor_value_bullet = 1.5 // industrial space armor should not have worse armor than normal space suits
 	armor_value_melee = 3 // But I'm afraid of buffing it too much, so I'll just set it at normal space suit levels
 	armor_value_explosion = 4
