@@ -29,7 +29,10 @@
 
 		spawn (25) // Don't remove.
 			if (W) W.assign_gimmick_skull()
-			if (W) W.max_health = 43 // just setting it to one health was kind of harsh but...
+		spawn (5)
+			if (W)
+				W.traitHolder.addTrait("deathwish") //evil
+				W.traitHolder.addTrait("glasscannon") //what good will those stimulants do you now?
 			if (W)
 				for(var/mob/living/carbon/human/machoman/verb/V in W)
 					W.verbs -= V //this is just diabolical
@@ -165,10 +168,14 @@ object/item/contract/wrestle
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
 			if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in slim jims upon the [src]!</b></span>")
-				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
+				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in cocaine upon the [src]!</b></span>")
+				logTheThing("admin", user, null, "signed a soul-binding cocaine contract at [log_loc(user)]!"
 				spawn(5)
 				user.make_wrestler(1)
+				user.traitHolder.addTrait("addict") //HEH
+				boutput(user, "<span style=\"color:blue\">Oh cripes, looks like your years of drug abuse caught up with you! </span>")
+				user.mind.special_role = "Faustian Wrestler"
+				ticker.mode.Agimmicks.Add(user)
 				
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
