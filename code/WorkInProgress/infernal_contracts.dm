@@ -144,7 +144,7 @@ obj/item/contract/satan
 				logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!"
 				spawn(5)
 				user.satanclownize()
-				if (src.oneuse == 0)
+				if (src.oneuse == 1)
 					spawn(10)
 					qdel(src)
 				else
@@ -166,7 +166,7 @@ obj/item/contract/macho
 				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
 				spawn(5)
 				user.shittymachoize()
-				if (src.oneuse == 0)
+				if (src.oneuse == 1)
 					spawn(10)
 					qdel(src)
 				else
@@ -193,7 +193,7 @@ obj/item/contract/wrestle
 				boutput(user, "<span style=\"color:blue\">Oh cripes, looks like your years of drug abuse caught up with you! </span>")
 				user.mind.special_role = "Faustian Wrestler"
 				ticker.mode.Agimmicks.Add(user)
-				if (src.oneuse == 0)
+				if (src.oneuse == 1)
 					spawn(10)
 					qdel(src)
 				else
@@ -216,11 +216,36 @@ obj/item/contract/yeti
 				logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!"
 				spawn(5)
 				user.makesuperyeti()
-				if (src.oneuse == 0)
+				if (src.oneuse == 1)
 					spawn(10)
 					qdel(src)
 				else
 					return
+				
+			else
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
+				return
+		else
+			return
+
+
+obj/item/contract/admin
+	desc = "This contract promises to whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
+	oneuse = 1
+	
+	attackby(obj/item/W as obj, mob/user as mob)
+		if (istype(W, /obj/item/pen))
+			if (istype(W, /obj/item/pen/fancy/satan))
+				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in slim jims upon the [src]!</b></span>")
+				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
+				spawn(5)
+				user.machoize()
+				if (src.oneuse == 1)
+					spawn(10)
+					qdel(src)
+				else
+					return
+				
 				
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
