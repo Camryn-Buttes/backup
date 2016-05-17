@@ -757,6 +757,13 @@
 	body_parts_covered = TORSO|LEGS|ARMS
 	armor_value_bullet = 1.5
 	armor_value_melee = 3
+	
+	cursed
+		name = "cursed cultist robe"
+		desc = "The unholy vestments of an arch-cultist"
+		cant_drop = 1
+		cant_other_remove = 1
+		cant_self_remove = 1
 
 /obj/item/clothing/suit/cardboard_box
 	name = "cardboard box"
