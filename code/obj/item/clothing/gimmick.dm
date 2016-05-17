@@ -499,6 +499,13 @@
 	icon_state = "horse"
 	c_flags = SPACEWEAR | COVERSMOUTH | COVERSEYES | MASKINTERNALS
 	see_face = 0.0
+	
+	cursed
+		name = "cursed horse mask"
+		desc = "NEIGH!"
+		cant_drop = 1
+		cant_other_remove = 1
+		cant_self_remove = 1
 
 /obj/item/clothing/head/genki
 	name = "super happy funtime cat head"
