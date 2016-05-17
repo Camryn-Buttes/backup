@@ -1047,6 +1047,7 @@
 			droploot = /obj/item/device/key/iridium/virtual //we don't want this loot in vr do we???
 		else
 			new/obj/machinery/vending/chem(src.loc)
+			new/obj/item/fiddle(src.loc)
 			new/obj/item/trumpet/dootdoot(src.loc)
 			new/obj/item/rubber_hammer(src.loc)
 			new/obj/item/bagpipe(src.loc)
