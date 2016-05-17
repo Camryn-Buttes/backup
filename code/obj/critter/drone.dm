@@ -1013,3 +1013,47 @@
 		spawn(6)
 			for (var/obj/O in lineObjs)
 				pool(O)*/
+				
+/obj/critter/gunbot/drone/iridium/whydrone/horse
+	name = "Horseman"
+	desc = "It's one of the four horsemen of the apocalypse. May the Lord have mercy on our souls."
+	health = 8000 //glitch drone tough
+	maxhealth = 8000 // you ain't killing this easily
+	var/stage = 0
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "horse"
+	bound_height = 96
+	bound_width = 96
+	attack_range = 14 //evil
+	score = 45000 //let's just go whole hog on this
+	dead_state = "smoke"
+	droploot = /obj/item/clothing/mask/horse_mask //neigh
+	alertsound1 = 'sound/ambience/coldwind1.ogg'
+	alertsound2 = 'sound/effects/heartbeat.ogg'
+	projectile_type = /datum/projectile/bullet/autocannon/huge
+	current_projectile = new/datum/projectile/bullet/autocannon/huge
+	var/datum/projectile/sphere_projectile = new/datum/projectile/laser/precursor/sphere
+	generic = 0
+	smashes_shit = 1
+	
+		New()
+		..()
+		name = "[pick("War", "Death")]"
+	
+	CritterDeath() //Yeah thanks for only supporting a single item, loot variable.
+		if(dying) return
+		var/area/A = get_area(src)
+		if (A && A.virtual)
+			droploot = /obj/item/device/key/iridium/virtual //we don't want this loot in vr do we???
+		else
+			new/obj/machinery/vending/chem(src.loc)
+			new/obj/item/trumpet/dootdoot(src.loc)
+			new/obj/item/rubber_hammer(src.loc)
+			new/obj/item/bagpipe(src.loc)
+			new/obj/item/storage/belt/macho_belt(src.loc)
+			new/obj/item/stimpack/large_dose(src.loc)
+			new/obj/item/stimpack/large_dose(src.loc)
+			new/obj/item/stimpack/large_dose(src.loc)
+			new/obj/item/stimpack/large_dose(src.loc)
+			new/obj/item/stimpack/large_dose(src.loc)
+		..()
