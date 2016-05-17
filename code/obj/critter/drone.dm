@@ -25,6 +25,8 @@
 	var/obj/item/droploot = null
 	var/damaged = 0 // 1, 2, 3
 	var/dying = 0
+	var/beeptext = "beeps"
+	var/beepsound = 'sound/machines/twobeep.ogg'
 	var/alertsound1 = 'sound/machines/whistlealert.ogg'
 	var/alertsound2 = 'sound/machines/whistlebeep.ogg'
 	var/projectile_type = /datum/projectile/laser/light
@@ -266,8 +268,8 @@
 		check_health()
 
 		if(prob(7))
-			src.visible_message("<b>[src] beeps.</b>")
-			playsound(src, "sound/machines/twobeep.ogg", 55, 1)
+			src.visible_message("<b>[src] [beeptext].</b>")
+			playsound(src, beepsound, 55, 1)
 
 		if(task == "following path")
 			follow_path()
@@ -1018,7 +1020,7 @@
 	name = "Horseman"
 	desc = "It's one of the four horsemen of the apocalypse. May the Lord have mercy on our souls."
 	health = 8000 //glitch drone tough
-	maxhealth = 8000 // you ain't killing this easily
+	maxhealth = 8000 // you aren't killing the apocalypse easily
 	var/stage = 0
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "horse"
@@ -1026,19 +1028,48 @@
 	bound_width = 96
 	attack_range = 14 //evil
 	score = 45000 //let's just go whole hog on this
-	dead_state = "smoke"
-	droploot = /obj/item/clothing/mask/horse_mask //neigh
-	alertsound1 = 'sound/ambience/coldwind1.ogg'
-	alertsound2 = 'sound/effects/heartbeat.ogg'
+	dead_state = "smoke" //placeholder until I get some actual sprites or at least half-ass some myself.
+	droploot = /obj/item/clothing/mask/horse_mask //I should make a cursed horse_mask
+	beeptext = "neighs"
+	beepsound = 'sound/vox/na.ogg' //how is nay or neigh not a thing in vox?
+	alertsound1 = 'sound/effects/mag_pandroar.ogg'
+	alertsound2 = 'sound/misc/wendigo_roar.ogg'
 	projectile_type = /datum/projectile/bullet/autocannon/huge
 	current_projectile = new/datum/projectile/bullet/autocannon/huge
 	var/datum/projectile/sphere_projectile = new/datum/projectile/laser/precursor/sphere
 	generic = 0
 	smashes_shit = 1
 	
-		New()
+	process()
 		..()
-		name = "[pick("War", "Death")]"
+		if(prob(3))
+			playsound(src,"sound/effects/heartbeat.ogg", 60, 0) //for the spooky effect
+		return
+	
+	New()
+		..()
+		name = "[pick("War", "Death", "Pestilence", "Famine")]"
+
+	check_health()
+		..()
+		if(health == maxhealth) return
+		var/percent_damage = src.health/src.maxhealth * 100
+		switch(percent_damage)
+			if(75 to 100)
+				return
+			if(50 to 74)
+				if(damaged == 1) return
+				damaged = 1
+				desc = "[src] looks lightly [pick("injured", "hurt", "bruised", "cut")]."
+			if(25 to 49)
+				if(damaged == 2) return
+				damaged = 2
+				desc = "[src] looks [pick("quite", "pretty", "rather")] [pick("injured", "wounded", "messed up", "beaten up", "hurt", "haggard")]."
+			if(0 to 24)
+				if(damaged == 3) return
+				damaged = 3
+				desc = "[src] looks [pick("really", "totally", "very", "all sorts of", "super", "grievously")] [pick("mangled", "wounded", "messed up", "injured", "hurt", "haggard", "beaten down", "bloodied")]."
+		return
 	
 	CritterDeath() //Yeah thanks for only supporting a single item, loot variable.
 		if(dying) return
@@ -1046,7 +1077,7 @@
 		if (A && A.virtual)
 			droploot = /obj/item/device/key/iridium/virtual //we don't want this loot in vr do we???
 		else
-			new/obj/machinery/vending/chem(src.loc)
+			//new/obj/machinery/vending/chem(src.loc) okay no, even with the other stuff, this is ridiculously powerful. nope. nada. never.
 			new/obj/item/fiddle(src.loc)
 			new/obj/item/trumpet/dootdoot(src.loc)
 			new/obj/item/rubber_hammer(src.loc)
