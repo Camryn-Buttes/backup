@@ -449,6 +449,9 @@ var/global
 
 	total_corrupted_terrain = 0
 	total_corruptible_terrain = 0
+	
+	total_souls_sold = 0
+	total_souls_value = 0
 
 	// putting crew score shit here
 	score_crewscore = 0
