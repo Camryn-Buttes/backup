@@ -1,3 +1,17 @@
+/mob/proc/sellsoul()
+	if (src.mind)
+		if (src.mind.sold_soul == 1)
+			return
+		else
+			src.mind.sold_soul = 1
+			total_souls_sold++
+			if (src.mind.assigned_role == "Head of Security" || src.mind.assigned_role == "Security Officer")
+				total_souls_value += 2 //security jobs are worth more, because they presumably have a more virtuous soul (pffft)
+			else
+				total_souls_value++
+	else
+		return
+
 /mob/proc/makesuperyeti() //this is my magnum opus
 	new /obj/critter/yeti/super(src.loc)
 	src.partygib //it brings a tear to my eye
@@ -155,7 +169,7 @@ obj/item/contract/satan
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in blood upon the [src]!</b></span>")
+				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!"
 				user.mind.sold_soul = 1
 				spawn(5)
@@ -167,7 +181,7 @@ obj/item/contract/satan
 					return
 				
 			else
-				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
 				return
 		else
 			return
@@ -181,7 +195,7 @@ obj/item/contract/macho
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in slim jims upon the [src]!</b></span>")
+				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
 				user.mind.sold_soul = 1
 				spawn(5)
@@ -194,7 +208,7 @@ obj/item/contract/macho
 				
 				
 			else
-				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
 				return
 		else
 			return
@@ -208,7 +222,7 @@ obj/item/contract/wrestle
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in cocaine upon the [src]!</b></span>")
+				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in cocaine upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding cocaine contract at [log_loc(user)]!"
 				user.mind.sold_soul = 1
 				spawn(5)
@@ -224,7 +238,7 @@ obj/item/contract/wrestle
 					return
 				
 			else
-				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
 				return
 		else
 			return
@@ -239,7 +253,7 @@ obj/item/contract/yeti
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in blood upon the [src]!</b></span>")
+				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!"
 				user.mind.sold_soul = 1
 				spawn(5)
@@ -251,7 +265,7 @@ obj/item/contract/yeti
 					return
 				
 			else
-				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
 				return
 		else
 			return
@@ -267,7 +281,7 @@ obj/item/contract/admin
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in slim jims upon the [src]!</b></span>")
+				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
 				user.mind.sold_soul = 1
 				spawn(5)
@@ -280,7 +294,7 @@ obj/item/contract/admin
 				
 				
 			else
-				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
 				return
 		else
 			return
@@ -300,22 +314,29 @@ obj/item/contract/genetic
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs \his name in blood upon the [src]!</b></span>")
+				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding genetic modifiying contract at [log_loc(user)]!"
 				user.mind.sold_soul = 1
 				spawn(5)
 				user.bioholder.AddEffect("activator",666)
 				user.bioholder.AddEffect("mutagenic_field",666)
+				boutput(user, "<span style=\"color:blue\">You have finally achieved your full potential! Mom would so proud!</span>")
 				if (src.oneuse == 1)
+					spawn(10)
+					boutput(user, "<span style=\"color:green\">You feel an upwelling of additional power!</span>")
 					user.unkillable = 1 //This isn't nearly as much of a boon as one might think.
 					user.bioholder.AddEffect("mutagenic_field_prenerf",666) //The reason being that
+					spawn(2)
+					boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! Spread your gifts to the rest of the world!</span>")
+					user.mind.special_role = "Genetic Demigod"
+					ticker.mode.Agimmicks.Add(user)
 					spawn(10) //after they come back to life, all the powers they had activated by the activator
 					qdel(src) //will no longer be considered as activated from their potential, so all the stability effects
 				else //will kick in at that point and they'll
 					return // be reduced to a genetic monstrosity in short order.
 				
 			else //This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
-				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as \he realizes \his pen isn't evil enough to sign the [src]!</b></span>")
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
 				return
 		else
 			return
