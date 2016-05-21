@@ -875,14 +875,14 @@
 		src.attacking = 1
 
 		if (M.lying)
-			src.speak( pick("me-àm ina men-an-uras-a?", "e-zé ina gu-sum... e-zé ina gú-ri-ta!", "e-zé ní-gig, e-zé ní-dím-dím-ma, e-zé šu...bar ina libir lugar!", "namlugallu-zu-ne-ne inim-dirig, namgallu-zu-ne-ne inim-búr-ra, izi te-en ina an!", "ri azag, ri azag, ri azag, ri érim, ri e-zé!", "e-zé, érim diir-da...nu-me-a.") )
+			src.speak( pick("me-Ã m ina men-an-uras-a?", "e-zÃ© ina gu-sum... e-zÃ© ina gÃº-ri-ta!", "e-zÃ© nÃ­-gig, e-zÃ© nÃ­-dÃ­m-dÃ­m-ma, e-zÃ© Âšu...bar ina libir lugar!", "namlugallu-zu-ne-ne inim-dirig, namgallu-zu-ne-ne inim-bÃºr-ra, izi te-en ina an!", "ri azag, ri azag, ri azag, ri Ã©rim, ri e-zÃ©!", "e-zÃ©, Ã©rim diir-da...nu-me-a.") )
 			// where is the crown of heaven and earth // you are from the writing... you are from the other side // you abominations, created creatures, you let loose the ancient king
 			// mankind's hubris, mankind's breach of treaty extinguished the heavens // banish the taboo, banish the taboo, banish you // you, enemy, without a god
 			src.visible_message("<span style=\"color:red\"><B>[src]</B> takes hold of [M]!</span>")
 			boutput(M, "<span style=\"color:red\"><b>It burns!</b></span>")
 			M.TakeDamage("chest", 0, rand(5,15))
 		else
-			src.speak( pick("an-zà, bar ina ká, ina ká! ina ká-bar-ra!", "hul-ál. lúír-lá-ene ina im-dugud-ene. n-ene. e-zé.", "ki-lul-la, ki-in-dar, é-a-nir-ra: urudu e-re-sì-ki-in ina úmun, en-nu-ùa-ak ina lúír-lá-ene", "lú-kúr-ra! lú-ní-zuh! lú-ru-gú!", "nu-me-en-na-ta, na!") )
+			src.speak( pick("an-zÃ , bar ina kÃ¡, ina kÃ¡! ina kÃ¡-bar-ra!", "hul-Ã¡l. lÃºÃ­r-lÃ¡-ene ina im-dugud-ene. n-ene. e-zÃ©.", "ki-lul-la, ki-in-dar, Ã©-a-nir-ra: urudu e-re-sÃ¬-ki-in ina Ãºmun, en-nu-Ã¹a-ak ina lÃºÃ­r-lÃ¡-ene", "lÃº-kÃºr-ra! lÃº-nÃ­-zuh! lÃº-ru-gÃº!", "nu-me-en-na-ta, na!") )
 			// where heaven ends, the gate, the gate! the outer door! // the evil ones, the butchers on the lumps of stone. humans. you. // in the place of murder, in the crevice, in the house of mourning: the copper servant formed of thought guards against the butchers //
 			// stranger! thief! recalcitrant one! // you don't exist, human!
 			src.visible_message("<span style=\"color:red\"><B>[src]</B> reaches for [M]!</span>")
@@ -895,11 +895,11 @@
 	ai_think()
 		if(task == "thinking" || task == "wandering")
 			if (prob(5))
-				src.speak( pick("namlugallu ha-lam ina lugal-šaà-lá-sù...","ù da-rí-sè šeš...","á-e-me-en ìri-zé-er igi-bad!","inim...kí ina ki-dul, ina e-ùr, ina ki-bad-rá, hé-àm-me-àm...", "ìri-kúr...díb, ìri...ar, e-zé...", "galam, gamar ganzer, gíbil píri! ul, ul! súkud...") )
+				src.speak( pick("namlugallu ha-lam ina lugal-ÂšaÃ -lÃ¡-sÃ¹...","Ã¹ da-rÃ­-sÃ¨ ÂšeÂš...","Ã¡-e-me-en Ã¬ri-zÃ©-er igi-bad!","inim...kÃ­ ina ki-dul, ina e-Ã¹r, ina ki-bad-rÃ¡, hÃ©-Ã m-me-Ã m...", "Ã¬ri-kÃºr...dÃ­b, Ã¬ri...ar, e-zÃ©...", "galam, gamar ganzer, gÃ­bil pÃ­ri! ul, ul! sÃºkud...") )
 				// mankind destroyed the merciful king // sleep forever, brethren // i am one who lost my footing and opened my eyes // to seek or find the right words, the armor, the secret point, the distant places, that is our wish // to ascend, overwhelming darkness, burning bright! shine! shine! shine brightly!
 		else
 			if (prob(5))
-				src.speak( pick("ina urudu e-re-sì-ki-in kala libir arza ina SÚKUD ZAL.", "i.menden ina nam-ab-ba issa, nam-nu-tar  nam-diir, i.menden lúní-áa...","bar...gub ina bàd-šul-hi...","šidim ak ina libir išgal, diir ak ina agrun, ul-šár-ra, zà-mí!", "ùru pàd gíg, ina gidim niin!") )
+				src.speak( pick("ina urudu e-re-sÃ¬-ki-in kala libir arza ina SÃšKUD ZAL.", "i.menden ina nam-ab-ba issa, nam-nu-tar  nam-diir, i.menden lÃºnÃ­-Ã¡a...","bar...gub ina bÃ d-Âšul-hi...","Âšidim ak ina libir iÂšgal, diir ak ina agrun, ul-ÂšÃ¡r-ra, zÃ -mÃ­!", "Ã¹ru pÃ d gÃ­g, ina gidim niin!") )
 				// the copper servant mends the rights of the FLASH OF DAWN // we are the elder shades, ill-fated divinities, we are the temple servants...// step outside the outer wall
 				// architect of the ancient throne, god of the inner sanctuary, jubilation, praise! // watchfire reveals night, the darkened monstrosity
 				//
@@ -907,7 +907,7 @@
 		return ..()
 
 	CritterDeath()
-		speak( pick("šìr...áa ina šìr-kug záh-bi!", "éd, èd, šu...bar...", "ní-nam-nu-kal...", "lugal-me taru, lugal-me galam!", "me-li-e-a...") )
+		speak( pick("ÂšÃ¬r...Ã¡a ina ÂšÃ¬r-kug zÃ¡h-bi!", "Ã©d, Ã¨d, Âšu...bar...", "nÃ­-nam-nu-kal...", "lugal-me taru, lugal-me galam!", "me-li-e-a...") )
 		// sing the sacred song to the bitter end // go out, exit, release // nothing is precious // our king will return, our king will ascend // woe is me
 		src.alive = 0
 		spawn(15)
@@ -926,7 +926,7 @@
 			src.target = C
 			src.oldtarget_name = C.name
 			src.task = "chasing"
-			src.speak( pick("siskur, siskur ina na sukkal...","ára ina gíg, úš ina ur zal...","lú-érim! lú-érim!","áš á-zi-ga...bal, na, e-zé ha-lam ina é si-ga...") )
+			src.speak( pick("siskur, siskur ina na sukkal...","Ã¡ra ina gÃ­g, ÃºÂš ina ur zal...","lÃº-Ã©rim! lÃº-Ã©rim!","Ã¡Âš Ã¡-zi-ga...bal, na, e-zÃ© ha-lam ina Ã© si-ga...") )
 			// sacrifice, sacrifice the human envoy! // praise the night, kill the servant of light // enemy! enemy! // cursed with violence, human, you ruin the quiet house
 			break
 
@@ -961,6 +961,7 @@
 	anchored = 1
 	var/range = 5
 	var/end_float_effect = 0
+	var/horse = 0 //what am I doing with my life
 
 	New(spawnloc)
 		..()
@@ -1038,7 +1039,10 @@
 
 
 		sleep (100)
-		new /obj/critter/gunbot/drone/iridium( locate(src.x-1, src.y-1, src.z) ) //Still needs a fancy spawn-in effect.
+		if (horse == 0)
+			new /obj/critter/gunbot/drone/iridium( locate(src.x-1, src.y-1, src.z) ) //Still needs a fancy spawn-in effect.
+		else
+			new /obj/critter/gunbot/drone/iridium/whydrone/horse( locate(src.x-1, src.y-1, src.z) ) //i am terrible
 		end_float_effect = 0
 		sleep (50)
 		qdel(src)
@@ -1046,6 +1050,8 @@
 
 		return
 
+/obj/effects/ydrone_summon/horseman //a new low/high depending on your point of view
+	var/horse = 1 //neigh
 
 /datum/projectile/laser/precursor/sphere // for precursor traps
 	name = "energy sphere"
