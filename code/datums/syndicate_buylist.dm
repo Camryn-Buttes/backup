@@ -324,6 +324,10 @@ proc/build_syndi_buylist_cache()
 	desc = "Comes complete with three soul binding contracts, three extra-pointy pens, and one suit provided by Lucifer himself."
 	job = list("Chaplain")
 	not_in_crates = 1
+	
+	run_on_spawn(var/obj/item/storage/briefcase/satan,var/mob/living/owner)
+		if (istype(satan) && owner)
+			owner.mind.diabolical = 1 //can't sell souls to ourselves now can we?
 
 /datum/syndicate_buylist/traitor/mailsuit
 	name = "Mailman Suit"
