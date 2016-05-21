@@ -10,6 +10,7 @@ datum/mind
 
 	var/violated_hippocratic_oath = 0
 	var/sold_soul = 0 //have we sold our soul to some otherworldly entity?
+	var/diabolical = 0 //are we some sort of demon or other spirit baddie?
 
 	var/assigned_role
 	var/special_role
