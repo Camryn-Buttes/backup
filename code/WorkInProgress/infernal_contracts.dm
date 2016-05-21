@@ -140,12 +140,15 @@
 	
 	make_my_stuff() //hijacking this from space loot secure safes
 		..()
-		var/loot = rand(1,9) // TODO: add more
-		switch (loot)
-			if (1)
-				new obj/item/contract/yeti(src)
-			if (2)
-				new obj/item/contract/genetic(src)
+		if prob(1) //gotta be rare enough for it to not get stale
+			new obj/item/contract/horse(src) //can't have it in normal loot pool
+		else
+			var/loot = rand(1,9) // TODO: add more
+			switch (loot)
+				if (1)
+					new obj/item/contract/yeti(src)
+				if (2)
+					new obj/item/contract/genetic(src)
 
 /obj/item/contract
 	name = "infernal contract"
@@ -345,9 +348,13 @@ obj/item/contract/genetic
 		else
 			return
 
-obj/item/contract/horse
+obj/item/contract/horse //TODO: finish horsepocalypse
 	desc = "A piece of parchment covered in nearly indecipherable scrawl. You can just barely make out something about horses and signatures."
-
+	
+	proc/endtimes()
+		var/turf/spawn_turf = get_turf(src)
+		new /obj/effects/ydrone_summon/horseman( spawn_turf ) //
+	
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
 			if (user.mind.sold_soul == 1)
@@ -358,12 +365,12 @@ obj/item/contract/horse
 				logTheThing("admin", user, null, "signed a soul-binding horse contract at [log_loc(user)]!"
 				user.sellsoul()
 				spawn(5)
-				user.make_wrestler(1)
-				user.traitHolder.addTrait("addict") //HEH
+				user.make_wrestler(1) //TODO: turn into horse
+				user.traitHolder.addTrait("addict")
 				boutput(user, "<span style=\"color:blue\">Oh cripes, looks like your years of drug abuse caught up with you! </span>")
-				user.mind.special_role = "horseman"
+				user.mind.special_role = "horseman" //neigh
 				ticker.mode.Agimmicks.Add(user)
-				if (src.oneuse == 1)
+				if (src.oneuse == 1) //this particular contract should never be one use, but JUST IN CASE
 					src.vanish()
 				else
 					return
