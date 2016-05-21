@@ -140,7 +140,7 @@
 	
 	make_my_stuff() //hijacking this from space loot secure safes
 		..()
-		var/loot = rand(1,9)
+		var/loot = rand(1,9) // TODO: add more
 		switch (loot)
 			if (1)
 				new obj/item/contract/yeti(src)
