@@ -1,14 +1,18 @@
 /mob/proc/sellsoul()
 	if (src.mind)
-		if (src.mind.sold_soul == 1)
-			return
-		else
+		if (src.mind.sold_soul == 1) //even though this check is already in the individual contracts, it's good to take precautions
+			boutput(src, "<span style=\"color:blue\">You don't have a soul to sell!</span>") //after all
+			return //this is byond we're talking about here
+		else if ((src.mind.sold_soul == 0))
 			src.mind.sold_soul = 1
 			total_souls_sold++
 			if (src.mind.assigned_role == "Head of Security" || src.mind.assigned_role == "Security Officer")
 				total_souls_value += 2 //security jobs are worth more, because they presumably have a more virtuous soul (pffft)
 			else
 				total_souls_value++
+		else
+			boutput(src, "<span style=\"color:blue\">Something has gone horribly wrong with your soul! Report this to the nearest coder as soon as possible!</span>") //oh god, you've got like half a soul, how does that even WORK?
+			return
 	else
 		return
 
@@ -108,7 +112,7 @@
 		qdel(src)
 
 /obj/item/pen/fancy/satan
-	name = "Infernal pen"
+	name = "infernal pen"
 	desc = "A pen once owned by Old Nick himself."
 	force = 15
 	throwforce = 15
@@ -117,7 +121,7 @@
 	font_color = "#FF0000"
 	
 /obj/item/storage/briefcase/satan
-	name = "Devilish Briefcase"
+	name = "devilish briefcase"
 	icon_state = "briefcase"
 	item_state = "briefcase"
 	flags = FPRINT | TABLEPASS| CONDUCT | NOSPLASH
@@ -144,7 +148,7 @@
 				new obj/item/contract/genetic(src)
 
 /obj/item/contract
-	name = "Infernal Contract"
+	name = "infernal contract"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll_seal"
 	var/uses = 4.0
@@ -159,24 +163,28 @@
 	
 	New()
 		src.color = random_color_hex()
+	
+	proc/vanish()
+		src.visible_message("<span style=\"color:red\"><B>[src] suddenly vanishes!</B></span>")
+		spawn(0)
+		qdel(src)
 
 obj/item/contract/satan
-	desc = "This contract promises to whomever signs it near immortality, great power, and some other stuff you can't be bothered to read."
+	desc = "A contract that promises to bestow upon whomever signs it near immortality, great power, and some other stuff you can't be bothered to read."
 	
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
 			if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
-			if (istype(W, /obj/item/pen/fancy/satan))
+			else if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!"
-				user.mind.sold_soul = 1
+				user.sellsoul()
 				spawn(5)
 				user.satanclownize()
 				if (src.oneuse == 1)
-					spawn(10)
-					qdel(src)
+					src.vanish()
 				else
 					return
 				
@@ -187,17 +195,17 @@ obj/item/contract/satan
 			return
 
 obj/item/contract/macho
-	desc = "This contract promises to whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
+	desc = "A contract that promises to bestow upon whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
 			if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
-			if (istype(W, /obj/item/pen/fancy/satan))
+			else if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
-				user.mind.sold_soul = 1
+				user.sellsoul()
 				spawn(5)
 				user.shittymachoize()
 				if (src.oneuse == 1)
@@ -214,17 +222,17 @@ obj/item/contract/macho
 			return
 	
 obj/item/contract/wrestle
-	desc = "This contract promises to whomever signs it athletic prowess, showmanship, and some other stuff you can't be bothered to read."
+	desc = "A contract that promises to bestow upon whomever signs it athletic prowess, showmanship, and some other stuff you can't be bothered to read."
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
 			if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
-			if (istype(W, /obj/item/pen/fancy/satan))
+			else if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in cocaine upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding cocaine contract at [log_loc(user)]!"
-				user.mind.sold_soul = 1
+				user.sellsoul()
 				spawn(5)
 				user.make_wrestler(1)
 				user.traitHolder.addTrait("addict") //HEH
@@ -232,8 +240,7 @@ obj/item/contract/wrestle
 				user.mind.special_role = "Faustian Wrestler"
 				ticker.mode.Agimmicks.Add(user)
 				if (src.oneuse == 1)
-					spawn(10)
-					qdel(src)
+					src.vanish()
 				else
 					return
 				
@@ -244,7 +251,7 @@ obj/item/contract/wrestle
 			return
 
 obj/item/contract/yeti
-	desc = "This contract promises to whomever signs it near infinite power, an unending hunger, and some other stuff you can't be bothered to read."
+	desc = "A contract that promises to bestow upon whomever signs it near infinite power, an unending hunger, and some other stuff you can't be bothered to read."
 	oneuse = 1
 	
 	attackby(obj/item/W as obj, mob/user as mob)
@@ -252,15 +259,14 @@ obj/item/contract/yeti
 			if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
-			if (istype(W, /obj/item/pen/fancy/satan))
+			else if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!"
-				user.mind.sold_soul = 1
+				user.sellsoul()
 				spawn(5)
 				user.makesuperyeti()
 				if (src.oneuse == 1)
-					spawn(10)
-					qdel(src)
+					src.vanish()
 				else
 					return
 				
@@ -272,7 +278,7 @@ obj/item/contract/yeti
 
 
 obj/item/contract/admin
-	desc = "This contract promises to whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
+	desc = "A contract that promises to bestow upon whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
 	oneuse = 1
 	
 	attackby(obj/item/W as obj, mob/user as mob)
@@ -280,15 +286,14 @@ obj/item/contract/admin
 			if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
-			if (istype(W, /obj/item/pen/fancy/satan))
+			else if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
-				user.mind.sold_soul = 1
+				user.sellsoul()
 				spawn(5)
 				user.machoize()
 				if (src.oneuse == 1)
-					spawn(10)
-					qdel(src)
+					src.vanish()
 				else
 					return
 				
@@ -300,7 +305,7 @@ obj/item/contract/admin
 			return
 
 obj/item/contract/genetic
-	desc = "This contract promises to unlock the hidden potential of whomever signs it."
+	desc = "A contract that promises to unlock the hidden potential of whomever signs it."
 	oneuse = 0
 	
 	New()
@@ -313,10 +318,10 @@ obj/item/contract/genetic
 			if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
-			if (istype(W, /obj/item/pen/fancy/satan))
+			else if (istype(W, /obj/item/pen/fancy/satan))
 				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 				logTheThing("admin", user, null, "signed a soul-binding genetic modifiying contract at [log_loc(user)]!"
-				user.mind.sold_soul = 1
+				user.sellsoul()
 				spawn(5)
 				user.bioholder.AddEffect("activator",666)
 				user.bioholder.AddEffect("mutagenic_field",666)
@@ -326,16 +331,44 @@ obj/item/contract/genetic
 					boutput(user, "<span style=\"color:green\">You feel an upwelling of additional power!</span>")
 					user.unkillable = 1 //This isn't nearly as much of a boon as one might think.
 					user.bioholder.AddEffect("mutagenic_field_prenerf",666) //The reason being that
-					spawn(2)
-					boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! Spread your gifts to the rest of the world!</span>")
-					user.mind.special_role = "Genetic Demigod"
-					ticker.mode.Agimmicks.Add(user)
-					spawn(10) //after they come back to life, all the powers they had activated by the activator
-					qdel(src) //will no longer be considered as activated from their potential, so all the stability effects
-				else //will kick in at that point and they'll
-					return // be reduced to a genetic monstrosity in short order.
+					spawn(2) //after they come back to life, all the powers they had activated by the activator
+					boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! Spread your gifts to the rest of the world!</span>")  //will no longer be considered as activated from their potential, so all the stability effects
+					user.mind.special_role = "Genetic Demigod" //will kick in at that point and they'll
+					ticker.mode.Agimmicks.Add(user) // be reduced to a genetic monstrosity in short order.
+					src.vanish() //This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
+				else
+					return
 				
-			else //This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
+			else
+				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
+				return
+		else
+			return
+
+obj/item/contract/horse
+	desc = "A piece of parchment covered in nearly indecipherable scrawl. You can just barely make out something about horses and signatures."
+
+	attackby(obj/item/W as obj, mob/user as mob)
+		if (istype(W, /obj/item/pen))
+			if (user.mind.sold_soul == 1)
+				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
+				return
+			else if (istype(W, /obj/item/pen/fancy/satan))
+				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
+				logTheThing("admin", user, null, "signed a soul-binding horse contract at [log_loc(user)]!"
+				user.sellsoul()
+				spawn(5)
+				user.make_wrestler(1)
+				user.traitHolder.addTrait("addict") //HEH
+				boutput(user, "<span style=\"color:blue\">Oh cripes, looks like your years of drug abuse caught up with you! </span>")
+				user.mind.special_role = "horseman"
+				ticker.mode.Agimmicks.Add(user)
+				if (src.oneuse == 1)
+					src.vanish()
+				else
+					return
+				
+			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
 				return
 		else
