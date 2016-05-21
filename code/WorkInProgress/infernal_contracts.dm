@@ -1,6 +1,9 @@
 /mob/proc/sellsoul()
 	if (src.mind)
-		if (src.mind.sold_soul == 1) //even though this check is already in the individual contracts, it's good to take precautions
+		if (src.mind.diabolical == 1)
+			boutput(src, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
+			return
+		else if (src.mind.sold_soul == 1) //even though this check is already in the individual contracts, it's good to take precautions
 			boutput(src, "<span style=\"color:blue\">You don't have a soul to sell!</span>") //after all
 			return //this is byond we're talking about here
 		else if ((src.mind.sold_soul == 0))
@@ -177,7 +180,10 @@ obj/item/contract/satan
 	
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
-			if (user.mind.sold_soul == 1)
+			if (user.mind.diabolical == 1)
+				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
+				return
+			else if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
@@ -202,7 +208,10 @@ obj/item/contract/macho
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
-			if (user.mind.sold_soul == 1)
+			if (user.mind.diabolical == 1)
+				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
+				return
+			else if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
@@ -229,7 +238,10 @@ obj/item/contract/wrestle
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
-			if (user.mind.sold_soul == 1)
+			if (user.mind.diabolical == 1)
+				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
+				return
+			else if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
@@ -259,7 +271,10 @@ obj/item/contract/yeti
 	
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
-			if (user.mind.sold_soul == 1)
+			if (user.mind.diabolical == 1)
+				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
+				return
+			else if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
@@ -286,7 +301,10 @@ obj/item/contract/admin
 	
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
-			if (user.mind.sold_soul == 1)
+			if (user.mind.diabolical == 1)
+				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
+				return
+			else if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
@@ -318,7 +336,10 @@ obj/item/contract/genetic
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
-			if (user.mind.sold_soul == 1)
+			if (user.mind.diabolical == 1)
+				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
+				return
+			else if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
@@ -357,7 +378,10 @@ obj/item/contract/horse //TODO: finish horsepocalypse
 	
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
-			if (user.mind.sold_soul == 1)
+			if (user.mind.diabolical == 1)
+				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
+				return
+			else if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
