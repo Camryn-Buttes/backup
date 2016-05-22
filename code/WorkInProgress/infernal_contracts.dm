@@ -1,3 +1,5 @@
+//TODO: make dedicated procs for all contracts, use blood drawing with pen to forcibly sign things, finish horse contract, make minor contracts
+
 /mob/proc/sellsoul()
 	if (src.mind)
 		if (src.mind.diabolical == 1)
