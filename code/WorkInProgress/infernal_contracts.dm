@@ -171,37 +171,47 @@
 	
 	New()
 		src.color = random_color_hex()
+
+	proc/MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //maybe this will let me cut down on the duplicate code
+		if (!user) //oh god how did this happen
+			return
 	
 	proc/vanish()
 		src.visible_message("<span style=\"color:red\"><B>[src] suddenly vanishes!</B></span>")
 		spawn(0)
 		qdel(src)
 
-obj/item/contract/satan
-	desc = "A contract that promises to bestow upon whomever signs it near immortality, great power, and some other stuff you can't be bothered to read."
-	
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
 			if (user.mind.diabolical == 1)
-				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
+				boutput(user, "<span style=\"color:blue\">You can't sell your soul to yourself!</span>")
 				return
 			else if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
-				logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!"
-				user.sellsoul()
-				spawn(5)
-				user.satanclownize()
-				if (src.oneuse == 1)
-					src.vanish()
+				MagicEffect(User)
 				else
 					return
 				
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
 				return
+		else
+			return
+
+obj/item/contract/satan
+	desc = "A contract that promises to bestow upon whomever signs it near immortality, great power, and some other stuff you can't be bothered to read."
+	
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+		..() //TODO: CHANGE REST OF CONTRACTS
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!"
+		user.sellsoul()
+		spawn(5)
+		user.satanclownize()
+		if (src.oneuse == 1)
+			src.vanish()
 		else
 			return
 
