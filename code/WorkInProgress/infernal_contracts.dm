@@ -229,62 +229,34 @@ obj/item/contract/satan
 obj/item/contract/macho
 	desc = "A contract that promises to bestow upon whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
 
-	attackby(obj/item/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/pen))
-			if (user.mind.diabolical == 1)
-				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
-				return
-			else if (user.mind.sold_soul == 1)
-				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
-				return
-			else if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
-				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
-				user.sellsoul()
-				spawn(5)
-				user.shittymachoize()
-				if (src.oneuse == 1)
-					spawn(10)
-					qdel(src)
-				else
-					return
-				
-				
-			else
-				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
-				return
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+		..() //TODO: CHANGE REST OF CONTRACTS
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
+		user.sellsoul()
+		spawn(5)
+		user.shittymachoize()
+		if (src.oneuse == 1)
+			src.vanish()
 		else
 			return
-	
+
 obj/item/contract/wrestle
 	desc = "A contract that promises to bestow upon whomever signs it athletic prowess, showmanship, and some other stuff you can't be bothered to read."
 
-	attackby(obj/item/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/pen))
-			if (user.mind.diabolical == 1)
-				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
-				return
-			else if (user.mind.sold_soul == 1)
-				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
-				return
-			else if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in cocaine upon the [src]!</b></span>")
-				logTheThing("admin", user, null, "signed a soul-binding cocaine contract at [log_loc(user)]!"
-				user.sellsoul()
-				spawn(5)
-				user.make_wrestler(1)
-				user.traitHolder.addTrait("addict") //HEH
-				boutput(user, "<span style=\"color:blue\">Oh cripes, looks like your years of drug abuse caught up with you! </span>")
-				user.mind.special_role = "Faustian Wrestler"
-				ticker.mode.Agimmicks.Add(user)
-				if (src.oneuse == 1)
-					src.vanish()
-				else
-					return
-				
-			else
-				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
-				return
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+		..() //TODO: CHANGE REST OF CONTRACTS
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in cocaine upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding cocaine contract at [log_loc(user)]!"
+		user.sellsoul()
+		spawn(5)
+		user.make_wrestler(1)
+		user.traitHolder.addTrait("addict") //HEH
+		boutput(user, "<span style=\"color:blue\">Oh cripes, looks like your years of drug abuse caught up with you! </span>")
+		user.mind.special_role = "Faustian Wrestler"
+		ticker.mode.Agimmicks.Add(user)
+		if (src.oneuse == 1)
+			src.vanish()
 		else
 			return
 
@@ -292,107 +264,66 @@ obj/item/contract/yeti
 	desc = "A contract that promises to bestow upon whomever signs it near infinite power, an unending hunger, and some other stuff you can't be bothered to read."
 	oneuse = 1
 	
-	attackby(obj/item/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/pen))
-			if (user.mind.diabolical == 1)
-				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
-				return
-			else if (user.mind.sold_soul == 1)
-				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
-				return
-			else if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
-				logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!"
-				user.sellsoul()
-				spawn(5)
-				user.makesuperyeti()
-				if (src.oneuse == 1)
-					src.vanish()
-				else
-					return
-				
-			else
-				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
-				return
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+		..() //TODO: CHANGE REST OF CONTRACTS
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!"
+		user.sellsoul()
+		spawn(5)
+		user.makesuperyeti()
+		if (src.oneuse == 1)
+			src.vanish()
 		else
 			return
-
 
 obj/item/contract/admin
 	desc = "A contract that promises to bestow upon whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
 	oneuse = 1
 	
-	attackby(obj/item/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/pen))
-			if (user.mind.diabolical == 1)
-				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
-				return
-			else if (user.mind.sold_soul == 1)
-				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
-				return
-			else if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
-				logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
-				user.sellsoul()
-				spawn(5)
-				user.machoize()
-				if (src.oneuse == 1)
-					src.vanish()
-				else
-					return
-				
-				
-			else
-				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
-				return
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+		..() //TODO: CHANGE REST OF CONTRACTS
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!"
+		user.sellsoul()
+		spawn(5)
+		user.machoize()
+		if (src.oneuse == 1)
+			src.vanish()
 		else
 			return
 
 obj/item/contract/genetic
 	desc = "A contract that promises to unlock the hidden potential of whomever signs it."
 	oneuse = 0
-	
+
 	New()
 		..()
 		if (prob(10))
 			src.oneuse = 1
 
-	attackby(obj/item/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/pen))
-			if (user.mind.diabolical == 1)
-				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
-				return
-			else if (user.mind.sold_soul == 1)
-				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
-				return
-			else if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
-				logTheThing("admin", user, null, "signed a soul-binding genetic modifiying contract at [log_loc(user)]!"
-				user.sellsoul()
-				spawn(5)
-				user.bioholder.AddEffect("activator",666)
-				user.bioholder.AddEffect("mutagenic_field",666)
-				boutput(user, "<span style=\"color:blue\">You have finally achieved your full potential! Mom would so proud!</span>")
-				if (src.oneuse == 1)
-					spawn(10)
-					boutput(user, "<span style=\"color:green\">You feel an upwelling of additional power!</span>")
-					user.unkillable = 1 //This isn't nearly as much of a boon as one might think.
-					user.bioholder.AddEffect("mutagenic_field_prenerf",666) //The reason being that
-					spawn(2) //after they come back to life, all the powers they had activated by the activator
-					boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! Spread your gifts to the rest of the world!</span>")  //will no longer be considered as activated from their potential, so all the stability effects
-					user.mind.special_role = "Genetic Demigod" //will kick in at that point and they'll
-					ticker.mode.Agimmicks.Add(user) // be reduced to a genetic monstrosity in short order.
-					src.vanish() //This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
-				else
-					return
-				
-			else
-				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
-				return
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+		..() //TODO: CHANGE REST OF CONTRACTS
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding genetic modifiying contract at [log_loc(user)]!"
+		user.sellsoul()
+		spawn(5)
+		user.bioholder.AddEffect("activator",666)
+		user.bioholder.AddEffect("mutagenic_field",666)
+		boutput(user, "<span style=\"color:blue\">You have finally achieved your full potential! Mom would so proud!</span>")
+		if (src.oneuse == 1)
+			spawn(10)
+			boutput(user, "<span style=\"color:green\">You feel an upwelling of additional power!</span>")
+			user.unkillable = 1 //This isn't nearly as much of a boon as one might think.
+			user.bioholder.AddEffect("mutagenic_field_prenerf",666) //The reason being that
+			spawn(2) //after they come back to life, all the powers they had activated by the activator
+			boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! Spread your gifts to the rest of the world!</span>")  //will no longer be considered as activated from their potential, so all the stability effects
+			user.mind.special_role = "Genetic Demigod" //will kick in at that point and they'll
+			ticker.mode.Agimmicks.Add(user) // be reduced to a genetic monstrosity in short order.
+			src.vanish() //This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
 		else
 			return
 
-obj/item/contract/horse //TODO: finish horsepocalypse
+obj/item/contract/horse //TODO: finish horsepocalypse ALSO, UNFORTUNATELY, THIS ONE IS TOO SPECIAL TO DESPAGHETTIFY.
 	desc = "A piece of parchment covered in nearly indecipherable scrawl. You can just barely make out something about horses and signatures."
 	
 	proc/endtimes()
