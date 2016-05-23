@@ -1,4 +1,36 @@
 //TODO: make dedicated procs for all contracts, use blood drawing with pen to forcibly sign things, finish horse contract, make minor contracts
+mob/living/carbon/human/proc/horse()
+	var/mob/living/carbon/human/H = src
+	
+	var/datum/effects/system/harmless_smoke_spread/smoke = new /datum/effects/system/harmless_smoke_spread()
+		smoke.set_up(5, 0, H.loc)
+		smoke.attach(H)
+		smoke.start()
+
+	if (H.mind && (H.mind.assigned_role != "Horse") || (!H.mind || !H.client)) //I am shamelessly copying this from the wizard cluwne spell
+			boutput(H, "<span style=\"color:red\"><B>You NEIGH painfully!</B></span>")
+		//	H.take_brain_damage(80) uncomment if horses are really dumb
+			H.stuttering = 120
+			if (H.mind)
+				H.mind.assigned_role = "Horse"
+		//	H.contract_disease(/datum/ailment/disability/clumsy,null,null,1) uncomment if horses are really clumsy
+		//	H.contract_disease(/datum/ailment/disease/cluwneing_around,null,null,1)  uncomment if horses are clowns (they aren't)
+			playsound(get_turf(H), pick("sound/voice/cluwnelaugh1.ogg","sound/voice/cluwnelaugh2.ogg","sound/voice/cluwnelaugh3.ogg"), 100, 0, 0, max(0.7, min(1.4, 1.0 + (30 - H.bioHolder.age)/50)))
+			H.nutrition = 9000
+			H.change_misstep_chance(66)
+
+			animate_clownspell(H)
+			//H.unequip_all()
+			H.drop_from_slot(H.wear_suit)
+		//	H.drop_from_slot(H.shoes)
+			H.drop_from_slot(H.wear_mask)
+		//	H.drop_from_slot(H.gloves)
+			H.equip_if_possible(new /obj/item/clothing/suit/cultist/cursed(H), H.slot_wear_suit)
+		//	H.equip_if_possible(new /obj/item/clothing/shoes/cursedclown_shoes(H), H.slot_shoes)
+			H.equip_if_possible(new /obj/item/clothing/mask/horse_mask/cursed(H), H.slot_wear_mask)
+		//	H.equip_if_possible(new /obj/item/clothing/gloves/cursedclown_gloves(H), H.slot_gloves)
+			H.real_name = "HORSE"
+
 /proc/neigh(var/string) //This is it. This is the lowest point in my life.
 	var/modded = ""
 	var/list/text_tokens = dd_text2list(string, " ")
@@ -343,10 +375,10 @@ obj/item/contract/horse //TODO: finish horsepocalypse ALSO, UNFORTUNATELY, THIS 
 				logTheThing("admin", user, null, "signed a soul-binding horse contract at [log_loc(user)]!"
 				user.sellsoul()
 				spawn(5)
-				user.make_wrestler(1) //TODO: turn into horse
-				user.traitHolder.addTrait("addict")
-				boutput(user, "<span style=\"color:blue\">Oh cripes, looks like your years of drug abuse caught up with you! </span>")
-				user.mind.special_role = "horseman" //neigh
+				user.horse() //TODO(NE): turn into horse
+				user.traitHolder.addTrait("soggy") //to spread the curse around
+				boutput(user, "<span style=\"color:red\"><font size=6><B>NEIGH</b></font></span>")
+				user.mind.special_role = "Faustian Horse" //neigh
 				ticker.mode.Agimmicks.Add(user)
 				if (src.oneuse == 1) //this particular contract should never be one use, but JUST IN CASE
 					src.vanish()
