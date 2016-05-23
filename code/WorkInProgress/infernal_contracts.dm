@@ -191,7 +191,7 @@ mob/living/carbon/human/proc/horse()
 		if prob(1) //gotta be rare enough for it to not get stale
 			new obj/item/contract/horse(src) //can't have it in normal loot pool
 		else
-			var/loot = rand(1,9) // TODO: add more
+			var/loot = rand(1,2) // TODO: add more
 			switch (loot)
 				if (1)
 					new obj/item/contract/yeti(src)
@@ -363,7 +363,10 @@ obj/item/contract/horse //TODO: finish horsepocalypse ALSO, UNFORTUNATELY, THIS 
 		new /obj/effects/ydrone_summon/horseman( spawn_turf ) //
 	
 	attackby(obj/item/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/pen))
+		if (total_souls_value >= 20) //OKAY, SO THIS IS NOW BASICALLY WORKING?
+			src.endtimes()
+			return
+		else if (istype(W, /obj/item/pen))
 			if (user.mind.diabolical == 1)
 				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
 				return
