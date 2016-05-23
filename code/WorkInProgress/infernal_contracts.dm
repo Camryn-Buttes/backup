@@ -1,4 +1,15 @@
 //TODO: make dedicated procs for all contracts, use blood drawing with pen to forcibly sign things, finish horse contract, make minor contracts
+/proc/neigh(var/string) //This is it. This is the lowest point in my life.
+	var/modded = ""
+	var/list/text_tokens = dd_text2list(string, " ")
+	for(var/token in text_tokens)
+		modded += "NEIGH "
+	modded += "NEIGH!"
+	if(prob(15))
+		modded += " - NEEEEEEIIIIGH!!!"
+
+	return modded
+
 
 /mob/proc/sellsoul()
 	if (src.mind)
