@@ -167,7 +167,7 @@ mob/living/carbon/human/proc/horse()
 	hit_type = DAMAGE_STAB
 	color = "#FF0000"
 	font_color = "#FF0000"
-	
+
 /obj/item/storage/briefcase/satan
 	name = "devilish briefcase"
 	icon_state = "briefcase"
@@ -198,7 +198,7 @@ mob/living/carbon/human/proc/horse()
 				if (2)
 					new obj/item/contract/genetic(src)
 
-/obj/item/contract
+/obj/item/contract  //TODONE: make a way for contracts to be signed non-willingly
 	name = "infernal contract"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll_seal"
@@ -223,6 +223,28 @@ mob/living/carbon/human/proc/horse()
 		src.visible_message("<span style=\"color:red\"><B>[src] suddenly vanishes!</B></span>")
 		spawn(0)
 		qdel(src)
+
+	attack(mob/M as mob, mob/user as mob, def_zone)
+		if (!ismob(M))
+			return
+		if (!user.find_type_in_hand(/obj/item/pen/fancy/satan))
+			return
+		else if (user.mind.diabolical == 1)
+			if (M == user)
+				boutput(user, "<span style=\"color:blue\">You can't sell your soul to yourself!</span>")
+				return
+			else
+				M.visible_message("<span style=\"color:red\"><B>[user] is guiding [M]'s hand to the signature field of a contract!</B></span>")
+				if (!do_mob(user, M, 100))
+					if (user && ismob(user))
+						user.show_text("You were interrupted!", "red")
+						return
+				M.visible_message("<span style=\"color:red\">[user] forces [M] to sign a contract!</span>")
+				logTheThing("combat", user, M, "forces %M% to sign a [src] at [log_loc(user)].")
+				spawn(0)
+				MagicEffect(M, user)
+		else
+			return
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
