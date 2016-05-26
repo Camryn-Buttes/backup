@@ -191,12 +191,14 @@ mob/living/carbon/human/proc/horse()
 		if prob(1) //gotta be rare enough for it to not get stale
 			new obj/item/contract/horse(src) //can't have it in normal loot pool
 		else
-			var/loot = rand(1,2) // TODO: add more
+			var/loot = rand(1,3) // TODO: add more
 			switch (loot)
 				if (1)
 					new obj/item/contract/yeti(src)
 				if (2)
 					new obj/item/contract/genetic(src)
+				if (3)
+					new obj/item/contract/mummy(src)
 
 /obj/item/contract  //TODONE: make a way for contracts to be signed non-willingly
 	name = "infernal contract"
@@ -399,6 +401,30 @@ obj/item/contract/horse //TODO: finish horsepocalypse ALSO, UNFORTUNATELY, THIS 
 			src.endtimes()
 			return
 		if (src.oneuse == 1) //this particular contract should never be one use, but JUST IN CASE
+			src.vanish()
+		else
+			return
+
+obj/item/contract/mummy
+	desc = "A contract that promises to turn whomever signs it into a mummy. That's it. No tricks."
+
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+		..() //TODO: CHANGE REST OF CONTRACTS
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!"
+		user.sellsoul()
+		var/list/limbs = list("l_arm","r_arm","l_leg","r_leg","head","chest")
+		for (var/target in limbs)
+			if (!user.bandaged.Find(target))
+				user.bandaged += target
+				user.update_body()
+		if(user.reagents)
+			user.reagents.add_reagent("formaldehyde", 300) //embalming fluid for mummies
+		if(prob(10))
+			boutput(user, "<span style=\"color:blue\">Wow, that contract did a really thorough job of mummifying you! It removed your organs and everything!</span>") 
+			spawn(0)
+			user:organHolder.drop_organ("all")
+		if (src.oneuse == 1)
 			src.vanish()
 		else
 			return
