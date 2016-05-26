@@ -382,36 +382,23 @@ obj/item/contract/horse //TODO: finish horsepocalypse ALSO, UNFORTUNATELY, THIS 
 	
 	proc/endtimes()
 		var/turf/spawn_turf = get_turf(src)
-		new /obj/effects/ydrone_summon/horseman( spawn_turf ) //
-	
-	attackby(obj/item/W as obj, mob/user as mob)
+		new /obj/effects/ydrone_summon/horseman( spawn_turf ) //still need a sprite for horseman
+
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+		..() //TODO: CHANGE REST OF CONTRACTS
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding horse contract at [log_loc(user)]!"
+		user.sellsoul()
+		spawn(5)
+		user.horse() //TODO(NE): turn into horse
+		user.traitHolder.addTrait("soggy") //to spread the curse around
+		boutput(user, "<span style=\"color:red\"><font size=6><B>NEIGH</b></font></span>")
+		user.mind.special_role = "Faustian Horse" //neigh
+		ticker.mode.Agimmicks.Add(user)
 		if (total_souls_value >= 20) //OKAY, SO THIS IS NOW BASICALLY WORKING?
 			src.endtimes()
 			return
-		else if (istype(W, /obj/item/pen))
-			if (user.mind.diabolical == 1)
-				boutput(user, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
-				return
-			else if (user.mind.sold_soul == 1)
-				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
-				return
-			else if (istype(W, /obj/item/pen/fancy/satan))
-				user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
-				logTheThing("admin", user, null, "signed a soul-binding horse contract at [log_loc(user)]!"
-				user.sellsoul()
-				spawn(5)
-				user.horse() //TODO(NE): turn into horse
-				user.traitHolder.addTrait("soggy") //to spread the curse around
-				boutput(user, "<span style=\"color:red\"><font size=6><B>NEIGH</b></font></span>")
-				user.mind.special_role = "Faustian Horse" //neigh
-				ticker.mode.Agimmicks.Add(user)
-				if (src.oneuse == 1) //this particular contract should never be one use, but JUST IN CASE
-					src.vanish()
-				else
-					return
-				
-			else
-				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
-				return
+		if (src.oneuse == 1) //this particular contract should never be one use, but JUST IN CASE
+			src.vanish()
 		else
 			return
