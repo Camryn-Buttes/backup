@@ -1018,18 +1018,18 @@
 				
 /obj/critter/gunbot/drone/iridium/whydrone/horse
 	name = "Horseman"
-	desc = "It's one of the four horsemen of the apocalypse. May the Lord have mercy on our souls."
+	desc = "What the hell is this thing!? Oh God, is that a MOUTH?" //changed to reference the sprite
 	health = 8000 //glitch drone tough
 	maxhealth = 8000 // you aren't killing the apocalypse easily
 	var/stage = 0
 	icon = 'icons/effects/96x96.dmi'
-	icon_state = "horse"
+	icon_state = "horsedrone" // YEP, I FINALLY MADE SPRITES
 	bound_height = 96
 	bound_width = 96
 	attack_range = 14 //evil
 	score = 45000 //let's just go whole hog on this
-	dead_state = "smoke" //placeholder until I get some actual sprites or at least half-ass some myself.
-	droploot = /obj/item/clothing/mask/horse_mask //I should make a cursed horse_mask
+	dead_state = "horsedrone-dead" //dream maker for worst sprite art program 2k16
+	droploot = /obj/item/clothing/mask/horse_mask/cursed //neigh
 	beeptext = "neighs"
 	beepsound = 'sound/vox/na.ogg' //how is nay or neigh not a thing in vox?
 	alertsound1 = 'sound/effects/mag_pandroar.ogg'
