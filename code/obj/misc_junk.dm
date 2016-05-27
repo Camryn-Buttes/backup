@@ -271,7 +271,7 @@
 		if (!fiddling)
 			fiddling++
 			user.visible_message("<B>[user]</B> lays down a [pick("devilish","hellish","satanic", "enviable")] tune on \his fiddle!")
-			playsound(src.loc, sound/vox/fiddle.ogg, 100, 1)
+			playsound(get_turf(src), 'sound/vox/fiddle.ogg', 100, 1)
 			for(var/obj/critter/dog/george/G in range(user,6))
 				if (prob(60))
 					G.howl()
