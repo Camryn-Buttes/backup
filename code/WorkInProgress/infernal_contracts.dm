@@ -277,7 +277,7 @@ mob/living/carbon/human/proc/horse()
 	throw_speed = 4
 	throw_range = 20
 	desc = "A blank contract that's gone missing from hell."
-	oneuse = 0
+	var/oneuse = 0
 	
 	New()
 		src.color = random_color_hex()
@@ -322,7 +322,7 @@ mob/living/carbon/human/proc/horse()
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
-				MagicEffect(User)
+				MagicEffect(user)
 				else
 					return
 				
