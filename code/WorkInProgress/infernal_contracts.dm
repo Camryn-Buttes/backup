@@ -436,6 +436,8 @@ obj/item/contract/horse //TODO: finish horsepocalypse ALSO, UNFORTUNATELY, THIS 
 	desc = "A piece of parchment covered in nearly indecipherable scrawl. You can just barely make out something about horses and signatures."
 	
 	proc/endtimes()
+		total_souls_value -= 20 //oh christ, I almost forgot about this. The last thing we need is endless horseman drones.
+		spawn(0)
 		var/turf/spawn_turf = get_turf(src)
 		new /obj/effects/ydrone_summon/horseman( spawn_turf ) //still need a sprite for horseman
 
