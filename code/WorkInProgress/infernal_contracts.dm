@@ -415,14 +415,14 @@ obj/item/contract/genetic
 		logTheThing("admin", user, null, "signed a soul-binding genetic modifiying contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(5)
-		user.bioholder.AddEffect("activator", variant = 666)
-		user.bioholder.AddEffect("mutagenic_field", variant = 666)
+		user.bioHolder.AddEffect("activator", variant = 666)
+		user.bioHolder.AddEffect("mutagenic_field", variant = 666)
 		boutput(user, "<span style=\"color:blue\">You have finally achieved your full potential! Mom would so proud!</span>")
 		if (prob(5))
 			spawn(10)
 			boutput(user, "<span style=\"color:green\">You feel an upwelling of additional power!</span>")
 			user.unkillable = 1 //This isn't nearly as much of a boon as one might think.
-			user.bioholder.AddEffect("mutagenic_field_prenerf", variant = 666) //The reason being that
+			user.bioHolder.AddEffect("mutagenic_field_prenerf", variant = 666) //The reason being that
 			spawn(2) //after they come back to life, all the powers they had activated by the activator
 			boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! Spread your gifts to the rest of the world!</span>")  //will no longer be considered as activated from their potential, so all the stability effects
 			user.mind.special_role = "Genetic Demigod" //will kick in at that point and they'll
@@ -506,7 +506,7 @@ obj/item/contract/fart //for popecrunch
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(5)
-		user.bioholder.AddEffect("linkedfart", variant = 666)
+		user.bioHolder.AddEffect("linkedfart", variant = 666)
 		if (src.oneuse == 1)
 			src.vanish()
 		else
