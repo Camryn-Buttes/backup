@@ -474,6 +474,28 @@
 	msgLose = "You calm down."
 	emote_type = "scream"
 	emote_prob = 10
+	
+/datum/bioEffect/emoter/linkedfart
+	name = "Psychic Fart Link"
+	desc = "Creates a neural fart linkage between all life-forms within 15 kilometers"
+	id = "linkedfart"
+	msgGain = "You feel the gas of a thousand souls"
+	msgLose = "You no longer feel so gassy."
+	emote_type = "fart"
+	emote_prob = 35
+	curable_by_mutadone = 0
+	occur_in_genepools = 0
+	
+	OnLife()
+		var/mob/living/L = owner
+		if (!L)
+			return
+		if (L.stat == 2)
+			return
+		if (prob(emote_prob))
+			L.emote(emote_type)
+			OnLife()
+		var/mob/living/L = owner
 
 ////////////////////////////
 // Disabled for *Reasons* //
