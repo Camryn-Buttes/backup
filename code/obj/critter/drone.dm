@@ -1035,7 +1035,7 @@
 	alertsound2 = 'sound/misc/wendigo_roar.ogg'
 	projectile_type = /datum/projectile/bullet/autocannon/huge
 	current_projectile = new/datum/projectile/bullet/autocannon/huge
-	var/datum/projectile/sphere_projectile = new/datum/projectile/laser/precursor/sphere
+	sphere_projectile = new/datum/projectile/laser/precursor/sphere
 	generic = 0
 	smashes_shit = 1
 	
