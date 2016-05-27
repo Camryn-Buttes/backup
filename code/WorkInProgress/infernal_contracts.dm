@@ -161,12 +161,26 @@ mob/living/carbon/human/proc/horse()
 
 /obj/item/pen/fancy/satan
 	name = "infernal pen"
-	desc = "A pen once owned by Old Nick himself."
+	desc = "A pen once owned by Old Nick himself. About as sharp as the Devil's wit."
 	force = 15
 	throwforce = 15
 	hit_type = DAMAGE_STAB
 	color = "#FF0000"
 	font_color = "#FF0000"
+
+/obj/item/storage/box/evil // the one you get in your backpack
+	name = "box of infernal pens"
+	desc = "Contains a set of seven pens, great for collectors."
+	spawn_contents = list(/obj/item/pen/fancy/satan = 7)
+	
+/obj/item/paper/soul_selling_kit
+	name = "Paper-'Instructions'"
+	info = {"<center><b>SO YOU WANT TO STEAL SOULS?</b></center><ul>
+			<li>Step One: Grab a complimentary pen and your contract of choice.</li>
+			<li>Step Two: Present your contract to your victim by clicking on them with said contract, but be sure you have your hellish writing utensil handy in your other hand!</li>
+			<li>Step Three: It takes about fifteen seconds for you to force your victim to sign their name, be sure not to move during this process or the ink will smear!</li></ul>
+			<b>Alternatively, you can just have people sign the contract willingly, but where's the fun in that?</b>"}
+
 
 /obj/item/storage/briefcase/satan
 	name = "devilish briefcase"
@@ -180,11 +194,11 @@ mob/living/carbon/human/proc/horse()
 	throw_range = 4
 	w_class = 4.0
 	max_wclass = 3
-	desc = "A diabolical human leather-bound briefcase, capable of holding a number of small objects and tormented souls."
+	desc = "A diabolical human leather-bound briefcase, capable of holding a number of small objects and tormented souls. All those tormented souls really weigh it down."
 	stamina_damage = 90 //is this a bad idea?
 	stamina_cost = 30
 	stamina_crit_chance = 45 //yes, yes it is.
-	spawn_contents = list(/obj/item/contract/satan, obj/item/contract/macho, obj/item/contract/wrestle, /obj/item/pen/fancy/satan = 2, /obj/item/clothing/under/misc/lawyer/red)
+	spawn_contents = list(/obj/item/contract/satan, obj/item/contract/macho, obj/item/contract/wrestle, /obj/item/storage/box/evil, /obj/item/clothing/under/misc/lawyer/red)
 	
 	make_my_stuff() //hijacking this from space loot secure safes
 		..()
@@ -237,7 +251,7 @@ mob/living/carbon/human/proc/horse()
 				return
 			else
 				M.visible_message("<span style=\"color:red\"><B>[user] is guiding [M]'s hand to the signature field of a contract!</B></span>")
-				if (!do_mob(user, M, 100))
+				if (!do_mob(user, M, 150))
 					if (user && ismob(user))
 						user.show_text("You were interrupted!", "red")
 						return
@@ -352,11 +366,6 @@ obj/item/contract/genetic
 	desc = "A contract that promises to unlock the hidden potential of whomever signs it."
 	oneuse = 0
 
-	New()
-		..()
-		if (prob(10))
-			src.oneuse = 1
-
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
 		..() //TODO: CHANGE REST OF CONTRACTS
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
@@ -366,7 +375,7 @@ obj/item/contract/genetic
 		user.bioholder.AddEffect("activator",666)
 		user.bioholder.AddEffect("mutagenic_field",666)
 		boutput(user, "<span style=\"color:blue\">You have finally achieved your full potential! Mom would so proud!</span>")
-		if (src.oneuse == 1)
+		if (prob(5))
 			spawn(10)
 			boutput(user, "<span style=\"color:green\">You feel an upwelling of additional power!</span>")
 			user.unkillable = 1 //This isn't nearly as much of a boon as one might think.
@@ -375,6 +384,7 @@ obj/item/contract/genetic
 			boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! Spread your gifts to the rest of the world!</span>")  //will no longer be considered as activated from their potential, so all the stability effects
 			user.mind.special_role = "Genetic Demigod" //will kick in at that point and they'll
 			ticker.mode.Agimmicks.Add(user) // be reduced to a genetic monstrosity in short order.
+		if (src.oneuse == 1) //This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
 			src.vanish() //This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
 		else
 			return
