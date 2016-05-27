@@ -961,7 +961,7 @@
 	anchored = 1
 	var/range = 5
 	var/end_float_effect = 0
-	var/horse = 0 //what am I doing with my life
+	var/horseneigh = 0 //what am I doing with my life
 
 	New(spawnloc)
 		..()
@@ -1039,7 +1039,7 @@
 
 
 		sleep (100)
-		if (horse == 0)
+		if (horseneigh == 0)
 			new /obj/critter/gunbot/drone/iridium( locate(src.x-1, src.y-1, src.z) ) //Still needs a fancy spawn-in effect.
 		else
 			new /obj/critter/gunbot/drone/iridium/whydrone/horse( locate(src.x-1, src.y-1, src.z) ) //i am terrible
@@ -1051,7 +1051,7 @@
 		return
 
 /obj/effects/ydrone_summon/horseman //a new low/high depending on your point of view
-	var/horse = 1 //neigh
+	horseneigh = 1 //neigh
 
 /datum/projectile/laser/precursor/sphere // for precursor traps
 	name = "energy sphere"
