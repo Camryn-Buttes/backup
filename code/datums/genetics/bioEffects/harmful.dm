@@ -485,6 +485,8 @@
 	emote_prob = 35
 	curable_by_mutadone = 0
 	occur_in_genepools = 0
+	can_scramble = 0 
+	can_reclaim = 0
 	
 	OnLife()
 		var/mob/living/L = owner
@@ -494,8 +496,6 @@
 			return
 		if (prob(emote_prob))
 			L.emote(emote_type)
-			OnLife()
-		var/mob/living/L = owner
 
 ////////////////////////////
 // Disabled for *Reasons* //
