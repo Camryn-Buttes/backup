@@ -1021,7 +1021,6 @@
 	desc = "What the hell is this thing!? Oh God, is that a MOUTH?" //changed to reference the sprite
 	health = 8000 //glitch drone tough
 	maxhealth = 8000 // you aren't killing the apocalypse easily
-	var/stage = 0
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "horsedrone" // YEP, I FINALLY MADE SPRITES
 	bound_height = 96
