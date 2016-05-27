@@ -70,7 +70,7 @@ mob/living/carbon/human/proc/horse()
 
 /proc/neigh(var/string) //This is it. This is the lowest point in my life.
 	var/modded = ""
-	var/list/text_tokens = dd_text2list(string, " ")
+	var/list/text_tokens = dd_text2List(string, " ")
 	for(var/token in text_tokens)
 		modded += "NEIGH "
 	modded += "NEIGH!"
@@ -239,7 +239,7 @@ mob/living/carbon/human/proc/horse()
 	make_my_stuff() //hijacking this from space loot secure safes
 		..()
 		if (prob(1)) //gotta be rare enough for it to not get stale
-			new obj/item/contract/horse(src) //can't have it in normal loot pool
+			new /obj/item/contract/horse(src) //can't have it in normal loot pool
 		else
 			var/loot = rand(1,3) // TODO: add more
 			switch (loot)
