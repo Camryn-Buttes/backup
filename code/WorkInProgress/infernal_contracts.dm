@@ -44,11 +44,6 @@
 
 mob/living/carbon/human/proc/horse()
 	var/mob/living/carbon/human/H = src
-	
-	var/datum/effects/system/harmless_smoke_spread/smoke = new /datum/effects/system/harmless_smoke_spread()
-		smoke.set_up(5, 0, H.loc)
-		smoke.attach(H)
-		smoke.start()
 
 	if(H.mind && (H.mind.assigned_role != "Horse") || (!H.mind || !H.client)) //I am shamelessly copying this from the wizard cluwne spell
 		boutput(H, "<span style=\"color:red\"><B>You NEIGH painfully!</B></span>")
@@ -107,7 +102,7 @@ mob/living/carbon/human/proc/horse()
 
 /mob/proc/makesuperyeti() //this is my magnum opus
 	new /obj/critter/yeti/super(src.loc)
-	src.partygib //it brings a tear to my eye
+	src.partygib() //it brings a tear to my eye
 
 /mob/proc/shittymachoize()
 	if (src.mind || src.client)
@@ -323,9 +318,6 @@ mob/living/carbon/human/proc/horse()
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
 				MagicEffect(user)
-				else
-					return
-				
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
 				return
@@ -423,14 +415,14 @@ obj/item/contract/genetic
 		logTheThing("admin", user, null, "signed a soul-binding genetic modifiying contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(5)
-		user.bioholder.AddEffect("activator",666)
-		user.bioholder.AddEffect("mutagenic_field",666)
+		user.bioholder.AddEffect("activator", 666)
+		user.bioholder.AddEffect("mutagenic_field", 666)
 		boutput(user, "<span style=\"color:blue\">You have finally achieved your full potential! Mom would so proud!</span>")
 		if (prob(5))
 			spawn(10)
 			boutput(user, "<span style=\"color:green\">You feel an upwelling of additional power!</span>")
 			user.unkillable = 1 //This isn't nearly as much of a boon as one might think.
-			user.bioholder.AddEffect("mutagenic_field_prenerf",666) //The reason being that
+			user.bioholder.AddEffect("mutagenic_field_prenerf", 666) //The reason being that
 			spawn(2) //after they come back to life, all the powers they had activated by the activator
 			boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! Spread your gifts to the rest of the world!</span>")  //will no longer be considered as activated from their potential, so all the stability effects
 			user.mind.special_role = "Genetic Demigod" //will kick in at that point and they'll
@@ -514,7 +506,7 @@ obj/item/contract/fart //for popecrunch
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(5)
-		user.bioholder.AddEffect("linkedfart",666)
+		user.bioholder.AddEffect("linkedfart", 666)
 		if (src.oneuse == 1)
 			src.vanish()
 		else
