@@ -1,4 +1,47 @@
 //TODO: make dedicated procs for all contracts, use blood drawing with pen to forcibly sign things, finish horse contract, make minor contracts
+/mob/proc/make_shitty_vampire()
+	if (ishuman(src) || iscritter(src))
+		if (ishuman(src))
+			var/datum/abilityHolder/vampire/A = src.get_ability_holder(/datum/abilityHolder/vampire)
+			if (A && istype(A))
+				return
+
+			var/datum/abilityHolder/vampire/V = src.add_ability_holder(/datum/abilityHolder/vampire)
+			V.addAbility(/datum/targetable/vampire/blood_tracking) //no spells, HAHAHA!
+
+			if (src.mind)
+				src.mind.is_vampire = V
+
+			spawn (25) // Don't remove.
+				if (src) src.assign_gimmick_skull()
+
+		else if (iscritter(src)) // For testing. Just give them all abilities that are compatible.
+			var/mob/living/critter/C = src
+
+			if (isnull(C.abilityHolder)) // They do have a critter AH by default...or should.
+				var/datum/abilityHolder/vampire/A2 = C.add_ability_holder(/datum/abilityHolder/vampire)
+				if (!A2 || !istype(A2, /datum/abilityHolder/))
+					return
+
+			C.abilityHolder.addAbility(/datum/targetable/vampire/cancel_stuns/mk2)
+			C.abilityHolder.addAbility(/datum/targetable/vampire/glare)
+			C.abilityHolder.addAbility(/datum/targetable/vampire/hypnotize)
+			C.abilityHolder.addAbility(/datum/targetable/vampire/plague_touch)
+			C.abilityHolder.addAbility(/datum/targetable/vampire/phaseshift_vampire)
+			C.abilityHolder.addAbility(/datum/targetable/vampire/call_bats)
+			C.abilityHolder.addAbility(/datum/targetable/vampire/vampire_scream)
+			C.abilityHolder.addAbility(/datum/targetable/vampire/enthrall)
+
+			if (C.mind)
+				C.mind.is_vampire = C.abilityHolder
+
+		if (src.mind && src.mind.special_role != "omnitraitor")
+			src << browse(grabResource("html/traitorTips/vampireTips.html"),"window=antagTips;titlebar=1;size=600x400;can_minimize=0;can_resize=0")
+			boutput(src, "<span style=\"color:blue\">Oh shit, your fangs just broke off! Looks like you'll have to get blood the HARD way.</span>")
+
+	else return
+
+
 mob/living/carbon/human/proc/horse()
 	var/mob/living/carbon/human/H = src
 	
@@ -198,7 +241,7 @@ mob/living/carbon/human/proc/horse()
 	stamina_damage = 90 //is this a bad idea?
 	stamina_cost = 30
 	stamina_crit_chance = 45 //yes, yes it is.
-	spawn_contents = list(/obj/item/contract/satan, obj/item/contract/macho, obj/item/contract/wrestle, /obj/item/storage/box/evil, /obj/item/clothing/under/misc/lawyer/red)
+	spawn_contents = list(/obj/item/contract/satan, /obj/item/storage/box/evil, /obj/item/clothing/under/misc/lawyer/red = 3)
 	
 	make_my_stuff() //hijacking this from space loot secure safes
 		..()
@@ -213,6 +256,16 @@ mob/living/carbon/human/proc/horse()
 					new obj/item/contract/genetic(src)
 				if (3)
 					new obj/item/contract/mummy(src)
+				if (4)
+					new obj/item/contract/vampire(src)
+				if (5)
+					new obj/item/contract/fart(src)
+				if (6)
+					new obj/item/contract/hair(src)
+				if (7)
+					new obj/item/contract/wrestle(src)
+				if (8)
+					new obj/item/contract/macho(src)
 
 /obj/item/contract  //TODONE: make a way for contracts to be signed non-willingly
 	name = "infernal contract"
@@ -434,6 +487,55 @@ obj/item/contract/mummy
 			boutput(user, "<span style=\"color:blue\">Wow, that contract did a really thorough job of mummifying you! It removed your organs and everything!</span>") 
 			spawn(0)
 			user:organHolder.drop_organ("all")
+		if (src.oneuse == 1)
+			src.vanish()
+		else
+			return
+
+obj/item/contract/vampire
+	desc = "A contract that promises to bestow upon whomever signs it near immortality, great power, and some other stuff you can't be bothered to read. There's some warning about not using this one in the chapel written on the back."
+	
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+		..() //TODO: CHANGE REST OF CONTRACTS
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!"
+		user.sellsoul()
+		spawn(5)
+		user.make_shitty_vampire()
+		if (src.oneuse == 1)
+			src.vanish()
+		else
+			return
+
+obj/item/contract/fart //for popecrunch
+	desc = "It's just a piece of paper with the word 'fart' written all over it."
+	
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+		..() //TODO: CHANGE REST OF CONTRACTS
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!"
+		user.sellsoul()
+		spawn(5)
+		user.bioholder.AddEffect("linkedfart",666)
+		if (src.oneuse == 1)
+			src.vanish()
+		else
+			return
+
+obj/item/contract/hair //for Megapaco
+	desc = "This contract promises to make the undersigned individual have the best hair of anybody within 10 kilometers."
+	
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+		..() //TODO: CHANGE REST OF CONTRACTS
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!"
+		user.sellsoul()
+		spawn(5)
+		for(var/mob/living/carbon/human/H in mobs)
+			if (H == user)
+				continue
+			else
+				H.bioHolder.mobAppearance.customization_first = "None"
 		if (src.oneuse == 1)
 			src.vanish()
 		else
