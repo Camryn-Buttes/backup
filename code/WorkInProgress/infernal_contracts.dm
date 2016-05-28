@@ -453,8 +453,8 @@ obj/item/contract/horse //TODO: finish horsepocalypse ALSO, UNFORTUNATELY, THIS 
 	proc/endtimes()
 		total_souls_value -= 20 //oh christ, I almost forgot about this. The last thing we need is endless horseman drones.
 		spawn(0)
-		var/turf/spawn_turf = get_turf(src)
-		new /obj/effects/ydrone_summon/horseman( spawn_turf ) //still need a sprite for horseman
+			var/turf/spawn_turf = get_turf(src)
+			new /obj/effects/ydrone_summon/horseman(spawn_turf) //still need a sprite for horseman
 
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
 		..() //TODO: CHANGE REST OF CONTRACTS
