@@ -1894,7 +1894,7 @@
 							spawn(0)
 								new /obj/effects/fart_cloud(get_turf(src),src)
 							for(var/mob/living/H in mobs)
-								if (H == src) continue
+								if (H.bioHolder && H.bioHolder.HasEffect("linkedfart")) continue
 								H.emote("fart")
 						if (iscluwne(src))
 							playsound(src.loc, 'sound/misc/Poo.ogg', 50, 1)
