@@ -146,8 +146,8 @@ mob/living/carbon/human/proc/horse()
 					W.reagents.add_reagent("anti_fart", 800) //as is this
 
 		boutput(W, "<span style=\"color:blue\">You are now a miserable mockery of the true macho man! Take out your envy upon the station!</span>")
-		
-		
+
+
 
 		return W
 	return 0
@@ -181,7 +181,7 @@ mob/living/carbon/human/proc/horse()
 			asize++
 		acount++
 	src.playsound_local(C.loc,"sound/effects/screech.ogg", 100, 1)
-	if(C.mind)	
+	if(C.mind)
 		shake_camera(C, 20, 1)
 		boutput(C, "<font color=red>[screamstring]</font>")
 		boutput(C, "<i><b><font face = Tempus Sans ITC>You have sold your soul and become an avatar of evil! Spread darkness across the land!</font></b></i>")
@@ -191,7 +191,7 @@ mob/living/carbon/human/proc/horse()
 		C.choose_name(3)
 	else
 		return
-		
+
 	spawn(10)
 		qdel(src)
 
@@ -208,7 +208,7 @@ mob/living/carbon/human/proc/horse()
 	name = "box of infernal pens"
 	desc = "Contains a set of seven pens, great for collectors."
 	spawn_contents = list(/obj/item/pen/fancy/satan = 7)
-	
+
 /obj/item/paper/soul_selling_kit
 	name = "Paper-'Instructions'"
 	info = {"<center><b>SO YOU WANT TO STEAL SOULS?</b></center><ul>
@@ -234,31 +234,35 @@ mob/living/carbon/human/proc/horse()
 	stamina_damage = 90 //is this a bad idea?
 	stamina_cost = 30
 	stamina_crit_chance = 45 //yes, yes it is.
-	spawn_contents = list(/obj/item/contract/satan, /obj/item/storage/box/evil, /obj/item/clothing/under/misc/lawyer/red = 3)
-	
+	spawn_contents = list(/obj/item/contract/satan, /obj/item/storage/box/evil, /obj/item/clothing/under/misc/lawyer/red)
+
 	make_my_stuff() //hijacking this from space loot secure safes
 		..()
 		if (prob(1)) //gotta be rare enough for it to not get stale
 			new /obj/item/contract/horse(src) //can't have it in normal loot pool
+
+		var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic,/obj/item/contract/mummy,/obj/item/contract/vampire,/obj/item/contract/fart,/obj/item/contract/hair,/obj/item/contract/wrestle,/obj/item/contract/macho)
+		var/tempcontract = null
+
+		if (prob(1)) //gotta be rare enough for it to not get stale
+			new /obj/item/contract/horse(src) //can't have it in normal loot pool
+
 		else
-			var/loot = rand(1,3) // TODO: add more
-			switch (loot)
-				if (1)
-					new /obj/item/contract/yeti(src)
-				if (2)
-					new /obj/item/contract/genetic(src)
-				if (3)
-					new /obj/item/contract/mummy(src)
-				if (4)
-					new /obj/item/contract/vampire(src)
-				if (5)
-					new /obj/item/contract/fart(src)
-				if (6)
-					new /obj/item/contract/hair(src)
-				if (7)
-					new /obj/item/contract/wrestle(src)
-				if (8)
-					new /obj/item/contract/macho(src)
+			tempcontract = pick(contracts)
+			new tempcontract(src)
+			contracts -= tempcontract
+
+		tempcontract = pick(contracts)
+		new tempcontract(src)
+		contracts -= tempcontract
+
+		tempcontract = pick(contracts)
+		new tempcontract(src)
+		contracts -= tempcontract
+
+		tempcontract = pick(contracts)
+		new tempcontract(src)
+		contracts -= tempcontract
 
 /obj/item/contract  //TODONE: make a way for contracts to be signed non-willingly
 	name = "infernal contract"
@@ -273,14 +277,14 @@ mob/living/carbon/human/proc/horse()
 	throw_range = 20
 	desc = "A blank contract that's gone missing from hell."
 	var/oneuse = 0
-	
+
 	New()
 		src.color = random_color_hex()
 
 	proc/MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //maybe this will let me cut down on the duplicate code
 		if (!user) //oh god how did this happen
 			return
-	
+
 	proc/vanish()
 		src.visible_message("<span style=\"color:red\"><B>[src] suddenly vanishes!</B></span>")
 		spawn(0)
@@ -326,7 +330,7 @@ mob/living/carbon/human/proc/horse()
 
 obj/item/contract/satan
 	desc = "A contract that promises to bestow upon whomever signs it near immortality, great power, and some other stuff you can't be bothered to read."
-	
+
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
 		..() //TODO: CHANGE REST OF CONTRACTS
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
@@ -374,9 +378,10 @@ obj/item/contract/wrestle
 			return
 
 obj/item/contract/yeti
-	desc = "A contract that promises to bestow upon whomever signs it near infinite power, an unending hunger, and some other stuff you can't be bothered to read."
+	desc = "A contract that promises to bestow upon whomever signs it near infinite power, an unending hunger, and some other stuff you can't be bothered to read. Seems like it only has three signature lines."
 	oneuse = 1
-	
+	var/used = 0
+
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
 		..() //TODO: CHANGE REST OF CONTRACTS
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
@@ -385,14 +390,17 @@ obj/item/contract/yeti
 		spawn(5)
 		user.makesuperyeti()
 		if (src.oneuse == 1)
-			src.vanish()
+			src.used++
+			spawn(0)
+			if (src.used >= 3)
+				src.vanish()
 		else
 			return
 
 obj/item/contract/admin
 	desc = "A contract that promises to bestow upon whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
 	oneuse = 1
-	
+
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
 		..() //TODO: CHANGE REST OF CONTRACTS
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
@@ -434,7 +442,14 @@ obj/item/contract/genetic
 
 obj/item/contract/horse //TODO: finish horsepocalypse ALSO, UNFORTUNATELY, THIS ONE IS TOO SPECIAL TO DESPAGHETTIFY.
 	desc = "A piece of parchment covered in nearly indecipherable scrawl. You can just barely make out something about horses and signatures."
-	
+
+	attack_self(mob/user as mob)
+		if (total_souls_value >= 20) //OKAY, SO THIS IS NOW BASICALLY WORKING?
+			src.endtimes()
+			return
+		else
+			boutput(user, "<span style=\"color:red\"><font size=3><B>You currently have [total_souls_sold] souls, the total worth of which is [total_souls_value] soul points. You need 20 soul points to begin the end times. </b></font></span>")
+
 	proc/endtimes()
 		total_souls_value -= 20 //oh christ, I almost forgot about this. The last thing we need is endless horseman drones.
 		spawn(0)
@@ -452,9 +467,6 @@ obj/item/contract/horse //TODO: finish horsepocalypse ALSO, UNFORTUNATELY, THIS 
 		boutput(user, "<span style=\"color:red\"><font size=6><B>NEIGH</b></font></span>")
 		user.mind.special_role = "Faustian Horse" //neigh
 		ticker.mode.Agimmicks.Add(user)
-		if (total_souls_value >= 20) //OKAY, SO THIS IS NOW BASICALLY WORKING?
-			src.endtimes()
-			return
 		if (src.oneuse == 1) //this particular contract should never be one use, but JUST IN CASE
 			src.vanish()
 		else
@@ -476,7 +488,7 @@ obj/item/contract/mummy
 		if(user.reagents)
 			user.reagents.add_reagent("formaldehyde", 300) //embalming fluid for mummies
 		if(prob(10))
-			boutput(user, "<span style=\"color:blue\">Wow, that contract did a really thorough job of mummifying you! It removed your organs and everything!</span>") 
+			boutput(user, "<span style=\"color:blue\">Wow, that contract did a really thorough job of mummifying you! It removed your organs and everything!</span>")
 			spawn(0)
 			user:organHolder.drop_organ("all")
 		if (src.oneuse == 1)
@@ -486,7 +498,7 @@ obj/item/contract/mummy
 
 obj/item/contract/vampire
 	desc = "A contract that promises to bestow upon whomever signs it near immortality, great power, and some other stuff you can't be bothered to read. There's some warning about not using this one in the chapel written on the back."
-	
+
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
 		..() //TODO: CHANGE REST OF CONTRACTS
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
@@ -501,7 +513,7 @@ obj/item/contract/vampire
 
 obj/item/contract/fart //for popecrunch
 	desc = "It's just a piece of paper with the word 'fart' written all over it."
-	
+
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
 		..() //TODO: CHANGE REST OF CONTRACTS
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
@@ -516,7 +528,7 @@ obj/item/contract/fart //for popecrunch
 
 obj/item/contract/hair //for Megapaco
 	desc = "This contract promises to make the undersigned individual have the best hair of anybody within 10 kilometers."
-	
+
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
 		..() //TODO: CHANGE REST OF CONTRACTS
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
