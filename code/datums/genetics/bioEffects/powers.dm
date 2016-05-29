@@ -656,10 +656,11 @@
 			 		new /obj/effects/fart_cloud(owner,owner)
 
 			SF.farting = 0
-			if (gib_user)
-				owner.gib()
+			if (linked_power.power)
 				for (var/turf/T in range(owner,6))
 					animate_shake(T,5,rand(3,8),rand(3,8))
+			if (gib_user)
+				owner.gib()
 		else
 			boutput(owner, "<span style=\"color:red\">You were interrupted and couldn't fart! Rude!</span>")
 			SF.farting = 0

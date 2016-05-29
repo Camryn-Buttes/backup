@@ -1015,7 +1015,7 @@
 		spawn(6)
 			for (var/obj/O in lineObjs)
 				pool(O)*/
-				
+
 /obj/critter/gunbot/drone/iridium/whydrone/horse
 	name = "Horseman"
 	desc = "What the hell is this thing!? Oh God, is that a MOUTH?" //changed to reference the sprite
@@ -1038,16 +1038,19 @@
 	sphere_projectile = new/datum/projectile/laser/precursor/sphere
 	generic = 0
 	smashes_shit = 1
-	
+
 	process()
 		..()
 		if(prob(3))
 			playsound(src,"sound/effects/heartbeat.ogg", 60, 0) //for the spooky effect
 		return
-	
+
 	New()
 		..()
 		name = "[pick("War", "Death", "Pestilence", "Famine")]"
+
+	ex_act(severity)
+		return //immune to our own explosions
 
 	check_health()
 		..()
@@ -1069,14 +1072,13 @@
 				damaged = 3
 				desc = "[src] looks [pick("really", "totally", "very", "all sorts of", "super", "grievously")] [pick("mangled", "wounded", "messed up", "injured", "hurt", "haggard", "beaten down", "bloodied")]."
 		return
-	
+
 	CritterDeath() //Yeah thanks for only supporting a single item, loot variable.
 		if(dying) return
 		var/area/A = get_area(src)
 		if (A && A.virtual)
 			droploot = /obj/item/device/key/iridium/virtual //we don't want this loot in vr do we???
 		else
-			//new/obj/machinery/vending/chem(src.loc) okay no, even with the other stuff, this is ridiculously powerful. nope. nada. never.
 			new/obj/item/fiddle(src.loc)
 			new/obj/item/trumpet/dootdoot(src.loc)
 			new/obj/item/rubber_hammer(src.loc)

@@ -443,8 +443,23 @@
 				W.traitHolder.addTrait("deathwish") //evil
 				W.traitHolder.addTrait("glasscannon") //what good will those stimulants do you now?
 			if (W)
-				for(var/mob/living/carbon/human/machoman/verb/V in W)
-					W.verbs -= V //this is just diabolical
+				var/list/dangerousVerbs = list(\
+					/mob/living/carbon/human/machoman/verb/macho_offense,\
+					/mob/living/carbon/human/machoman/verb/macho_defense,\
+					/mob/living/carbon/human/machoman/verb/macho_normal,\
+					/mob/living/carbon/human/machoman/verb/macho_grasp,\
+					/mob/living/carbon/human/machoman/verb/macho_headcrunch,\
+					/mob/living/carbon/human/machoman/verb/macho_chestcrunch,\
+					/mob/living/carbon/human/machoman/verb/macho_leap,\
+					/mob/living/carbon/human/machoman/verb/macho_rend,\
+					/mob/living/carbon/human/machoman/verb/macho_touch,\
+					/mob/living/carbon/human/machoman/verb/macho_piledriver,\
+					/mob/living/carbon/human/machoman/verb/macho_superthrow,\
+					/mob/living/carbon/human/machoman/verb/macho_soulsteal,\
+					/mob/living/carbon/human/machoman/verb/macho_stare,\
+					/mob/living/carbon/human/machoman/verb/macho_heartpunch\
+					) //they can keep macho heal
+				W.verbs -= dangerousVerbs //this is just diabolical
 				W.reagents.add_reagent("anti_fart", 800) //as is this
 			boutput(W, "<span style=\"color:blue\">You are now a miserable mockery of the true macho man! Take out your envy upon the station!</span>")
 		else
