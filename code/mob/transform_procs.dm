@@ -397,10 +397,14 @@
 		return make_blob()
 	return 0
 
-/mob/proc/machoize()
+/mob/proc/machoize(var/shitty = 0)
 	if (src.mind || src.client)
-		message_admins("[key_name(usr)] made [key_name(src)] a macho man.")
-		logTheThing("admin", usr, src, "made %target% a macho man.")
+		if (shitty)
+			message_admins("[key_name(src)] has been made a faustian macho man.")
+			logTheThing("admin", null, src, "%target% has been made a faustian macho man.")
+		else
+			message_admins("[key_name(usr)] made [key_name(src)] a macho man.")
+			logTheThing("admin", usr, src, "made %target% a macho man.")
 		var/mob/living/carbon/human/machoman/W = new/mob/living/carbon/human/machoman(src)
 
 		var/turf/T = get_turf(src)
@@ -414,8 +418,13 @@
 			W.set_loc(T)
 
 		if (src.mind)
-			src.mind.transfer_to(W)
-			src.mind.special_role = "macho man"
+			if (shitty)
+				src.mind.transfer_to(W)
+				W.mind.special_role = "faustian macho man"
+				ticker.mode.Agimmicks.Add(W)
+			else
+				src.mind.transfer_to(W)
+				src.mind.special_role = "macho man"
 		else
 			var/key = src.client.key
 			if (src.client)
@@ -429,7 +438,17 @@
 		spawn (25) // Don't remove.
 			if (W) W.assign_gimmick_skull()
 
-		boutput(W, "<span style=\"color:blue\">You are now a macho man!</span>")
+		if(shitty)
+			if (W)
+				W.traitHolder.addTrait("deathwish") //evil
+				W.traitHolder.addTrait("glasscannon") //what good will those stimulants do you now?
+			if (W)
+				for(var/mob/living/carbon/human/machoman/verb/V in W)
+					W.verbs -= V //this is just diabolical
+				W.reagents.add_reagent("anti_fart", 800) //as is this
+			boutput(W, "<span style=\"color:blue\">You are now a miserable mockery of the true macho man! Take out your envy upon the station!</span>")
+		else
+			boutput(W, "<span style=\"color:blue\">You are now a macho man!</span>")
 
 		return W
 	return 0
