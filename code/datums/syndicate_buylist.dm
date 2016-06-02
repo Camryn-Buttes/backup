@@ -251,6 +251,12 @@ proc/build_syndi_buylist_cache()
 	cost = 10
 	desc = "Like the microbomb, but much more powerful. Macrobombs for macrofun!"
 
+/datum/syndicate_buylist/traitor/cybereye_kit_traitor
+	name = "Ocular Prosthesis Kit (Neural)"
+	item = /obj/item/storage/box/prosthesis_kit/eye_traitor
+	cost = 2
+	desc = "A pair of surplus cybereyes that help locate other agents. Operating table not included."
+
 /datum/syndicate_buylist/traitor/surplus
 	name = "Surplus Crate"
 	item = /obj/storage/crate/syndicate_surplus
