@@ -941,6 +941,16 @@
 	update_icon()
 		return
 
+/obj/item/organ/eye/cyber/traitor
+	name = "neural intent imager cybereye"
+	desc = "A really fancy electronic eye. It reads the electromagnetic signature of a human's thoughts in order to discern his or her innermost thoughts and loyalties. Woah."
+	icon_state = "eye-ecto" //it's pretty spooky, what with the mind reading and such.
+	mats = 50 //expensive
+	is_syndicate = 1 //duh
+
+	update_icon()
+		return
+
 /obj/item/organ/eye/cyber/spectro
 	name = "spectroscopic imager cybereye"
 	desc = "A fancy electronic eye. It has an integrated minature Raman spectroscope for easy qualitative and quantitative analysis of chemical samples."
