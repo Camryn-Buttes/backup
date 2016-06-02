@@ -826,6 +826,13 @@
 	if (isadminghost(src))
 		see_everything = 1
 	else
+		if (ishuman(src))
+			var/mob/living/carbon/human/H = src
+			if (H.eye_istype(/obj/item/organ/eye/cyber/traitor))
+				see_traitors = 1
+				see_nukeops = 1
+				see_revs = 1 //all the same as the syndie borgs
+
 		if (istype(ticker.mode, /datum/game_mode/revolution))
 			var/datum/game_mode/revolution/R = ticker.mode
 			var/list/datum/mind/HR = R.head_revolutionaries
