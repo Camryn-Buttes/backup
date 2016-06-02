@@ -245,6 +245,12 @@
 		spawn_contents = list(/obj/item/organ/eye/cyber/meson = 2,\
 		/obj/item/surgical_spoon = 1)
 
+	eye_traitor
+		name = "ocular prosthesis kit (neural)"
+		desc = "A box containing a pair of neural intent imager cybereyes."
+		spawn_contents = list(/obj/item/organ/eye/cyber/traitor = 2,\
+		/obj/item/surgical_spoon = 1)
+
 	eye_spectro
 		name = "ocular prosthesis kit (spectroscopic)"
 		desc = "A box containing a pair of spectroscopic imager cybereyes."
