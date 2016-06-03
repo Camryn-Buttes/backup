@@ -27,7 +27,7 @@
 
 	// will use getCachedMaterial() to apply these at spawn
 	var/spawn_insulator_name = "synthrubber"
-	var/spawn_conductor_name = "steel"
+	var/spawn_conductor_name = "copper"
 
 	New(loc, length = MAXCOIL)
 		src.amount = length
