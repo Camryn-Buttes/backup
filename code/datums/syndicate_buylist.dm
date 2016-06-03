@@ -256,6 +256,7 @@ proc/build_syndi_buylist_cache()
 	item = /obj/item/storage/box/prosthesis_kit/eye_traitor
 	cost = 2
 	desc = "A pair of surplus cybereyes that help locate other agents. Operating table not included."
+	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution) //neither revs nor spies would have any use for this, ever.
 
 /datum/syndicate_buylist/traitor/surplus
 	name = "Surplus Crate"
