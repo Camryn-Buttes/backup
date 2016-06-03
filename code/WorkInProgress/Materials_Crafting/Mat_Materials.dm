@@ -216,6 +216,17 @@
 		setProperty(new/datum/material_property/tensile{ value = 33 }())
 		return ..()
 
+/datum/material/metal/copper
+	mat_id = "copper"
+	name = "copper"
+	desc = "Copper is a terrestrial conductive metal. It is inferior to pharosium"
+	color = "#B87333" //the hex value known as copper in RGB colorspace
+	New()
+		setProperty(new/datum/material_property/electrical{ value = 51 }()) //look, it's impure copper
+		setProperty(new/datum/material_property/dielectric{ value = 41 }()) //do we expect nanotrasen to splurge on the good stuff?
+		setProperty(new/datum/material_property/permittivity{ value = 20 }()) //no, we expect them to buy stuff that just barely passes as usable
+		return ..()
+
 /datum/material/metal/pharosium
 	mat_id = "pharosium"
 	name = "pharosium"
