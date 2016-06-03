@@ -874,6 +874,7 @@
 			user.u_equip(src)
 			H.organHolder.receive_organ(src, "right_eye", 2.0)
 			H.update_body()
+			H.antagonist_overlay_refresh(1, 0) //handling traitor eyes, ran into some weirdness without this during testing
 
 		else if (user.find_in_hand(src) == user.l_hand && !H.organHolder.left_eye)
 			var/fluff = pick("insert", "shove", "place", "drop", "smoosh", "squish")
@@ -885,6 +886,7 @@
 			user.u_equip(src)
 			H.organHolder.receive_organ(src, "left_eye", 2.0)
 			H.update_body()
+			H.antagonist_overlay_refresh(1, 0) //as above
 
 		else
 			..()
@@ -944,7 +946,7 @@
 /obj/item/organ/eye/cyber/traitor
 	name = "neural intent imager cybereye"
 	desc = "A really fancy electronic eye. It reads the electromagnetic signature of a human's thoughts in order to discern his or her innermost thoughts and loyalties. Woah."
-	icon_state = "eye-ecto" //it's pretty spooky, what with the mind reading and such.
+	icon_state = "eye-ecto" //it's pretty spooky, what with the mind reading and such. If I had a proper sprite, I'd use that instead. But for now, let's just justify it with stealth and call it a day
 	mats = 50 //expensive
 	is_syndicate = 1 //duh
 
