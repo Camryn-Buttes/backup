@@ -104,7 +104,7 @@
 	if (istype(source))
 		applyCableMaterials(src, source.insulator, source.conductor)
 	else
-		applyCableMaterials(src, getCachedMaterial("synthrubber"), getCachedMaterial("steel"))
+		applyCableMaterials(src, getCachedMaterial("synthrubber"), getCachedMaterial("copper"))
 
 	allcables += src
 
