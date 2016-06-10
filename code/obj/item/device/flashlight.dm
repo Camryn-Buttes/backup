@@ -43,6 +43,32 @@
 			if (src.loc != user)
 				light.attach(src)
 
+/obj/item/device/flashlight/brobot //mood light
+	name = "mood light"
+	desc = "A hand-held light production device with several built-in color style settings for optimal efficiency of party-based festivities."
+	var/col_r = 1
+	var/col_g = 1
+	var/col_b = 1
+	var/mood = "white"
+
+	attack(mob/M as mob, mob/user as mob, def_zone)
+		var/newmood = input("Select desired light", "Confirm light selection", src.mood) in list("white", "red", "yellow", "green", "cyan", "blue", "purple", "blacklight", "incandescent", "candle-like", "lava lamp")
+		if (newmood)
+			boutput(user, "<span style=\"color:blue\">Light style is now: [newmood]</span>")
+			src.mood = newmood
+		switch(src.mood)
+			if ("white") light.set_color(1, 1, 1)
+			if ("red") light.set_color(0.95, 0.2, 0.2)
+			if ("yellow") light.set_color(0.95, 0.95, 0.2)
+			if ("green") light.set_color(0.2, 0.95, 0.2)
+			if ("cyan") light.set_color(0.2, 0.95, 0.95)
+			if ("blue") light.set_color(0.2, 0.2, 0.95)
+			if ("purple") light.set_color(0.95, 0.2, 0.95)
+			if ("blacklight") light.set_color(0.3, 0, 0.9)
+			if ("incandescent") light.set_color(1, 1, 0.9)
+			if ("candle-like") light.set_color(0.5, 0.3, 0.0)
+			if ("lava lamp") light.set_color(0.85, 0.45, 0.35)
+
 /obj/item/device/glowstick // fuck yeah space rave
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "glowstick-off"
