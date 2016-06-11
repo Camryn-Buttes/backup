@@ -150,7 +150,7 @@ mob/living/carbon/human/proc/horse()
 		if (prob(1)) //gotta be rare enough for it to not get stale
 			new /obj/item/contract/horse(src) //can't have it in normal loot pool
 
-		var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic,/obj/item/contract/mummy,/obj/item/contract/vampire,/obj/item/contract/hair,/obj/item/contract/wrestle,/obj/item/contract/macho,/obj/item/contract/satan)
+		var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic,/obj/item/contract/mummy,/obj/item/contract/vampire,/obj/item/contract/hair,/obj/item/contract/wrestle,/obj/item/contract/macho,/obj/item/contract/satan,/obj/item/contract/greed)
 		var/tempcontract = null
 
 		if (prob(1)) //gotta be rare enough for it to not get stale
@@ -190,6 +190,7 @@ mob/living/carbon/human/proc/horse()
 	throw_range = 20
 	desc = "A blank contract that's gone missing from hell."
 	var/oneuse = 0
+	var/inuse = 0
 
 	New()
 		src.color = random_color_hex()
@@ -197,6 +198,10 @@ mob/living/carbon/human/proc/horse()
 	proc/MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //maybe this will let me cut down on the duplicate code
 		if (!user) //oh god how did this happen
 			return
+		if (user.mind.diabolical == 1)
+			boutput(user, "<span style=\"color:blue\">You can't sell your soul to yourself!</span>")
+			return
+		return
 
 	proc/vanish()
 		src.visible_message("<span style=\"color:red\"><B>[src] suddenly vanishes!</B></span>")
@@ -212,7 +217,8 @@ mob/living/carbon/human/proc/horse()
 			if (M == user)
 				boutput(user, "<span style=\"color:blue\">You can't sell your soul to yourself!</span>")
 				return
-			else
+			else if (src.inuse != 1)
+				src.inuse = 1
 				M.visible_message("<span style=\"color:red\"><B>[user] is guiding [M]'s hand to the signature field of a contract!</B></span>")
 				if (!do_mob(user, M, 150))
 					if (user && ismob(user))
@@ -222,6 +228,8 @@ mob/living/carbon/human/proc/horse()
 				logTheThing("combat", user, M, "forces %M% to sign a [src] at [log_loc(user)].")
 				spawn(0)
 				MagicEffect(M, user)
+				spawn(0)
+					src.inuse = 0
 		else
 			return
 
@@ -453,6 +461,27 @@ obj/item/contract/hair //for Megapaco
 				continue
 			else
 				H.bioHolder.mobAppearance.customization_first = "None"
+		if (src.oneuse == 1)
+			src.vanish()
+		else
+			return
+
+obj/item/contract/greed //how the fuck did I not think of this yet
+	desc = "This contract is positively covered in dollar signs."
+
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+		..()
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
+		user.sellsoul()
+		spawn(5)
+		new /obj/item/spacecash/random(user.loc)
+		boutput(user, "<span style=\"color:blue\">Some money appears at your feet. What, did you expect some sort of catch or trick?</span>")
+		var/wealthy = rand(1,200)
+		if (wealthy == 200)
+			spawn(100)
+			boutput(user, "<span style=\"color:blue\">Well, you were right.</span>")
+			user.become_gold_statue()
 		if (src.oneuse == 1)
 			src.vanish()
 		else
