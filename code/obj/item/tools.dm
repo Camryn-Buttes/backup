@@ -142,6 +142,10 @@ MATERIAL COLLECTOR
 /obj/item/screwdriver/vr
 	icon = 'icons/effects/VR.dmi'
 
+//OMNITOOL
+
+//TODO
+
 // WELDING TOOL
 /obj/item/weldingtool
 	name = "weldingtool"
