@@ -325,6 +325,12 @@
 		else
 			return ..()
 
+/obj/item/reagent_containers/glass/bucket/borg //for civ bots
+	name = "massive bucket"
+	desc = "Geez, this thing is huge. You could probably even water plants with it."
+	amount_per_transfer_from_this = 60
+	initial_volume = 180 //big
+
 /obj/item/reagent_containers/glass/dispenser
 	name = "reagent glass"
 	desc = "A reagent glass."

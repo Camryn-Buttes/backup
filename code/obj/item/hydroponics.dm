@@ -195,6 +195,12 @@
 	stamina_cost = 20
 	stamina_crit_chance = 40
 
+/obj/item/saw/syndie/borg //heh
+
+	name = "electric chainsaw"
+	off_force = 3.0
+	active_force = 10 //not any more damaging than a normal chainsaw, but has the advantages of a syndie chainsaw, seems like a fair balance.
+
 /obj/item/saw/syndie/vr
 	icon = 'icons/effects/VR.dmi'
 
