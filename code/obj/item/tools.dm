@@ -144,7 +144,27 @@ MATERIAL COLLECTOR
 
 //OMNITOOL
 
-//TODO
+/obj/item/omnitool
+	name = "universal omnitool"
+	icon = 'icons/obj/device.dmi' //once again, all sprite references are placeholders until sundance finishes his sprites
+	inhand_image_icon = 'icons/mob/inhand/hand_tools.dmi'
+	icon_state = "multitool" //defaults to multitool mode
+	flags = FPRINT | TABLEPASS | CONDUCT
+	force = 5.0 //same as a multitool
+	w_class = 2.0 //same
+	hit_type = DAMAGE_BLUNT //same
+	hitsound = 'sound/weapons/genhit1.ogg' //same
+	throwforce = 5.0 //same
+	throw_speed = 3 //same
+	throw_range = 15 //same
+	desc = "A tool used to turn slotted screws and other slotted objects."
+	stamina_damage = 5 //same
+	stamina_cost = 5 //same
+	stamina_crit_chance = 1 //same
+	module_research = list("tools" = 8, "metals" = 5, "devices" = 5) //why the hell am I even including this? Note: not the same as a multitool
+	rand_pos = 1 //same
+	var/mode = "multitool" //WOAH, something new!
+	var/powerusage = 100 //amount of cell charge used per switch, I would do per tool usage, but that's way too hard to gauge in this case.
 
 // WELDING TOOL
 /obj/item/weldingtool
