@@ -260,7 +260,7 @@
 	else if (istype(W, /obj/item/screwdriver))
 		boutput(user, "<span style=\"color:blue\">You [src.secure ? "unscrew" : "secure"] the access panel.</span>")
 		secure = !secure
-	else if (istype(W, /obj/item/device/multitool))
+	else if (istype(W, /obj/item/device/multitool) || istype(W, /obj/item/omnitool) && W.omni_mode == "multitool") //wow, I didn't even know this existed
 		if (src.status == 0)
 			boutput(user, "<span style=\"color:red\">The bulb has been burnt out.</span>")
 		else
