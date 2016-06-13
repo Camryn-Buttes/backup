@@ -157,7 +157,7 @@ MATERIAL COLLECTOR
 	throwforce = 5.0 //same
 	throw_speed = 3 //same
 	throw_range = 15 //same
-	desc = "An amazing piece of machine that function as five tools in one."
+	desc = "An amazing piece of technology that function as five tools in one."
 	stamina_damage = 5 //same
 	stamina_cost = 5 //same
 	stamina_crit_chance = 1 //same
