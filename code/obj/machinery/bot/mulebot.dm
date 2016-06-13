@@ -401,7 +401,7 @@
 						boutput(usr, "<span style=\"color:blue\">You need wirecutters!</span>")
 
 				if("wirepulse")
-					if(istype(usr.equipped(), /obj/item/device/multitool))
+					if(istype(usr.equipped(), /obj/item/device/multitool) || istype(usr.equipped(), /obj/item/omnitool) && usr.equipped().omni_mode == "multitool")
 						switch(href_list["wire"])
 							if("1","2")
 								boutput(usr, "<span style=\"color:blue\">[bicon(src)] The charge light flickers.</span>")
