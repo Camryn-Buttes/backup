@@ -1023,7 +1023,7 @@
 			else
 				boutput(user, "<span style=\"color:blue\">[bicon(W)] Regular electrical response received from access panel.</span>")
 		return
-	else if (istype(W, /obj/item/device/multitool))
+	else if (istype(W, /obj/item/device/multitool) || istype(W, /obj/item/omnitool) && W.omni_mode == "multitool")
 		return src.attack_hand(user)
 
 	else
@@ -1213,7 +1213,7 @@
 
 		if ((href_list["pulsewire"]) && (src.panel_open))
 			var/twire = text2num(href_list["pulsewire"])
-			if (!istype(usr.equipped(), /obj/item/device/multitool))
+			if (!istype(usr.equipped(), /obj/item/device/multitool) && !(istype(usr.equipped(), /obj/item/omnitool) && usr.equipped().omni_mode == "multitool"))
 				boutput(usr, "You need a multitool!")
 				return
 			else if (src.isWireColorCut(twire))
