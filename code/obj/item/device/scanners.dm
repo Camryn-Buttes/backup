@@ -308,7 +308,7 @@ Contains:
 
 /obj/item/device/unilyzer
 	name = "\improper Unilyzer (TM)"
-  icon_state = "health" //placehold until sundance's sprites are done
+  	icon_state = "health" //placehold until sundance's sprites are done
 	inhand_image_icon = 'icons/mob/inhand/hand_medical.dmi' //this doesn't matter since it's borg exclusive
 	item_state = "healthanalyzer" //look, it's going on a borg, so this really, really, doesn't matter
 	flags = FPRINT | ONBELT | TABLEPASS | CONDUCT
