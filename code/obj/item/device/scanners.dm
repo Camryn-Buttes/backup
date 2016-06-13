@@ -318,21 +318,22 @@ Contains:
 	throw_range = 10
 	m_amt = 200
 	mats = 5
+	var/powerusage = 50 //how much cell charge is used per scan
 	var/disease_detection = 1
 	var/reagent_upgrade = 1
 	var/reagent_scan = 1
-  var/scan_results = null
-  var/uni_mode = "medical"
-  desc = "An astounding piece of technology that functions as a health, reagent, and atmospheric scanner all-in-one! Don't just analyze it, Unilyze it!"
+  	var/scan_results = null
+	var/uni_mode = "medical"
+  	desc = "An astounding piece of technology that functions as a health, reagent, and atmospheric scanner all-in-one! Don't just analyze it, Unilyze it!"
 
   attack_self(mob/user as mob)
-    var/newmode = input("Select desired light", "Confirm light selection", src.uni_mode) in list("medical", "reagent", "atmospheric")
+    var/newmode = input("Select desired scanning mode", "Confirm mode selection", src.uni_mode) in list("medical", "reagent", "atmospheric")
     if (newmode)
-      boutput(user, "<span style=\"color:blue\">Light style is now: [newmood]</span>")
-      src.uni_mode = newmode
+    	boutput(user, "<span style=\"color:blue\">Mode is now: [newmode]</span>")
+    	src.uni_mode = newmode
     switch(src.uni_mode)
       if ("medical")
-        src.icon_state = "health" //sundance placeholder
+      	src.icon_state = "health" //sundance placeholder
       if ("reagent")
         src.icon_state = "reagentscan" //sundance placeholder
       if ("atmospheric")
@@ -344,12 +345,17 @@ Contains:
   		"<span style=\"color:red\">You have analyzed [M]'s vitals.</span>")
   		boutput(user, scan_health(M, src.reagent_scan, src.disease_detection))
   		update_medical_record(M)
-
   		if (M.stat > 1)
   			user.unlock_medal("He's dead, Jim", 1)
+  		if (istype(user, /mob/living/silicon/robot))
+			var/mob/living/silicon/robot/R = user
+			R.cell.charge -= src.powerusage
+		else if (istype(user, /mob/living/silicon/ghostdrone))
+			var/mob/living/silicon/ghostdrone/R = user
+			R.cell.charge -= src.powerusage
   		return
     else
-      return
+    	return
 
 // I SINCERELY APOLOGIZE FOR WHAT FOLLOWS.
 
@@ -372,6 +378,12 @@ Contains:
           boutput(user, "<span style=\"color:red\">\The [src] encounters an error and crashes!</span>")
         else
           boutput(user, "[src.scan_results]")
+	if (istype(user, /mob/living/silicon/robot))
+		var/mob/living/silicon/robot/R = user
+		R.cell.charge -= src.powerusage
+	else if (istype(user, /mob/living/silicon/ghostdrone))
+		var/mob/living/silicon/ghostdrone/R = user
+		R.cell.charge -= src.powerusage
         return
       if ("atmospheric")
         if (get_dist(A, user) > 1)
@@ -380,6 +392,12 @@ Contains:
           user.visible_message("<span style=\"color:blue\"><b>[user]</b> takes an atmospheric reading of [A].</span>")
           boutput(user, scan_atmospheric(A))
         src.add_fingerprint(user)
+        if (istype(user, /mob/living/silicon/robot))
+		var/mob/living/silicon/robot/R = user
+		R.cell.charge -= src.powerusage
+	else if (istype(user, /mob/living/silicon/ghostdrone))
+		var/mob/living/silicon/ghostdrone/R = user
+		R.cell.charge -= src.powerusage
         return
 
   get_desc(dist)
