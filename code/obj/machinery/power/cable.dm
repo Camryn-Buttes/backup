@@ -174,7 +174,7 @@
 		coil.cable_join(src, user)
 		//note do shock in cable_join
 
-	else if(istype(W, /obj/item/device/t_scanner) || istype(W,/obj/item/device/multitool) || (istype(W, /obj/item/device/pda2) && istype(W:module, /obj/item/device/pda_module/tray)))
+	else if(istype(W, /obj/item/device/t_scanner) || istype(W,/obj/item/device/multitool) || (istype(W, /obj/item/device/pda2) && istype(W:module, /obj/item/device/pda_module/tray)) || istype(W, /obj/item/omnitool) && W.omni_mode == "multitool")
 
 		var/datum/powernet/PN = get_powernet()		// find the powernet
 
