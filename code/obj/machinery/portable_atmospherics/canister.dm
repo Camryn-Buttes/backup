@@ -649,7 +649,7 @@
 					src.det.WireStatus[index] = 0
 
 		if (href_list["pulse"])
-			if (!(istype(usr.equipped(), /obj/item/device/multitool) || istype(W, /obj/item/omnitool) && W.omni_mode == "multitool"))
+			if (!(istype(usr.equipped(), /obj/item/device/multitool) || istype(usr.equipped(), /obj/item/omnitool) && user.equipped().omni_mode == "multitool"))
 				usr.show_message("<span style=\"color:red\">You need to have a multitool equipped for this.</span>")
 			else
 				if (src.det.shocked)
