@@ -342,7 +342,7 @@
 				message_admins("[key_name(user)] builds a canister bomb at [log_loc(src)]. See bombing logs for atmos readout.")
 	else if (src.det && istype(W, /obj/item/tank))
 		user.show_message("<span style=\"color:red\">You cannot insert a tank, as the slot is shut closed by the detonator assembly.</span>")
-	else if (src.det && (istype(W, /obj/item/wirecutters) || istype(W, /obj/item/device/multitool)))
+	else if (src.det && (istype(W, /obj/item/wirecutters) || istype(W, /obj/item/device/multitool) || istype(W, /obj/item/omnitool) && W.omni_mode == "multitool"))//CONSISTENCY
 		src.attack_hand(user)
 
 	if (istype(W, /obj/item/cargotele))
@@ -649,7 +649,7 @@
 					src.det.WireStatus[index] = 0
 
 		if (href_list["pulse"])
-			if (!(istype(usr.equipped(), /obj/item/device/multitool)))
+			if (!(istype(usr.equipped(), /obj/item/device/multitool) || istype(W, /obj/item/omnitool) && W.omni_mode == "multitool"))
 				usr.show_message("<span style=\"color:red\">You need to have a multitool equipped for this.</span>")
 			else
 				if (src.det.shocked)
