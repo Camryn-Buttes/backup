@@ -144,7 +144,7 @@
 					update_icon()
 					return
 			if(2)
-				if (istype(W, /obj/item/device/multitool))
+				if (istype(W, /obj/item/device/multitool) || istype(W, /obj/item/omnitool) && W.omni_mode == "multitool") //LOOK, I KNOW IT'S NOT IMPLEMENTED, BUT I GOTTA HAVE CONSISTENCY.
 					user.show_text("You use the multitool to root the health analyzer, voiding the warranty! Probably won't be enough to power the assembly, though.", "blue")
 					playsound(src.loc, "sound/effects/brrp.ogg", 50, 1)
 					crafting_stage = 3
