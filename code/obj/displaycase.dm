@@ -268,7 +268,7 @@
 					user.show_text("You were interrupted!", "red")
 					return
 
-		else if (istype(O, /obj/item/device/multitool))
+		else if (istype(O, /obj/item/device/multitool) || istype(W, /obj/item/omnitool) && W.omni_mode == "multitool")
 			if (src.repair_stage == 5)
 				user.show_text("You initialize the control board.", "blue")
 				src.repair_stage = 6
