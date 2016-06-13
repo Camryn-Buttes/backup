@@ -444,7 +444,7 @@ var/zapLimiter = 0
 
 			return
 
-		else if (istype(W, /obj/item/device/multitool))
+		else if (istype(W, /obj/item/device/multitool) || istype(W, /obj/item/omnitool) && W.omni_mode == "multitool")
 			switch(src.repair_status)
 				if (3)
 					boutput(user, "<span style=\"color:red\">You reset the control board.[prob(10) ? " Takes no time at all, eh?" : ""]</span>")
@@ -947,7 +947,7 @@ var/zapLimiter = 0
 
 		else if (href_list["pulse"] && wiresexposed)
 			var/t1 = text2num(href_list["pulse"])
-			if (!istype(usr.equipped(), /obj/item/device/multitool))
+			if (!istype(usr.equipped(), /obj/item/device/multitool) || !(istype(usr.equipped(), /obj/item/omnitool) && usr.equipped().omni_mode == "multitool"))
 				boutput(usr, "You need a multitool!")
 				return
 			else if (src.isWireColorCut(t1))
