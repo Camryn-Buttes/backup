@@ -219,7 +219,7 @@
 	attackby(obj/item/W, mob/user)
 		// Things that won't electrocute you
 
-		if (istype(W,/obj/item/device/multitool) || istype(W, /obj/item/device/t_scanner))
+		if (istype(W,/obj/item/device/multitool) || istype(W, /obj/item/device/t_scanner) || istype(W, /obj/item/omnitool) && W.omni_mode == "multitool") //I'm only six changes in and I already can't stand it.
 			var/net = get_connection()
 			if(!net)
 				boutput(user, "<span style=\"color:blue\">No electrical current detected.</span>")

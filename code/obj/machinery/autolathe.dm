@@ -134,7 +134,7 @@
 
 	if(href_list["act"])
 		if(href_list["act"] == "pulse")
-			if (!istype(usr.equipped(), /obj/item/device/multitool))
+			if (!istype(usr.equipped(), /obj/item/device/multitool) || !istype(usr.equipped(), /obj/item/omnitool) || istype(usr.equipped(), /obj/item/omnitool) && usr.equipped().omni_mode != "multitool") //I KNOW IT'S DEPRECATED, BUT I GOTTA BE CONSISTENT.
 				boutput(usr, "You need a multitool!")
 			else
 				if(src.wires[href_list["wire"]])

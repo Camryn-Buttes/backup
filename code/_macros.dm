@@ -45,7 +45,13 @@
 #define isrestrictedz(z) ((z) == 2 || (z) == 4)
 
 #define islist(x) istype(x, /list)
-#define isitem(x) istype(x, /obj/item)
+#define isitem(x) istype(x, /obj/item
+
+#define ismultitool(x) (istype(x, /obj/item/device/multitool) || istype(x, /obj/item/omnitool) && x.omni_mode == "multitool")
+#define isscrewdriver(x) (istype(x, /obj/item/screwdriver) || istype(x, /obj/item/omnitool) && x.omni_mode == "screwdriver")
+#define iscrowbar(x) (istype(x, /obj/item/crowbar) || istype(x, /obj/item/omnitool) && x.omni_mode == "crowbar")
+#define iswrench(x) (istype(x, /obj/item/wrench) || istype(x, /obj/item/omnitool) && x.omni_mode == "wrench")
+#define iswirecutters(x) (istype(x, /obj/item/wirecutters) || istype(x, /obj/item/omnitool) && x.omni_mode == "wirecutters")
 
 // pick strings from cache-- code/procs/string_cache.dm
 #define pick_string(filename, key) pick(strings(filename, key))

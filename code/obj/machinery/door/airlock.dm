@@ -1033,7 +1033,7 @@ About the new airlock wires panel:
 					src.cut(t1)
 			else if (href_list["pulse"])
 				var/t1 = text2num(href_list["pulse"])
-				if (!istype(usr.equipped(), /obj/item/device/multitool))
+				if (!istype(usr.equipped(), /obj/item/device/multitool) && !(istype(usr.equipped(), /obj/item/omnitool) && usr.equipped().omni_mode == "multitool"))
 					boutput(usr, "You need a multitool!")
 					return
 				else if (src.isWireColorCut(t1))
@@ -1249,7 +1249,7 @@ About the new airlock wires panel:
 		src.update_icon()
 	else if (istype(C, /obj/item/wirecutters))
 		return src.attack_hand(user)
-	else if (istype(C, /obj/item/device/multitool))
+	else if (istype(C, /obj/item/device/multitool) || istype(C, /obj/item/omnitool) && C.omni_mode == "multitool")
 		return src.attack_hand(user)
 	else if (istype(C, /obj/item/device/radio/signaler))
 		return src.attack_hand(user)

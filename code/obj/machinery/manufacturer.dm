@@ -579,7 +579,7 @@
 
 			if ((href_list["pulsewire"]) && (src.panelopen))
 				var/twire = text2num(href_list["pulsewire"])
-				if (!istype(usr.equipped(), /obj/item/device/multitool))
+				if (!istype(usr.equipped(), /obj/item/device/multitool) && !(istype(W, /obj/item/omnitool) && W.omni_mode == "multitool"))
 					boutput(usr, "You need a multitool!")
 					return
 				else if (src.isWireColorCut(twire))
