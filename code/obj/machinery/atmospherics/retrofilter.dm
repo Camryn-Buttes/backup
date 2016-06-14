@@ -343,7 +343,7 @@ obj/machinery/atmospherics/retrofilter
 				src.update_overlays()
 			else
 				boutput(user, "<span style=\"color:red\">Access denied.</span>")
-		else if(istype(W, /obj/item/screwdriver))
+		else if(isscrewdriver(W))
 			if(src.hacked)
 				user.show_message("<span style=\"color:red\">Remove the foreign wires first!</span>", 1)
 				return

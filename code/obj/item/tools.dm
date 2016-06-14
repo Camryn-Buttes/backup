@@ -179,7 +179,7 @@ MATERIAL COLLECTOR
 	return
 
 /obj/item/weldingtool/attackby(obj/item/W as obj, mob/user as mob)
-	if (status == 0 && istype(W,/obj/item/screwdriver))
+	if (status == 0 && isscrewdriver(W))
 		status = 1
 		boutput(user, "<span style=\"color:blue\">The welder can now be attached and modified.</span>")
 	else if (status == 1 && istype(W,/obj/item/rods))
@@ -205,7 +205,7 @@ MATERIAL COLLECTOR
 		src.set_loc(F)
 		F.part2 = R
 		src.add_fingerprint(user)
-	else if (status == 1 && istype(W,/obj/item/screwdriver))
+	else if (status == 1 && isscrewdriver(W))
 		status = 0
 		boutput(user, "<span style=\"color:blue\">You resecure the welder.</span>")
 		return

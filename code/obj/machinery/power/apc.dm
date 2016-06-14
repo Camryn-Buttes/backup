@@ -354,7 +354,7 @@ var/zapLimiter = 0
 
 	src.add_fingerprint(user)
 	if(stat & BROKEN) //APC REPAIR
-		if (istype(W, /obj/item/screwdriver))
+		if (isscrewdriver(W))
 			switch (src.repair_status)
 				if (0)
 					src.repair_status = 1
@@ -476,7 +476,7 @@ var/zapLimiter = 0
 				boutput(user, "You insert the power cell.")
 				chargecount = 0
 		updateicon()
-	else if	(istype(W, /obj/item/screwdriver))	// haxing
+	else if	(isscrewdriver(W))	// haxing
 		if(opened)
 			boutput(user, "Close the APC first")
 		else if(emagged)

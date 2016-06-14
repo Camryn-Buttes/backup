@@ -101,7 +101,7 @@ var/global/map_setting = null
 					A.setMaterial(getCachedMaterial("steel"))
 				src.update_icon()
 
-		else if (istype(W, /obj/item/screwdriver))
+		else if (isscrewdriver(W))
 			if (src.d_state == 1)
 				var/turf/T = user.loc
 				playsound(src.loc, "sound/items/Screwdriver.ogg", 100, 1)

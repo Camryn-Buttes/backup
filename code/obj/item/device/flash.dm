@@ -257,7 +257,7 @@
 
 		qdel(src)
 		return
-	else if (istype(W, /obj/item/screwdriver))
+	else if (isscrewdriver(W))
 		boutput(user, "<span style=\"color:blue\">You [src.secure ? "unscrew" : "secure"] the access panel.</span>")
 		secure = !secure
 	else if (istype(W, /obj/item/device/multitool))
@@ -329,7 +329,7 @@
 				F.status = 0
 				F.icon_state = "flash3"
 			qdel(src)
-		else if (istype(W, /obj/item/screwdriver))
+		else if (isscrewdriver(W))
 			boutput(user, "<span style=\"color:blue\">You [src.secure ? "unscrew" : "secure"] the access panel.</span>")
 			secure = !secure
 		return

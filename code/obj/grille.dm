@@ -292,7 +292,7 @@
 			src.visible_message("<span style=\"color:red\"><b>[usr]</b> cuts apart the [src] with [W].</span>")
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
 
-		else if ((istype(W, /obj/item/screwdriver) && (istype(src.loc, /turf/simulated) || src.anchored)))
+		else if ((isscrewdriver(W) && (istype(src.loc, /turf/simulated) || src.anchored)))
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
 			src.anchored = !( src.anchored )
 			src.visible_message("<span style=\"color:red\"><b>[usr]</b> [src.anchored ? "fastens" : "unfastens"] [src].</span>")

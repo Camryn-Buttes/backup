@@ -1008,7 +1008,7 @@
 		else
 			boutput(user, "<span style=\"color:red\">This machine does not accept ID cards.</span>")
 			return
-	else if(istype(W, /obj/item/screwdriver))
+	else if(isscrewdriver(W))
 		src.panel_open = !src.panel_open
 		boutput(user, "You [src.panel_open ? "open" : "close"] the maintenance panel.")
 		src.UpdateOverlays(src.panel_open ? src.panel_image : null, "panel")

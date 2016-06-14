@@ -169,7 +169,7 @@
 
 		attackby(obj/item/W as obj, mob/user as mob)
 			..()
-			if (istype(W, /obj/item/screwdriver))
+			if (isscrewdriver(W))
 				if (src.anchored)
 					playsound(src.loc, "sound/items/Screwdriver.ogg", 50, 1)
 					if (do_after(user, 30))
@@ -856,7 +856,7 @@
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		..()
-		if (istype(W, /obj/item/screwdriver))
+		if (isscrewdriver(W))
 			if (src.anchored)
 				playsound(src.loc, "sound/items/Screwdriver.ogg", 50, 1)
 				if (do_after(user, 30))

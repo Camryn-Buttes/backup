@@ -75,7 +75,7 @@ PIPE BOMBS + CONSTRUCTION
 		return
 
 	attackby(obj/item/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/screwdriver))
+		if (isscrewdriver(W))
 			if (src.det_time == src.org_det_time)
 				src.det_time = src.alt_det_time
 				user.show_message("<span style=\"color:blue\">You set [src] for a [det_time/10] second detonation time.</span>")

@@ -564,7 +564,7 @@ function lineEnter ()
 			user << output(url_encode("Disk: <a href='byond://?src=\ref[src];eject=1'>Eject</a>"),"comp3.browser:setInternalDisk")
 			return
 
-	else if (istype(W, /obj/item/screwdriver))
+	else if (isscrewdriver(W))
 		playsound(src.loc, "sound/items/Screwdriver.ogg", 50, 1)
 		if(do_after(user, 20))
 			if(!ispath(setup_frame_type, /obj/computer3frame))

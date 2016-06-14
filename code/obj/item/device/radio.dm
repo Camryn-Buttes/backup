@@ -420,7 +420,7 @@ Frequency:
 
 /obj/item/device/radio/attackby(obj/item/W as obj, mob/user as mob)
 	user.machine = src
-	if (!( istype(W, /obj/item/screwdriver) ))
+	if (!( isscrewdriver(W) ))
 		return
 	src.b_stat = !( src.b_stat )
 	if (src.b_stat)
@@ -510,7 +510,7 @@ Frequency:
 /obj/item/device/radio/electropack/attackby(obj/item/W as obj, mob/user as mob)
 
 	// This doesn't seem to do anything (Convair880).
-	/*if (istype(W, /obj/item/screwdriver))
+	/*if (isscrewdriver(W))
 		src.e_pads = !( src.e_pads )
 		if (src.e_pads)
 			user.show_message("<span style=\"color:blue\">The electric pads have been exposed!</span>")

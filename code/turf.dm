@@ -199,7 +199,7 @@ var/global/client/ff_debugger = null
 	icon = 'ocean.dmi'
 	name = "seafloor"
 	water = 138771
-	temperature = T0C + 2 // average ocean temp on Earth is roughly 1-4 °C
+	temperature = T0C + 2 // average ocean temp on Earth is roughly 1-4 ï¿½C
 
 	New()
 		..()
@@ -1379,7 +1379,7 @@ var/global/client/ff_debugger = null
 			else
 				A.setMaterial(getCachedMaterial("steel"))
 
-	else if (istype(W, /obj/item/screwdriver))
+	else if (isscrewdriver(W))
 		if (src.d_state == 1)
 			var/turf/T = user.loc
 			playsound(src.loc, "sound/items/Screwdriver.ogg", 100, 1)

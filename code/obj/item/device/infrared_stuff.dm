@@ -271,7 +271,7 @@ Contains:
 		//SN src = null
 		qdel(src)
 		return
-	if (!( istype(W, /obj/item/screwdriver) ))
+	if (!( isscrewdriver(W) ))
 		return
 	src.status = !( src.status )
 	if (src.status)

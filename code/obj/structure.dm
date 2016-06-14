@@ -57,7 +57,7 @@ obj/structure/ex_act(severity)
 				A.setMaterial(M)
 			qdel(src)
 
-	else if(istype(W, /obj/item/screwdriver) && state == 2 && istype(src,/obj/structure/girder/reinforced))
+	else if(isscrewdriver(W) && state == 2 && istype(src,/obj/structure/girder/reinforced))
 		playsound(src.loc, "sound/items/Screwdriver.ogg", 100, 1)
 		var/turf/T = get_turf(user)
 		boutput(user, "<span style=\"color:blue\">Now unsecuring support struts</span>")
@@ -197,7 +197,7 @@ obj/structure/ex_act(severity)
 		qdel(src)
 		return
 
-	else if (istype(W, /obj/item/screwdriver))
+	else if (isscrewdriver(W))
 		var/obj/item/sheet/S = new /obj/item/sheet(src.loc)
 		if(src.material)
 			S.setMaterial(src.material)

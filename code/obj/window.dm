@@ -316,7 +316,7 @@
 				return
 
 	attackby(obj/item/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/screwdriver))
+		if (isscrewdriver(W))
 			if (state == 10)
 				return
 			else if (state >= 1)

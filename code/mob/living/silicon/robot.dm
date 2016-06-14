@@ -1069,7 +1069,7 @@
 				src.update_appearance()
 				hud.module_added()
 
-		else if	(istype(W, /obj/item/screwdriver))	// haxing
+		else if	(isscrewdriver(W))	// haxing
 			if (src.locked)
 				boutput(user, "<span style=\"color:red\">You need to unlock the cyborg first.</span>")
 			else if (src.opened)

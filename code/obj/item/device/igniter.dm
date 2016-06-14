@@ -107,7 +107,7 @@
 		src.add_fingerprint(user)
 		user.show_message("<span style=\"color:blue\">You hook up the igniter to the multitool's panel.</span>")
 
-	if (!( istype(W, /obj/item/screwdriver) ))
+	if (!( isscrewdriver(W) ))
 		return
 	src.status = !( src.status )
 	if (src.status)

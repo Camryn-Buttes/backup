@@ -182,7 +182,7 @@
 	7 Screwdriver
 	*/
 	attackby(obj/item/O as obj, mob/user as mob)
-		if (istype(O, /obj/item/screwdriver))
+		if (isscrewdriver(O))
 			if (src.repair_stage == 0)
 				user.show_text("You open the maintenance panel.", "blue")
 				src.repair_stage = 1

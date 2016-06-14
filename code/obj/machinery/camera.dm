@@ -267,7 +267,7 @@
 
 /obj/machinery/camera/motion/attackby(W as obj, mob/user as mob)
 	if (istype(W, /obj/item/wirecutters) && locked == 1) return
-	if (istype(W, /obj/item/screwdriver))
+	if (isscrewdriver(W))
 		var/turf/T = user.loc
 		boutput(user, text("<span style=\"color:blue\">[]ing the access hatch... (this is a long process)</span>", (locked) ? "Open" : "Clos"))
 		sleep(100)

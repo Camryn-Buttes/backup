@@ -55,7 +55,7 @@
 		return
 	//Waluigi hates this
 	if (hackable)
-		if ((istype(W, /obj/item/screwdriver)) && (src.locked == 1))
+		if ((isscrewdriver(W)) && (src.locked == 1))
 			sleep(6)
 			src.open =! src.open
 			user.show_message("<span style=\"color:blue\">You [src.open ? "open" : "close"] the service panel.</span>")

@@ -22,7 +22,7 @@
 
 
 /obj/machinery/autolathe/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (istype(O, /obj/item/screwdriver))
+	if (isscrewdriver(O))
 		if (!opened)
 			src.opened = 1
 			src.icon_state = "autolathef"

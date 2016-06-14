@@ -34,7 +34,7 @@
 			icon_state = "chemg2"
 			name = "unsecured grenade"
 			stage = 1
-		else if (istype(W,/obj/item/screwdriver) && stage == 1)
+		else if (isscrewdriver(W) && stage == 1)
 			if (beakers.len)
 				boutput(user, "<span style=\"color:blue\">You lock the assembly.</span>")
 				playsound(src.loc, 'sound/items/Screwdriver.ogg', 25, -3)

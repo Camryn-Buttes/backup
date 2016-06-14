@@ -1068,7 +1068,7 @@
 			return 0
 
 	attackby(obj/item/W as obj, mob/user as mob)
-		if(istype(W, /obj/item/screwdriver))
+		if(isscrewdriver(W))
 			if (!src.panelopen)
 				src.overlays += image('icons/obj/vending.dmi', "grife-panel")
 				src.panelopen = 1

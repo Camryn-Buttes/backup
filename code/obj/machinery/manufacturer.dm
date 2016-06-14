@@ -647,7 +647,7 @@
 			if (amtload) boutput(user, "<span style=\"color:blue\">[amtload] materials loaded from [W]!</span>")
 			else boutput(user, "<span style=\"color:red\">No materials loaded!</span>")
 
-		else if (istype(W, /obj/item/screwdriver))
+		else if (isscrewdriver(W))
 			if (!src.panelopen)
 				src.panelopen = 1
 			else

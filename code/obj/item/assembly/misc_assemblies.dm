@@ -111,7 +111,7 @@ Contains:
 		else boutput(user, "You must remove the beaker from the assembly before transferring chemicals to it!")
 		return
 
-	if (!( istype(W, /obj/item/screwdriver) ))
+	if (!( isscrewdriver(W) ))
 		return
 	src.status = !( src.status )
 	if (src.status)
@@ -255,7 +255,7 @@ Contains:
 			boutput(user, "You attach the proximity/igniter assembly to the beaker.")
 		else boutput(user, "You must remove the beaker from the assembly before transferring chemicals to it!")
 		return
-	if (!( istype(W, /obj/item/screwdriver) ))
+	if (!( isscrewdriver(W) ))
 		return
 	src.status = !( src.status )
 	if (src.status)
@@ -360,7 +360,7 @@ Contains:
 		else boutput(user, "You must remove the beaker from the assembly before transferring chemicals to it!")
 		return
 
-	if (!( istype(W, /obj/item/screwdriver) ))
+	if (!( isscrewdriver(W) ))
 		return
 	src.status = !( src.status )
 	if (src.status)
@@ -457,7 +457,7 @@ Contains:
 
 		qdel(src)
 		return
-	if (( istype(W, /obj/item/screwdriver) ))
+	if (( isscrewdriver(W) ))
 		src.status = !( src.status )
 		if (src.status)
 			user.show_message("<span style=\"color:blue\">The analyzer is now secured!</span>", 1)
@@ -545,7 +545,7 @@ obj/item/assembly/radio_horn/receive_signal()
 		//SN src = null
 		qdel(src)
 		return
-	if (!( istype(W, /obj/item/screwdriver) ))
+	if (!( isscrewdriver(W) ))
 		return
 	src.status = !( src.status )
 	if (src.status)
@@ -614,7 +614,7 @@ obj/item/assembly/radio_horn/receive_signal()
 		//SN src = null
 		qdel(src)
 		return
-	if (!( istype(W, /obj/item/screwdriver) ))
+	if (!( isscrewdriver(W) ))
 		return
 	src.status = !( src.status )
 	if (src.status)

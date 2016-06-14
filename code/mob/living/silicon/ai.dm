@@ -160,7 +160,7 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 				available_ai_shells += R
 
 /mob/living/silicon/ai/attackby(obj/item/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/screwdriver))
+	if (isscrewdriver(W))
 		src.anchored = !src.anchored
 		playsound(src.loc, "sound/items/Screwdriver.ogg", 50, 1)
 		user.visible_message("<span style=\"color:red\"><b>[user.name]</b> [src.anchored ? "screws down" : "unscrews"] [src.name]'s floor bolts.</span>")

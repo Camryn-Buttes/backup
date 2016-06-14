@@ -238,7 +238,7 @@
 				boutput(user, "<span style=\"color:blue\">You open the head's compartment and take out [src.brain].</span>")
 				user.put_in_hand_or_drop(src.brain)
 				src.brain = null
-		else if (istype(W, /obj/item/screwdriver))
+		else if (isscrewdriver(W))
 			if (src.brain)
 				user.show_text("You can't reach the wiring with a brain inside the cyborg head.", "red")
 				return

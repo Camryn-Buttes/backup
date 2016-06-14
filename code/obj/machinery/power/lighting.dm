@@ -375,7 +375,7 @@
 
 	// attempt to stick weapon into light socket
 	else if(status == LIGHT_EMPTY)
-		if(istype(W, /obj/item/screwdriver))
+		if(isscrewdriver(W))
 			if (has_power())
 				boutput(user, "That's not safe with the power on!")
 				return

@@ -116,7 +116,7 @@
 				src.part_t.master = null
 				src.part_t = null
 				user.show_message("<span style=\"color:blue\">You pry the plasma tank out of the assembly.</span>")
-			else if (istype(W, /obj/item/screwdriver))
+			else if (isscrewdriver(W))
 				src.setDetState(2)
 				user.show_message("<span style=\"color:blue\">You secure the plasma tank to the assembly.</span>")
 
@@ -132,7 +132,7 @@
 					user.show_message("<span style=\"color:red\">This cable coil isn't long enough!</span>")
 			else if (istype(W, /obj/item/crowbar))
 				user.show_message("<span style=\"color:red\">The plasma tank is firmly secured to the assembly and won't budge.</span>")
-			else if (istype(W, /obj/item/screwdriver))
+			else if (isscrewdriver(W))
 				src.setDetState(1)
 				user.show_message("<span style=\"color:blue\">You unsecure the plasma tank from the assembly.</span>")
 
@@ -171,7 +171,7 @@
 					user.show_message("<span style=\"color:red\">The [a] falls off the assembly.</span>")
 				src.attachments.Cut()
 				user.show_message("<span style=\"color:blue\">You disconnect the timer from the assembly, and reenable its external controls.</span>")
-			if (istype(W, /obj/item/screwdriver))
+			if (isscrewdriver(W))
 				if (!src.trigger && !src.attachments.len)
 					user.show_message("<span style=\"color:red\">You cannot remove any attachments, as there are none attached.</span>")
 					return

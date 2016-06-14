@@ -28,7 +28,7 @@
 //////////////////////////////////////////
 
 /obj/machinery/shuttle/engine/propulsion/attackby(obj/item/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/screwdriver))
+	if (isscrewdriver(W))
 		if (src.stat1 == 0)
 			boutput(usr, "<span style=\"color:blue\">Resecuring outer frame.</span>")
 			playsound(src.loc, "sound/items/Screwdriver.ogg", 100, 1)
