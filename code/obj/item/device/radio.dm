@@ -153,7 +153,7 @@ Frequency:
 
 		else if (href_list["wires"])
 			var/t1 = text2num(href_list["wires"])
-			if (!( istype(usr.equipped(), /obj/item/wirecutters) ))
+			if (!(iswirecutters(usr.equipped())))
 				return
 			if (t1 & 1)
 				if (src.wires & 1)
@@ -794,7 +794,7 @@ obj/item/device/radio/signaler/attackby(obj/item/W as obj, mob/user as mob)
 			src.listening = text2num(href_list["listen"])
 		else if (href_list["wires"])
 			var/t1 = text2num(href_list["wires"])
-			if (!( istype(usr.equipped(), /obj/item/wirecutters) ))
+			if (!(iswirecutters(usr.equipped())))
 				return
 			if ((!( src.b_stat ) && !( src.master )))
 				return

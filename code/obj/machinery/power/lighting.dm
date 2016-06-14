@@ -141,7 +141,7 @@
 		if (istype(user, /mob/living/silicon))
 			return
 
-		if (istype(W, /obj/item/wrench))
+		if (iswrench(W))
 
 			add_fingerprint(user)
 			src.anchored = !src.anchored

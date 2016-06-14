@@ -78,7 +78,7 @@ Contains:
 	return
 
 /obj/item/assembly/time_ignite/attackby(obj/item/W as obj, mob/user as mob)
-	if ((istype(W, /obj/item/wrench) && !( src.status )))
+	if ((iswrench(W) && !( src.status )))
 		var/turf/T = src.loc
 		if (ismob(T))
 			T = T.loc
@@ -221,7 +221,7 @@ Contains:
 	return
 
 /obj/item/assembly/prox_ignite/attackby(obj/item/W as obj, mob/user as mob)
-	if ((istype(W, /obj/item/wrench) && !( src.status )))
+	if ((iswrench(W) && !( src.status )))
 		var/turf/T = src.loc
 		if (ismob(T))
 			T = T.loc
@@ -331,7 +331,7 @@ Contains:
 
 /obj/item/assembly/rad_ignite/attackby(obj/item/W as obj, mob/user as mob)
 
-	if ((istype(W, /obj/item/wrench) && !( src.status )))
+	if ((iswrench(W) && !( src.status )))
 		var/turf/T = src.loc
 		if (ismob(T))
 			T = T.loc
@@ -444,7 +444,7 @@ Contains:
 	return
 
 /obj/item/assembly/anal_ignite/attackby(obj/item/W as obj, mob/user as mob)
-	if ((istype(W, /obj/item/wrench) && !( src.status )))
+	if ((iswrench(W) && !( src.status )))
 		var/turf/T = src.loc
 		if (ismob(T))
 			T = T.loc
@@ -532,7 +532,7 @@ obj/item/assembly/radio_horn/receive_signal()
 
 /obj/item/assembly/rad_time/attackby(obj/item/W as obj, mob/user as mob)
 
-	if ((istype(W, /obj/item/wrench) && !( src.status )))
+	if ((iswrench(W) && !( src.status )))
 		var/turf/T = src.loc
 		if (ismob(T))
 			T = T.loc
@@ -601,7 +601,7 @@ obj/item/assembly/radio_horn/receive_signal()
 
 /obj/item/assembly/rad_prox/attackby(obj/item/W as obj, mob/user as mob)
 
-	if ((istype(W, /obj/item/wrench) && !( src.status )))
+	if ((iswrench(W) && !( src.status )))
 		var/turf/T = src.loc
 		if (ismob(T))
 			T = T.loc

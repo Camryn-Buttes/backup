@@ -374,7 +374,7 @@ obj/machinery/atmospherics/retrofilter
 			src.locked = 0
 			src.update_overlays()
 			return
-		else if(istype(W, /obj/item/wirecutters) && hacked)
+		else if(iswirecutters(W) && hacked)
 			src.add_fingerprint(user)
 			user.show_message("<span style=\"color:red\">Now removing the bypass wires... <I>(This may take a while)</I></span>", 1)
 			if (!do_after(user, 50))

@@ -423,12 +423,12 @@
 		src.updateSelfDialog()
 		return
 
-	else if (istype(C, /obj/item/screwdriver))
+	else if (isscrewdriver(C))
 		playsound(user.loc, "sound/items/Screwdriver.ogg", 50, 1)
 		src.closed = !src.closed
 		boutput(user, "You [src.closed ? "secure" : "unscrew"] the cover.")
 
-	else if (istype(C, /obj/item/crowbar))
+	else if (iscrowbar(C))
 		if(!module)
 			return
 

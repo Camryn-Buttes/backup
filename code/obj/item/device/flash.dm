@@ -260,7 +260,7 @@
 	else if (isscrewdriver(W))
 		boutput(user, "<span style=\"color:blue\">You [src.secure ? "unscrew" : "secure"] the access panel.</span>")
 		secure = !secure
-	else if (istype(W, /obj/item/device/multitool) || istype(W, /obj/item/omnitool) && W.omni_mode == "multitool") //wow, I didn't even know this existed
+	else if (ismultitool(W)) //wow, I didn't even know this existed
 		if (src.status == 0)
 			boutput(user, "<span style=\"color:red\">The bulb has been burnt out.</span>")
 		else
@@ -321,7 +321,7 @@
 		return
 
 	attackby(obj/item/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/wrench) && !src.secure)
+		if (iswrench(W) && !src.secure)
 			boutput(user, "You disassemble [src]!")
 			src.cell.set_loc(get_turf(src))
 			var/obj/item/device/flash/F = new /obj/item/device/flash( get_turf(src) )

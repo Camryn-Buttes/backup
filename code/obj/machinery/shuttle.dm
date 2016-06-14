@@ -53,7 +53,7 @@
 		qdel(W)
 		src.stat2 = 1
 		return
-	else if (istype(W, /obj/item/wrench) && src.stat2 == 1)
+	else if (iswrench(W) && src.stat2 == 1)
 		var/obj/item/rods/R = new /obj/item/rods
 		playsound(src.loc, "sound/items/Ratchet.ogg", 100, 1)
 		boutput(usr, "<span style=\"color:red\">Removing outer hull plating.</span>")

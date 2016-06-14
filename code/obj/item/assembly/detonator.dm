@@ -94,7 +94,7 @@
 				src.part_t = W
 				src.add_fingerprint(user)
 				user.show_message("<span style=\"color:blue\">You insert the [W.name] into the slot.</span>")
-			else if (istype(W, /obj/item/wirecutters))
+			else if (iswirecutters(W))
 				src.part_ig.loc = user.loc
 				src.part_mt.loc = user.loc
 				src.part_ig.master = null
@@ -110,7 +110,7 @@
 		if (1)
 			if (istype(W, /obj/item/cable_coil))
 				user.show_message("<span style=\"color:red\">The plasma tank must be firmly secured to the assembly first.</span>")
-			else if (istype(W, /obj/item/crowbar))
+			else if (iscrowbar(W))
 				src.setDetState(0)
 				src.part_t.loc = user.loc
 				src.part_t.master = null
@@ -130,7 +130,7 @@
 					user.show_message("<span style=\"color:blue\">You add the wiring to the assembly.</span>")
 				else
 					user.show_message("<span style=\"color:red\">This cable coil isn't long enough!</span>")
-			else if (istype(W, /obj/item/crowbar))
+			else if (iscrowbar(W))
 				user.show_message("<span style=\"color:red\">The plasma tank is firmly secured to the assembly and won't budge.</span>")
 			else if (isscrewdriver(W))
 				src.setDetState(1)
@@ -147,13 +147,13 @@
 				src.part_fs.time = 90 //Minimum det time
 				src.add_fingerprint(user)
 				user.show_message("<span style=\"color:blue\">You wire the timer failsafe to the assembly, disabling its external controls.</span>")
-			else if (istype(W, /obj/item/wirecutters))
+			else if (iswirecutters(W))
 				src.setDetState(2)
 				var/obj/item/cable_coil/C = new /obj/item/cable_coil(user, 6)
 				C.loc = user.loc
 				user.show_message("<span style=\"color:blue\">You cut the wiring on the assembly.</span>")
 		if (4)
-			if (istype(W, /obj/item/wirecutters))
+			if (iswirecutters(W))
 				src.setDetState(3)
 				src.part_fs.loc = user.loc
 				src.part_fs.master = null

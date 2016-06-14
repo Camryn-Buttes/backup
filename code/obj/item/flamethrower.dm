@@ -127,7 +127,7 @@ GETLINEEEEEEEEEEEEEEEEEEEEE
 	return
 
 /obj/item/assembly/weld_rod/attackby(obj/item/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/wrench) )
+	if (iswrench(W) )
 		var/turf/T = src.loc
 		if (ismob(T))
 			T = T.loc
@@ -173,7 +173,7 @@ GETLINEEEEEEEEEEEEEEEEEEEEE
 	return
 
 /obj/item/assembly/w_r_ignite/attackby(obj/item/W as obj, mob/user as mob)
-	if ((istype(W, /obj/item/wrench) && !( src.status )))
+	if ((iswrench(W) && !( src.status )))
 		var/turf/T = src.loc
 		if (ismob(T))
 			T = T.loc

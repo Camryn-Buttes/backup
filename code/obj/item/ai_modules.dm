@@ -76,7 +76,7 @@ AI MODULES
 /obj/machinery/computer/aiupload/attackby(obj/item/aiModule/module as obj, mob/user as mob)
 	if(istype(module, /obj/item/aiModule))
 		module.install(src)
-	else if(istype(module, /obj/item/screwdriver))
+	else if(isscrewdriver(module))
 		playsound(src.loc, "sound/items/Screwdriver.ogg", 50, 1)
 		if(do_after(user, 20))
 			if (src.stat & BROKEN)

@@ -309,7 +309,7 @@
 				playsound(src.loc, 'sound/effects/slosh.ogg', 25, 1)
 			else
 				user.show_text("Out of water!", "blue")
-		else if (istype(D, /obj/item/wirecutters))
+		else if (iswirecutters(D))
 			if (src.reagents.total_volume)
 				user.show_text("<b>You start cutting [src], causing it to spill!</b>", "red")
 				src.reagents.reaction(get_turf(src))

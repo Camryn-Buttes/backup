@@ -42,7 +42,7 @@
 		if (istype(W, /obj/item/sword)) qdel (src)
 		if (istype(W, /obj/item/saw)) qdel (src)
 		if (istype(W, /obj/item/weldingtool)) qdel (src)
-		if (istype(W, /obj/item/wirecutters)) qdel (src)
+		if (iswirecutters(W)) qdel (src)
 		..()
 
 /obj/spacevine/proc/Life()

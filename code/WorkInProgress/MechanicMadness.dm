@@ -202,7 +202,7 @@ var/list/mechanics_telepads = new/list()
 		return src.attack_hand(user)
 
 	attackby(obj/item/W as obj, mob/user as mob)
-		if(istype(W,/obj/item/wrench))
+		if(iswrench(W))
 			switch(level)
 				if(1) //Level 1 = wrenched into place
 					boutput(user, "You detach the [src] from the underfloor and deactivate it.")

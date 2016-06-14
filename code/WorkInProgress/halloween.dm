@@ -1273,7 +1273,7 @@
 						return
 
 				if (1)
-					if (istype(W, /obj/item/crowbar))
+					if (iscrowbar(W))
 						user.visible_message("[user] begins to pry off the maintenance panel.","You begin to pry off the maintenance panel.")
 						playsound(user, "sound/items/Crowbar.ogg", 65, 1)
 						if (!do_after(user, 20) || (repair_stage != 1))
@@ -1290,7 +1290,7 @@
 						return
 
 				if (2)
-					if (istype(W, /obj/item/wrench))
+					if (iswrench(W))
 						user.visible_message("[user] begins to loosen the service module bolts.","You begin to loosen the service module bolts.")
 						playsound(user, "sound/items/Ratchet.ogg", 65, 1)
 						if (!do_after(user, 30) || (repair_stage != 2))
@@ -1325,7 +1325,7 @@
 						return
 
 				if (5)
-					if (istype(W, /obj/item/wrench))
+					if (iswrench(W))
 						user.visible_message("[user] begins to tighten the service module bolts.","You begin to tighten the service module bolts.")
 						playsound(user, "sound/items/Ratchet.ogg", 65, 1)
 						if (!do_after(user, 30) || (repair_stage != 5))

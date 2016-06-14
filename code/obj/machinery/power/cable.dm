@@ -149,7 +149,7 @@
 	if(T.intact)
 		return
 
-	if(istype(W, /obj/item/wirecutters))
+	if(iswirecutters(W))
 
 		if(src.d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
 			var/atom/A = new/obj/item/cable_coil(T, 2)

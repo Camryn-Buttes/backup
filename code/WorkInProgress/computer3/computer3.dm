@@ -976,7 +976,7 @@ function lineEnter ()
 				src.updateUsrDialog()
 				return
 
-		else if (istype(W, /obj/item/crowbar))
+		else if (iscrowbar(W))
 			if(!src.cell)
 				boutput(user, "<span style=\"color:red\">There is no energy cell inserted!</span>")
 				return

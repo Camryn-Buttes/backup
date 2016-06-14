@@ -1036,7 +1036,7 @@
 
 		if ((href_list["cutwire"]) && (src.panelopen))
 			var/twire = text2num(href_list["cutwire"])
-			if (!( istype(usr.equipped(), /obj/item/wirecutters) ))
+			if (!( iswirecutters(usr.equipped()) ))
 				boutput(usr, "You need wirecutters!")
 				return
 			else if (src.isWireColorCut(twire)) src.mend(twire)
@@ -1045,7 +1045,7 @@
 
 		if ((href_list["pulsewire"]) && (src.panelopen))
 			var/twire = text2num(href_list["pulsewire"])
-			if (!istype(usr.equipped(), /obj/item/device/multitool) && !(istype(usr.equipped(), /obj/item/omnitool) && usr.equipped().omni_mode == "multitool"))
+			if (ismultitool(usr.equipped()))
 				boutput(usr, "You need a multitool!")
 				return
 			else if (src.isWireColorCut(twire))

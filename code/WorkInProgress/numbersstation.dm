@@ -330,7 +330,7 @@ var/global/datum/numbers_station/lincolnshire = new
 	mats = 0
 
 	attackby(var/obj/item/W, var/mob/user)
-		if (istype(W, /obj/item/crowbar))
+		if (iscrowbar(W))
 			return
 
 	emag_act()

@@ -1009,7 +1009,7 @@
 			else boutput(user, "<span style=\"color:red\">There's no burn damage on [src.name]'s wiring to mend.</span>")
 			src.update_appearance()
 
-		else if (istype(W, /obj/item/crowbar))	// crowbar means open or close the cover
+		else if (iscrowbar(W))	// crowbar means open or close the cover
 			if (opened)
 				boutput(user, "You close the cover.")
 				opened = 0
@@ -1154,7 +1154,7 @@
 				src.shell = 1
 				update_appearance()
 
-		else if (istype(W, /obj/item/wrench) && src.wiresexposed)
+		else if (iswrench(W) && src.wiresexposed)
 			var/list/actions = list("Do nothing")
 			if (src.part_arm_r)
 				actions.Add("Remove Right Arm")

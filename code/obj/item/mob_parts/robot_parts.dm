@@ -225,7 +225,7 @@
 			playsound(get_turf(src), "sound/weapons/Genhit.ogg", 40, 1)
 			return
 
-		else if (istype(W,/obj/item/wrench))
+		else if (iswrench(W))
 			if (!src.brain && !src.ai_interface)
 				boutput(user, "<span style=\"color:red\">There's no brain or AI interface chip in there to remove.</span>")
 				return
@@ -381,7 +381,7 @@
 					boutput(user, "<span style=\"color:blue\">You insert some wire.</span>")
 					playsound(get_turf(src), "sound/weapons/Genhit.ogg", 40, 1)
 
-		else if(istype(W,/obj/item/wrench/))
+		else if(iswrench(W))
 			if(!src.cell)
 				boutput(user, "<span style=\"color:red\">There's no cell in there to remove.</span>")
 				return
@@ -823,7 +823,7 @@
 			boutput(user, "<span style=\"color:red\">The brain needs to go in the head piece, not the frame.</span>")
 			return
 
-		if(istype(W,/obj/item/wrench))
+		if(iswrench(W))
 			var/list/actions = list("Do nothing")
 			if(src.check_completion())
 				actions.Add("Finish and Activate the Cyborg")

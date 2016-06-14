@@ -134,7 +134,7 @@
 
 	if(href_list["act"])
 		if(href_list["act"] == "pulse")
-			if (!istype(usr.equipped(), /obj/item/device/multitool) || !istype(usr.equipped(), /obj/item/omnitool) || istype(usr.equipped(), /obj/item/omnitool) && usr.equipped().omni_mode != "multitool") //I KNOW IT'S DEPRECATED, BUT I GOTTA BE CONSISTENT.
+			if (!(ismultitool(usr.equipped()))) //I KNOW IT'S DEPRECATED, BUT I GOTTA BE CONSISTENT.
 				boutput(usr, "You need a multitool!")
 			else
 				if(src.wires[href_list["wire"]])
@@ -152,7 +152,7 @@
 						src.shock(usr)
 						spawn(100) src.shocked = !src.shocked
 		if(href_list["act"] == "wire")
-			if (!istype(usr.equipped(), /obj/item/wirecutters))
+			if (!iswirecutters(usr.equipped()))
 				boutput(usr, "You need wirecutters!")
 			else
 				if(src.hack_wire == href_list["wire"])

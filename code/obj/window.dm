@@ -349,7 +349,7 @@
 				user.show_text("You have [src.anchored ? "fastened the window to" : "unfastened the window from"] the floor.", "blue")
 				return 1
 
-		else if (istype(W, /obj/item/crowbar))
+		else if (iscrowbar(W))
 			if (state <= 1)
 				playsound(src.loc, "sound/items/Crowbar.ogg", 75, 1)
 				if (deconstruct_time)

@@ -87,7 +87,7 @@
 	attackby(obj/item/screwdriver/S as obj, mob/user as mob)
 		src.add_fingerprint(user)
 		var/known = (user in known_by)
-		if (istype(S, /obj/item/screwdriver))
+		if (isscrewdriver(S)))
 			//try to disassemble the false wall
 			if (!src.density || prob(prob_opens))
 				//without this, you can detect a false wall just by going down the line with screwdrivers

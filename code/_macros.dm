@@ -47,11 +47,18 @@
 #define islist(x) istype(x, /list)
 #define isitem(x) istype(x, /obj/item
 
-#define ismultitool(x) (istype(x, /obj/item/device/multitool) || istype(x, /obj/item/omnitool) && x.omni_mode == "multitool")
-#define isscrewdriver(x) (istype(x, /obj/item/screwdriver) || istype(x, /obj/item/omnitool) && x.omni_mode == "screwdriver")
-#define iscrowbar(x) (istype(x, /obj/item/crowbar) || istype(x, /obj/item/omnitool) && x.omni_mode == "crowbar")
-#define iswrench(x) (istype(x, /obj/item/wrench) || istype(x, /obj/item/omnitool) && x.omni_mode == "wrench")
-#define iswirecutters(x) (istype(x, /obj/item/wirecutters) || istype(x, /obj/item/omnitool) && x.omni_mode == "wirecutters")
+
+#define OMNITOOL_MULTITOOL 1
+#define OMNITOOL_SCREWDRIVER 2
+#define OMNITOOL_CROWBAR 4
+#define OMNITOOL_WIRECUTTERS 8
+#define OMNITOOL_WRENCH 16
+
+#define ismultitool(x) (istype(x, /obj/item/device/multitool)) || (istype(x, /obj/item/omnitool) && x.omni_mode == OMNITOOL_MULTITOOL)
+#define isscrewdriver(x) (istype(x, /obj/item/screwdriver)) || (istype(x, /obj/item/omnitool) && x.omni_mode == OMNITOOL_SCREWDRIVER)
+#define iscrowbar(x) (istype(x, /obj/item/crowbar)) || (istype(x, /obj/item/omnitool) && x.omni_mode == OMNITOOL_CROWBAR)
+#define iswrench(x) (istype(x, /obj/item/wrench)) || (istype(x, /obj/item/omnitool) && x.omni_mode == OMNITOOL_WRENCH)
+#define iswirecutters(x) (istype(x, /obj/item/wirecutters)) || (istype(x, /obj/item/omnitool) && x.omni_mode == OMNITOOL_WIRECUTTERS)
 
 // pick strings from cache-- code/procs/string_cache.dm
 #define pick_string(filename, key) pick(strings(filename, key))

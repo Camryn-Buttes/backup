@@ -25,7 +25,7 @@
 		else if (istype(W, /obj/item/sword)) qdel(src)
 		else if (istype(W, /obj/item/saw)) qdel(src)
 		else if (istype(W, /obj/item/weldingtool)) qdel(src)
-		else if (istype(W, /obj/item/wirecutters)) qdel(src)
+		else if (iswirecutters(W)) qdel(src)
 		..()
 
 	proc/Life()
