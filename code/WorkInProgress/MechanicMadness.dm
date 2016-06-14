@@ -106,11 +106,11 @@ var/list/mechanics_telepads = new/list()
 
 	//Helper proc to check if a mob is allowed to change connections. Right now you only need a multitool.
 	proc/allowChange(var/mob/M)
-		if(hasvar(M, "l_hand") && istype(M:l_hand, /obj/item/device/multitool) || hasvar(M, "l_hand") && istype(M:l_hand, /obj/item/omnitool) && M:l_hand.omni_mode == "multitool") return 1 //I mean, technically borgs can't have hands, but maybe a human will get an omnitool at some point?
-		if(hasvar(M, "r_hand") && istype(M:r_hand, /obj/item/device/multitool) || hasvar(M, "r_hand") && istype(M:r_hand, /obj/item/omnitool) && M:r_hand.omni_mode == "multitool") return 1 //I mean, technically borgs can't have hands, but maybe a human will get an omnitool at some point?
+		if(hasvar(M, "l_hand") && ismultitool(M:l_hand)) return 1 //I mean, technically borgs can't have hands, but maybe a human will get an omnitool at some point?
+		if(hasvar(M, "r_hand") && ismultitool(M:r_hand)) return 1 //I mean, technically borgs can't have hands, but maybe a human will get an omnitool at some point?
 		if(hasvar(M, "module_states"))
 			for(var/atom/A in M:module_states)
-				if(istype(A, /obj/item/device/multitool) || istype(A, /obj/item/omnitool) && A.omni_mode == "multitool")
+				if(ismultitool(A)) //heck yeah, compiler macros
 					return 1
 		return 0
 
