@@ -142,7 +142,9 @@ MATERIAL COLLECTOR
 /obj/item/screwdriver/vr
 	icon = 'icons/effects/VR.dmi'
 
-//OMNITOOL
+	/* ._.-'~'-._.-'~'-._.-'~'-._.-'~'-._.-'~'-._.-'~'-._.-'~'-._. */
+	/*=-=-=-=-=-=-=-=-=-=-=-=-=-OMNITOOLS-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+	/* '~'-._.-'~'-._.-'~'-._.-'~'-._.-'~'-._.-'~'-._.-'~'-._.-'~' */
 
 /obj/item/omnitool
 	name = "universal omnitool"
@@ -151,19 +153,19 @@ MATERIAL COLLECTOR
 	icon_state = "multitool" //defaults to multitool mode
 	flags = FPRINT | TABLEPASS | CONDUCT
 	force = 5.0 //same as a multitool
-	w_class = 2.0 //same
-	hit_type = DAMAGE_BLUNT //same
-	hitsound = 'sound/weapons/genhit1.ogg' //same
-	throwforce = 5.0 //same
-	throw_speed = 3 //same
-	throw_range = 15 //same
+	w_class = 2.0
+	hit_type = DAMAGE_BLUNT
+	hitsound = 'sound/weapons/genhit1.ogg'
+	throwforce = 5.0
+	throw_speed = 3
+	throw_range = 15
 	desc = "An amazing piece of technology that function as five tools in one."
-	stamina_damage = 5 //same
-	stamina_cost = 5 //same
-	stamina_crit_chance = 1 //same
-	module_research = list("tools" = 8, "metals" = 5, "devices" = 5) //why the hell am I even including this? Note: not the same as a multitool
-	rand_pos = 1 //same
-	var/omni_mode = OMNITOOL_MULTITOOL //WOAH, something new!
+	stamina_damage = 5
+	stamina_cost = 5
+	stamina_crit_chance = 1
+	module_research = list("tools" = 8, "metals" = 5, "devices" = 5)
+	rand_pos = 1
+	var/omni_mode = OMNITOOL_MULTITOOL
 	var/temp_mode = "multitool"
 	var/powerusage = 100 //amount of cell charge used per switch, I would do per tool usage, but that's way too hard to gauge in this case.
 
@@ -185,28 +187,28 @@ MATERIAL COLLECTOR
     	                	boutput(user, "<span style=\"color:blue\"> The omnitool is now set to function as a [newmode].</span>")
     	                usepower(user)
     	                src.temp_mode = newmode
-                switch(src.temp_mode) //UUUUUUUUUGGGGGGGGGGGGGGGGGH
+                switch(src.temp_mode)
                         if ("multitool")
 	                        src.icon = 'icons/obj/device.dmi' //once again, all sprite references are placeholders until sundance finishes his sprites
 													src.inhand_image_icon = 'icons/mob/inhand/hand_tools.dmi'
 													src.icon_state = "multitool"
-													src.force = 5.0 //same as a multitool
-													src.w_class = 2.0 //same
-													src.hit_type = DAMAGE_BLUNT //same
-													src.hitsound = 'sound/weapons/genhit1.ogg' //same
-													src.throwforce = 5.0 //same
-													src.throw_speed = 3 //same
-													src.throw_range = 15 //same
-													src.stamina_damage = 5 //same
-													src.stamina_cost = 5 //same
-													src.stamina_crit_chance = 1 //same
+													src.force = 5.0 //ALL the stats are as similar as possible to the actual items
+													src.w_class = 2.0
+													src.hit_type = DAMAGE_BLUNT
+													src.hitsound = 'sound/weapons/genhit1.ogg'
+													src.throwforce = 5.0
+													src.throw_speed = 3
+													src.throw_range = 15
+													src.stamina_damage = 5
+													src.stamina_cost = 5
+													src.stamina_crit_chance = 1
 													src.omni_mode = OMNITOOL_MULTITOOL
                         if ("screwdriver")
                         	src.icon = 'icons/obj/items.dmi' //placeholder again
 													src.inhand_image_icon = 'icons/mob/inhand/hand_tools.dmi'
-													src.icon_state = "screwdriver" //not the drink kind
+													src.icon_state = "screwdriver"
 													src.force = 5.0
-													src.w_class = 1.0 //I just discovered the miracle of mass indentation, hallelujah
+													src.w_class = 1.0
 													src.hit_type = DAMAGE_STAB
 													src.hitsound = 'sound/effects/bloody_stab.ogg'
 													src.throwforce = 5.0
@@ -239,28 +241,28 @@ MATERIAL COLLECTOR
 													src.item_state = "wrench"
 													src.w_class = 2.0
 													src.m_amt = 50
-													src.hit_type = DAMAGE_BLUNT //You could probably also justify a DAMAGE_STAB by using the sharp end of most crowbars.
+													src.hit_type = DAMAGE_BLUNT
 													src.hitsound = 'sound/weapons/genhit1.ogg'
-													src.stamina_damage = 33 //crowbars are a superior weapon to wrenches
+													src.stamina_damage = 33
 													src.stamina_cost = 25
-													src.stamina_crit_chance = 10 //crit chance is too RNG based for true robustness
+													src.stamina_crit_chance = 10
 													src.omni_mode = OMNITOOL_CROWBAR
                         if ("wirecutters")
-                        	src.icon = 'icons/obj/items.dmi' //you know the drill, PLACEHOLDER
+                        	src.icon = 'icons/obj/items.dmi' //PLACEHOLDER
 													src.inhand_image_icon = 'icons/mob/inhand/hand_tools.dmi'
 													src.icon_state = "cutters"
 													src.force = 6.0
 													src.throw_speed = 2
 													src.throw_range = 9
 													src.w_class = 2.0
-													src.hit_type = DAMAGE_STAB //don't run with scissors
+													src.hit_type = DAMAGE_STAB
 													src.hitsound = 'sound/effects/bloody_stab.ogg'
 													src.m_amt = 80
 													src.stamina_damage = 5
 													src.stamina_cost = 10
 													src.stamina_crit_chance = 30
 													src.omni_mode = OMNITOOL_WIRECUTTERS
-	//THAT WAS HORRIBLE.
+
 	get_desc(dist)
     		if (dist < 3)
       			. += "<br><span style=\"color:blue\">It is currently set to [src.omni_mode] mode.</span>"

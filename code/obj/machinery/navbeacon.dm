@@ -115,7 +115,7 @@
 		if (T.intact)
 			return		// prevent intraction when T-scanner revealed
 
-		if (isscrewdriver(I)))
+		if (isscrewdriver(I))
 			open = !open
 
 			user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "You [open ? "open" : "close"] the beacon's cover.")

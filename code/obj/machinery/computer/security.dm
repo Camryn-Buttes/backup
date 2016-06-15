@@ -115,7 +115,7 @@
 			use_power(50)
 
 /obj/machinery/computer/security/attackby(I as obj, user as mob)
-	if(isscrewdriver(I)))
+	if(isscrewdriver(I))
 		playsound(src.loc, "sound/items/Screwdriver.ogg", 50, 1)
 		if(do_after(user, 20))
 			if (src.stat & BROKEN)

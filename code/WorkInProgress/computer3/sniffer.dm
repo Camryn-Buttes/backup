@@ -27,7 +27,7 @@
 			..()
 
 	attackby(var/obj/item/I, var/mob/user)
-		if(isscrewdriver(I)))
+		if(isscrewdriver(I))
 			if(!mode)
 				var/turf/T = loc
 				if(isturf(T) && !T.intact)

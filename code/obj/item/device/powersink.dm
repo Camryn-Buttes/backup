@@ -31,7 +31,7 @@
 		light.attach(src)
 
 	attackby(var/obj/item/I, var/mob/user)
-		if(isscrewdriver(I)))
+		if(isscrewdriver(I))
 			if(mode == 0)
 				var/turf/T = loc
 				if(isturf(T) && !T.intact)
