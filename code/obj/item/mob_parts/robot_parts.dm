@@ -390,7 +390,7 @@
 			src.cell.set_loc( get_turf(src) )
 			src.cell = null
 
-		else if(istype(W,/obj/item/wirecutters/))
+		else if(iswirecutters(W))
 			if(src.wires < 1)
 				boutput(user, "<span style=\"color:red\">There's no wiring in there to remove.</span>")
 				return

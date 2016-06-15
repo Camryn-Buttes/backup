@@ -86,7 +86,7 @@
 		src.set_loc(R)
 		R.part2 = src
 		src.add_fingerprint(user)
-	else if ((istype(W, /obj/item/device/multitool) && !(src.status)))
+	else if ((istype(W, /obj/item/device/multitool) && !(src.status))) //this can stay, don't want borgs accidentally deleting their omnitools
 
 		var/obj/item/assembly/detonator/R = new /obj/item/assembly/detonator(user);
 		W.loc = R

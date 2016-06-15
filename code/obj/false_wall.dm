@@ -84,7 +84,7 @@
 				boutput(user, "<span style=\"color:blue\">The wall slides shut.</span>")
 		return
 
-	attackby(obj/item/screwdriver/S as obj, mob/user as mob)
+	attackby(obj/item/S as obj, mob/user as mob)
 		src.add_fingerprint(user)
 		var/known = (user in known_by)
 		if (isscrewdriver(S)))

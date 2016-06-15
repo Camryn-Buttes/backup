@@ -1213,7 +1213,7 @@
 
 		if ((href_list["pulsewire"]) && (src.panel_open))
 			var/twire = text2num(href_list["pulsewire"])
-			if (ismultitool(usr.equipped()))
+			if (!(ismultitool(usr.equipped())))
 				boutput(usr, "You need a multitool!")
 				return
 			else if (src.isWireColorCut(twire))
