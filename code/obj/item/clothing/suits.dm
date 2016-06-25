@@ -759,8 +759,6 @@
 	armor_value_melee = 3
 	
 	cursed
-	//	name = "cursed cultist robe" on second thought, this is way more hilarious!
-	//	desc = "The unholy vestments of an arch-cultist" ditto
 		cant_drop = 1
 		cant_other_remove = 1
 		cant_self_remove = 1
