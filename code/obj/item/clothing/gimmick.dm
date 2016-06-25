@@ -501,8 +501,6 @@
 	see_face = 0.0
 	
 	cursed
-	//	name = "cursed horse mask" way more hilarious this way
-	//	desc = "NEIGH!" ditto
 		cant_drop = 1
 		cant_other_remove = 1
 		cant_self_remove = 1
