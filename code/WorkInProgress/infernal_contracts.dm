@@ -189,8 +189,8 @@ mob/living/carbon/human/proc/horse()
 	New()
 		src.color = random_color_hex()
 
-	proc/MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //maybe this will let me cut down on the duplicate code
-		if (!user) //oh god how did this happen
+	proc/MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //this calls the actual contract effect
+		if (!user) //oh god how did this happen? I don't know, but somehow it did.
 			return
 		if (user.mind.diabolical == 1)
 			boutput(user, "<span style=\"color:blue\">You can't sell your soul to yourself!</span>")
@@ -246,7 +246,7 @@ mob/living/carbon/human/proc/horse()
 obj/item/contract/satan
 	desc = "A contract that promises to bestow upon whomever signs it near immortality, great power, and some other stuff you can't be bothered to read."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -261,7 +261,7 @@ obj/item/contract/satan
 obj/item/contract/macho
 	desc = "A contract that promises to bestow upon whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!")
@@ -276,7 +276,7 @@ obj/item/contract/macho
 obj/item/contract/wrestle
 	desc = "A contract that promises to bestow upon whomever signs it athletic prowess, showmanship, and some other stuff you can't be bothered to read."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in cocaine upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding cocaine contract at [log_loc(user)]!")
@@ -297,7 +297,7 @@ obj/item/contract/yeti
 	oneuse = 1
 	var/used = 0
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!")
@@ -316,7 +316,7 @@ obj/item/contract/admin
 	desc = "A contract that promises to bestow upon whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
 	oneuse = 1
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!")
@@ -332,7 +332,7 @@ obj/item/contract/genetic
 	desc = "A contract that promises to unlock the hidden potential of whomever signs it."
 	oneuse = 0
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding genetic modifiying contract at [log_loc(user)]!")
@@ -366,12 +366,12 @@ obj/item/contract/horse
 			boutput(user, "<span style=\"color:red\"><font size=3><B>You currently have [total_souls_sold] souls, the total worth of which is [total_souls_value] soul points. You need 20 soul points to begin the end times. </b></font></span>")
 
 	proc/endtimes()
-		total_souls_value -= 20 //oh christ, I almost forgot about this. The last thing we need is endless horseman drones.
+		total_souls_value -= 20 //The last thing we need is endless horseman drones.
 		spawn(0)
 			var/turf/spawn_turf = get_turf(src)
-			new /obj/effects/ydrone_summon/horseman(spawn_turf) //still need a sprite for horseman
+			new /obj/effects/ydrone_summon/horseman(spawn_turf)
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding horse contract at [log_loc(user)]!")
@@ -390,7 +390,7 @@ obj/item/contract/horse
 obj/item/contract/mummy
 	desc = "A contract that promises to turn whomever signs it into a mummy. That's it. No tricks."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!")
@@ -414,7 +414,7 @@ obj/item/contract/mummy
 obj/item/contract/vampire
 	desc = "A contract that promises to bestow upon whomever signs it near immortality, great power, and some other stuff you can't be bothered to read. There's some warning about not using this one in the chapel written on the back."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -429,7 +429,7 @@ obj/item/contract/vampire
 obj/item/contract/fart //for popecrunch
 	desc = "It's just a piece of paper with the word 'fart' written all over it."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -444,7 +444,7 @@ obj/item/contract/fart //for popecrunch
 obj/item/contract/hair //for Megapaco
 	desc = "This contract promises to make the undersigned individual have the best hair of anybody within 10 kilometers."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -463,7 +463,7 @@ obj/item/contract/hair //for Megapaco
 obj/item/contract/greed //how the fuck did I not think of this yet
 	desc = "This contract is positively covered in dollar signs."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //HOPEFULLY CUTS OUT A BUNCH OF UNNECESSARY STUFF.
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
