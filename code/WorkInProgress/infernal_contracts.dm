@@ -3,25 +3,19 @@ mob/living/carbon/human/proc/horse()
 
 	if(H.mind && (H.mind.assigned_role != "Horse") || (!H.mind || !H.client)) //I am shamelessly copying this from the wizard cluwne spell
 		boutput(H, "<span style=\"color:red\"><B>You NEIGH painfully!</B></span>")
-		//H.take_brain_damage(80) uncomment if horses are really dumb
+		H.take_brain_damage(80)
 		H.stuttering = 120
 		if(H.mind)
 			H.mind.assigned_role = "Horse"
-		//H.contract_disease(/datum/ailment/disability/clumsy,null,null,1) uncomment if horses are really clumsy
-		//H.contract_disease(/datum/ailment/disease/cluwneing_around,null,null,1)  uncomment if horses are clowns (they aren't)
+		H.contract_disease(/datum/ailment/disability/clumsy,null,null,1)
 		playsound(get_turf(H), pick("sound/voice/cluwnelaugh1.ogg","sound/voice/cluwnelaugh2.ogg","sound/voice/cluwnelaugh3.ogg"), 100, 0, 0, max(0.7, min(1.4, 1.0 + (30 - H.bioHolder.age)/50)))
 		H.nutrition = 9000
 		H.change_misstep_chance(66)
 		animate_clownspell(H)
-		//H.unequip_all()
 		H.drop_from_slot(H.wear_suit)
-		//H.drop_from_slot(H.shoes)
 		H.drop_from_slot(H.wear_mask)
-		//H.drop_from_slot(H.gloves)
 		H.equip_if_possible(new /obj/item/clothing/suit/cultist/cursed(H), H.slot_wear_suit)
-		//H.equip_if_possible(new /obj/item/clothing/shoes/cursedclown_shoes(H), H.slot_shoes)
 		H.equip_if_possible(new /obj/item/clothing/mask/horse_mask/cursed(H), H.slot_wear_mask)
-		//H.equip_if_possible(new /obj/item/clothing/gloves/cursedclown_gloves(H), H.slot_gloves)
 		H.real_name = "HORSE"
 
 /proc/neigh(var/string) //This is it. This is the lowest point in my life.
