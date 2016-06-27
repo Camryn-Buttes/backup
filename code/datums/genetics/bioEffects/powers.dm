@@ -11,8 +11,6 @@
 	blockGaps = 2
 	stability_loss = 10
 	var/using = 0
-	var/safety = 0
-	var/power = 0
 	var/ability_path = /datum/targetable/geneticsAbility/cryokinesis
 	var/datum/targetable/geneticsAbility/ability = /datum/targetable/geneticsAbility/cryokinesis
 
@@ -26,8 +24,6 @@
 			var/mob/living/carbon/human/H = owner
 			H.hud.update_ability_hotbar()
 			check_ability_owner()
-		if (variant == 666)
-			safety = 1
 		return
 
 	OnRemove()
