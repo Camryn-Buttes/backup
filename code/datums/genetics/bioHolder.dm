@@ -374,7 +374,7 @@ var/list/datum/bioEffect/bioEffectList = list()
 
 		age += (toCopy.age - age) / (11 - progress)
 
-	proc/AddEffect(var/idToAdd, var/variant = 0, var/timeleft = 0)
+	proc/AddEffect(var/idToAdd, var/variant = 0, var/timeleft = 0, var/magical = 0)
 		//Adds an effect to this holder. Returns the newly created effect if succesful else 0.
 		if(!owner) return
 
@@ -396,6 +396,13 @@ var/list/datum/bioEffect/bioEffectList = list()
 
 			if(variant) newEffect.variant = variant
 			if(timeleft) newEffect.timeLeft = timeleft
+			if(magical)
+				newEffect.curable_by_mutadone = 0
+				newEffect.stability_loss = 0
+				newEffect.can_scramble = 0
+				newEffect.can_reclaim = 0
+				newEffect.safety = 1
+				newEffect.power = 1
 
 			effects[newEffect.id] = newEffect
 			newEffect.owner = owner
