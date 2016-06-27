@@ -47,8 +47,6 @@ var/const/effectTypePower = 3
 
 	var/variant = 1  //For effects with different variants.
 	var/cooldown = 0 //For effects that come with verbs
-	var/safety = 0
-	var/power = 0
 	var/can_reclaim = 1 // Can this gene be turned into mats with the reclaimer?
 	var/can_scramble = 1 // Can this gene be scrambled with the emitter?
 	var/can_copy = 1 //Is this gene copied over on bioHolder transfer (i.e. cloning?)
