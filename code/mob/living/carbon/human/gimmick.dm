@@ -55,11 +55,11 @@ mob/living/carbon/human/cluwne/satan
 	New()
 		..()
 		spawn(0)
-			src.bioHolder.AddEffect("horns", 666)
-			src.bioHolder.AddEffect("aura_fire", 666)
+			src.bioHolder.AddEffect("horns", 0, 0, 1)
+			src.bioHolder.AddEffect("aura_fire", 0, 0, 1)
 			src.bioHolder.AddEffect("superfartgriff")
-			src.bioHolder.AddEffect("bigpuke", 666)
-			src.bioHolder.AddEffect("melt", 666)
+			src.bioHolder.AddEffect("bigpuke", 0, 0, 1)
+			src.bioHolder.AddEffect("melt", 0, 0, 1)
 
 mob/living/carbon/human/cluwne/satan/megasatan //someone can totally use this for an admin gimmick.
 	New()
