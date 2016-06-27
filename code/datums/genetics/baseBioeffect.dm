@@ -47,6 +47,8 @@ var/const/effectTypePower = 3
 
 	var/variant = 1  //For effects with different variants.
 	var/cooldown = 0 //For effects that come with verbs
+	var/safety = 0
+	var/power = 0
 	var/can_reclaim = 1 // Can this gene be turned into mats with the reclaimer?
 	var/can_scramble = 1 // Can this gene be scrambled with the emitter?
 	var/can_copy = 1 //Is this gene copied over on bioHolder transfer (i.e. cloning?)
@@ -78,11 +80,6 @@ var/const/effectTypePower = 3
 			if(isliving(owner))
 				var/mob/living/L = owner
 				L.UpdateOverlays(overlay_image, id)
-		if(src.variant == 666) //I AM SO SORRY FOR THIS
-			curable_by_mutadone = 0 //SO VERY SORRY
-			stability_loss = 0 //YES, THIS IS A MASSIVE HACK, I AM SORRY.
-			can_scramble = 0 //FORGIVE ME, CODER GODS.
-			can_reclaim = 0 //I AM TERRIBLE.
 		return
 
 	proc/OnRemove()  //Called when the effect is removed.
