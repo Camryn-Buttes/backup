@@ -2006,7 +2006,7 @@
 		if(src.module) return
 		if(!src.freemodule) return
 		boutput(src, "<span style=\"color:blue\">You may choose a starter module.</span>")
-		var/list/starter_modules = list("Standard", "Engineering", "Medical", "Mining", "Construction", "Chemistry", "Brobocop")
+		var/list/starter_modules = list("Civilian", "Engineering", "Medical", "Mining", "Chemistry", "Brobocop")
 		//var/list/starter_modules = list("Standard", "Engineering", "Medical", "Brobot")
 		if (ticker && ticker.mode)
 			if (istype(ticker.mode, /datum/game_mode/construction))
@@ -2016,9 +2016,9 @@
 			return
 
 		switch(mod)
-			if("Standard")
+			if("Civilian")
 				src.freemodule = 0
-				boutput(src, "<span style=\"color:blue\">You chose the Standard module. It comes with a free Efficiency Upgrade.</span>")
+				boutput(src, "<span style=\"color:blue\">You chose the Civilian module. It comes with a free Efficiency Upgrade.</span>")
 				src.module = new /obj/item/robot_module/standard(src)
 				src.upgrades += new /obj/item/roboupgrade/efficiency(src)
 			if("Medical")
@@ -2031,17 +2031,17 @@
 				boutput(src, "<span style=\"color:blue\">You chose the Engineering module. It comes with a free Meson Vision Upgrade.</span>")
 				src.module = new /obj/item/robot_module/engineering(src)
 				src.upgrades += new /obj/item/roboupgrade/opticmeson(src)
-			if("Janitor")
+			if("Janitor") //not used right now
 				src.freemodule = 0
 				boutput(src, "<span style=\"color:blue\">You chose the Janitor module. It comes with a free Repair Pack.</span>")
 				src.module = new /obj/item/robot_module/janitor(src)
 				src.upgrades += new /obj/item/roboupgrade/repairpack(src)
-			if("Hydroponics")
+			if("Hydroponics") //not used right now
 				src.freemodule = 0
 				boutput(src, "<span style=\"color:blue\">You chose the Standard module. It comes with a free Recharge Pack.</span>")
 				src.module = new /obj/item/robot_module/hydro(src)
 				src.upgrades += new /obj/item/roboupgrade/rechargepack(src)
-			if("Brobot")
+			if("Brobocop")
 				src.freemodule = 0
 				boutput(src, "<span style=\"color:blue\">You chose the Brobocop module. It comes with a free Recovery Upgrade</span>")
 				src.module = new /obj/item/robot_module/brobot/brobocop(src)
@@ -2060,7 +2060,7 @@
 								break
 					if("No") boutput(src, "Remember - the mining station can be accessed from Engineering.")
 					*/
-			if("Construction")
+			if("Construction") //not used right now
 				src.freemodule = 0
 				boutput(src, "<span style=\"color:blue\">You chose the Construction module. It comes with a free Propulsion Upgrade.</span>")
 				src.module = new /obj/item/robot_module/construction(src)
