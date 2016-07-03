@@ -2006,7 +2006,7 @@
 		if(src.module) return
 		if(!src.freemodule) return
 		boutput(src, "<span style=\"color:blue\">You may choose a starter module.</span>")
-		var/list/starter_modules = list("Standard", "Engineering", "Medical", "Janitor", "Hydroponics", "Mining", "Construction", "Chemistry", "Brobot")
+		var/list/starter_modules = list("Standard", "Engineering", "Medical", "Mining", "Construction", "Chemistry", "Brobocop")
 		//var/list/starter_modules = list("Standard", "Engineering", "Medical", "Brobot")
 		if (ticker && ticker.mode)
 			if (istype(ticker.mode, /datum/game_mode/construction))
@@ -2043,8 +2043,9 @@
 				src.upgrades += new /obj/item/roboupgrade/rechargepack(src)
 			if("Brobot")
 				src.freemodule = 0
-				boutput(src, "<span style=\"color:blue\">You chose the Bro Bot module.</span>")
-				src.module = new /obj/item/robot_module/brobot(src)
+				boutput(src, "<span style=\"color:blue\">You chose the Brobocop module. It comes with a free Recovery Upgrade</span>")
+				src.module = new /obj/item/robot_module/brobot/brobocop(src)
+				src.upgrades += new /obj/item/roboupgrade/aware(src)
 			if("Mining")
 				src.freemodule = 0
 				boutput(src, "<span style=\"color:blue\">You chose the Mining module. It comes with a free Propulsion Upgrade.</span>")
@@ -2967,4 +2968,3 @@
 
 /client/proc/set_screen_color_to_red()
 	src.color = "#ff0000"
-
