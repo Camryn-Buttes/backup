@@ -348,7 +348,7 @@
 	if (istype(W, /obj/item/cargotele))
 		W:cargoteleport(src, user)
 		return
-	if(istype(W, /obj/item/atmosporter))
+	if(istype(W, /obj/item/atmosporter)) //deprecated now, but I'm going to keep this around just in case there was a good reason to have it this way. It seems really odd that it'd be coded in such a bizarre way without a good reason, so I'm erring on the side of caution. Same with the other atmosporter references.
 		var/canamt = W:contents.len
 		if (canamt >= W:capacity) boutput(user, "<span style=\"color:red\">Your [W] is full!</span>")
 		else

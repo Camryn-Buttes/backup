@@ -114,12 +114,34 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "robojumper"
 
-/obj/item/atmosporter
+/obj/item/porter //this is the parent of atmosporters and cargoporters. It was really dumb to have all the code excuted by the item to be stored. This way is much more extensible
 	name = "Atmospherics Transporter"
 	desc = "Used by Atmospherics Cyborgs for convenient transport of siphons and tanks."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bedbin"
-	var/capacity = 2
+	var/list/allowed = list(/obj) //ONLY FOR TESTING. WILL BREAK THINGS HORRIBLY IF USED LIVE.
+	var/capacity = 3
+
+	afterattack(atom/target as obj|mob|turf, mob/user as mob, flag)
+		var/proceed = 0
+		for(var/check_path in src.allowed)
+			if(istype(target, check_path))
+				proceed = 1
+				break
+		if (!proceed)
+			boutput(user, "<span style=\"color:red\">[src] cannot hold that!</span>")
+			return
+		var/canamt = src:contents.len
+		if (canamt >= src:capacity) boutput(user, "<span style=\"color:red\">Your [src] is full!</span>")
+		else
+			user.visible_message("<span style=\"color:blue\">[user] collects the [target].</span>", "<span style=\"color:blue\">You collect the [target].</span>")
+			if(hasvar(target, "contained"))
+				target.contained = 1
+			target.set_loc(W)
+			var/datum/effects/system/spark_spread/s = unpool(/datum/effects/system/spark_spread)
+			s.set_up(5, 1, user)
+			s.start()
+
 
 	attack_self(var/mob/user as mob)
 		if (src.contents.len == 0) boutput(user, "<span style=\"color:red\">You have nothing stored!</span>")
@@ -131,6 +153,15 @@
 			var/datum/effects/system/spark_spread/s = unpool(/datum/effects/system/spark_spread)
 			s.set_up(5, 1, user)
 			s.start()
+
+/obj/item/porter/atmos
+	allowed = list(/obj/machinery/portable_atmospherics)
+
+/obj/item/porter/cargo
+	name = "Crate Holder"
+	desc = "Used by Cargo Cyborgs for convenient carrying of heavy storage containers."
+	capacity = 12 //I know it seems a bit excessive, but I feel like it needs to be excessive in order to properly accomodate the sheer number of crates a QM will typically order.
+	allowed = list(/obj/storage)
 
 /obj/item/robot_chemaster
 	name = "Mini-ChemMaster"
@@ -537,7 +568,7 @@ ported and crapped up by: haine
 
 	attack_self(var/mob/user as mob)
 		if (!vend_this)
-			var/pickme = input("Please make your selection!", "Item selection", src.vend_this) in list("Flashbang", "Cryo", "Crowd dispersal")
+			var/pickme = input("Please make your selection!", "Item selection", src.vend_this) in list("Flashbang", "Cryo", "Cheese sandwich", "Crowd dispersal")
 			if (prob(1))
 				src.vend_this = "Malfunctioning"
 				user.show_text("<b>AUTHORIZATION ERROR</b> - Experimental grenade fault! Reboot unsuccessful...", "red")
@@ -559,7 +590,7 @@ ported and crapped up by: haine
 				if ("Crowd dispersal")
 					new /obj/item/chem_grenade/pepper(get_turf(src))
 				if ("Cheese sandwich")
-					new /obj/item/reagent_containers/food/snacks/sandwich/cheese(get_turf(src))
+					new /obj/item/old_grenade/banana/cheese_sandwich(get_turf(src)) //TO DO: make cheese sandwich grenade.
 				if ("Malfunctioning")
 					var/pick_nade = rand(1,13)
 					switch(pick_nade)

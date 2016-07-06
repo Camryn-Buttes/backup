@@ -105,7 +105,7 @@
 		src.cosmetic_mods = new /datum/robot_cosmetic/engineering(src)
 		src.modules += new /obj/item/device/flashlight
 		src.modules += new /obj/item/robojumper(src)
-		src.modules += new /obj/item/atmosporter(src)
+		src.modules += new /obj/item/porter/atmos(src)
 		src.modules += new /obj/item/extinguisher/large(src)
 		src.modules += new /obj/item/weldingtool(src)
 		src.modules += new /obj/item/device/t_scanner(src)
@@ -281,6 +281,7 @@
 		src.modules += new /obj/item/mining_tool/powerhammer/borg(src) //would you believe this already existed?
 		src.modules += new /obj/item/ore_scoop/borg(src)
 		src.modules += new /obj/item/cargotele(src)
+		src.modules += new /obj/item/porter/cargo(src)
 		src.modules += new /obj/item/oreprospector(src)
 		src.modules += new /obj/item/satchel/mining/large(src)
 		src.modules += new /obj/item/satchel/mining/large(src)
