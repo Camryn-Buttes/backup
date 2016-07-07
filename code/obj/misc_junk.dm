@@ -83,7 +83,8 @@
 	stamina_cost = 1
 
 	attack(mob/M as mob, mob/user as mob)
-		user.disarm(M)
+		if(user.a_intent == "harm") //this is so brobots can still attack people with cardboard tubes without disarming people
+			user.disarm(M)
 
 	suicide(var/mob/user as mob)
 		user.visible_message("<span style=\"color:red\"><b>[user] attempts to beat \himself to death with the cardboard tube, but fails!</b></span>")

@@ -173,7 +173,7 @@ MATERIAL COLLECTOR
 	  	if (istype(user, /mob/living/silicon/robot))
 			var/mob/living/silicon/robot/R = user
 			R.cell.charge -= src.powerusage
-		else if (istype(user, /mob/living/silicon/ghostdrone))
+		else if (istype(user, /mob/living/silicon/ghostdrone)) //I sincerely hope this still works with all the ghost drone updates!
 			var/mob/living/silicon/ghostdrone/R = user
 			R.cell.charge -= src.powerusage
   		return
@@ -266,6 +266,29 @@ MATERIAL COLLECTOR
 	get_desc(dist)
     		if (dist < 3)
       			. += "<br><span style=\"color:blue\">It is currently set to [src.omni_mode] mode.</span>"
+
+/obj/item/surgical_laser //MAJOR WIP, EXCUSE PLACEHOLDER CODE.
+	name = "surgical laser"
+	icon = 'icons/obj/device.dmi' //once again, all sprite references are placeholders until sundance finishes his sprites
+	inhand_image_icon = 'icons/mob/inhand/hand_tools.dmi'
+	icon_state = "multitool" //defaults to multitool mode
+	flags = FPRINT | TABLEPASS | CONDUCT
+	force = 5.0 //same as a multitool
+	w_class = 2.0
+	hit_type = DAMAGE_BLUNT
+	hitsound = 'sound/weapons/genhit1.ogg'
+	throwforce = 5.0
+	throw_speed = 3
+	throw_range = 15
+	desc = "An amazing piece of technology that function as five tools in one."
+	stamina_damage = 5
+	stamina_cost = 5
+	stamina_crit_chance = 1
+	module_research = list("tools" = 8, "metals" = 5, "devices" = 5)
+	rand_pos = 1
+	var/omni_mode = OMNITOOL_MULTITOOL
+	var/temp_mode = "multitool"
+	var/powerusage = 100 //amount of cell charge used per switch, I would do per tool usage, but that's way too hard to gauge in this case.
 
 // WELDING TOOL
 /obj/item/weldingtool //no way in hell am I adding all the shit below to the omnitool.

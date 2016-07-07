@@ -26,7 +26,6 @@
 			<A href='?src=\ref[src];module=eng'>Write Engineering Module<BR>
 			<A href='?src=\ref[src];module=bro'>Write Brobocop Module<BR>
 			<A href='?src=\ref[src];module=min'>Write Mining Module<BR>
-			<A href='?src=\ref[src];module=cst'>Write Construction Module<BR>
 			<A href='?src=\ref[src];module=chem'>Write Chemistry Module<BR>"}
 			if (ticker && ticker.mode)
 				if (istype(ticker.mode, /datum/game_mode/construction))
@@ -67,10 +66,10 @@
 				if ("med") output = /obj/item/robot_module/medical
 				if ("eng") output = /obj/item/robot_module/engineering
 		//	if ("jan") output = /obj/item/robot_module/janitor
-			//	if ("hyd") output = /obj/item/robot_module/hydro
+		//	if ("hyd") output = /obj/item/robot_module/hydro
 				if ("bro") output = /obj/item/robot_module/brobot/brobocop //no more normal brobots
 				if ("min") output = /obj/item/robot_module/mining
-				if ("cst") output = /obj/item/robot_module/construction
+		//	if ("cst") output = /obj/item/robot_module/construction
 				if ("chem") output = /obj/item/robot_module/chemistry
 				if ("con")
 					if (ticker && ticker.mode)

@@ -168,7 +168,7 @@
 		..()
 		src.cosmetic_mods = new /datum/robot_cosmetic/brobot(src)
 		src.modules += new /obj/item/device/flashlight/brobot //this doubles as the borg siren light
-		src.modules += new /obj/item/noisemaker(src) //this doubles as the borg siren itself
+		src.modules += new /obj/item/noisemaker(src) //this doubles as the borg siren itself, but I need to figure out a better way since it's really awkward to keep honking the siren.
 		src.modules += new /obj/item/robot_foodsynthesizer(src)
 		src.modules += new /obj/item/reagent_containers/food/drinks/bottle/beer/borg(src)
 		src.modules += new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
@@ -179,7 +179,7 @@
 
 /obj/item/robot_module/brobot/brobocop //this is the secbot module
 	name = "Brobocop Module" //the main reason being that I like the idea of the secborgs being half-rate discount dan style mallcops
-	desc = "Become the life of security using tools for fun, entertainment, and law enforcement." //also laziness
+	desc = "Become the life of security using tools for fun, entertainment, and justice."
 	icon_state = "mod-bro"
 	mod_hudicon = "brobot"
 	mod_appearance = "BroBot"
@@ -191,7 +191,12 @@
 		src.modules += new /obj/item/device/radio/headset/security/borg(src)
 		src.modules += new /obj/item/device/detective_scanner(src)
 		src.modules += new /obj/item/device/audio_log/borg(src)
-		//I would add a ticketing tool here, but, on second though, it kind of goes against a borg's laws to write a ticket or fine.
+		var/obj/item/device/pda2/ticket/Q = new /obj/item/device/pda2/ticket(src)
+		var/mob/living/silicon/robot/B = src.loc
+		if(istype(B))
+			Q.name = "[B.name]'s Ticketing PDA"
+			Q.owner = "[B.name]"
+			src.modules += Q
 
 /datum/robot_cosmetic/brobot
 	head_mod = "Afro and Shades"

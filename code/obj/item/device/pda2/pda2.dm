@@ -205,6 +205,14 @@
 		setup_default_cartridge = /obj/item/disk/data/cartridge/nuclear
 		setup_system_os_path = /datum/computer/file/pda_program/os/main_os/mess_off
 
+	ticket
+		icon_state = "pda-syn"
+		name = "Ticketing PDA"
+		setup_default_cartridge = /obj/item/disk/data/cartridge/ticket
+		setup_drive_size = 1024
+		bombproof = 1
+		mailgroup = "silicon"
+
 /obj/item/device/pda2/pickup(mob/user)
 	if (src.module)
 		src.module.relay_pickup(user)

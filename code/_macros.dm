@@ -60,6 +60,10 @@
 #define iswrench(x) (istype(x, /obj/item/wrench)) || (istype(x, /obj/item/omnitool) && x.omni_mode == OMNITOOL_WRENCH)
 #define iswirecutters(x) (istype(x, /obj/item/wirecutters)) || (istype(x, /obj/item/omnitool) && x.omni_mode == OMNITOOL_WIRECUTTERS)
 
+#define LASER_SCALPEL 1
+#define LASER_SAW 2
+#define LASER_SPOON 4
+
 // pick strings from cache-- code/procs/string_cache.dm
 #define pick_string(filename, key) pick(strings(filename, key))
 
