@@ -20,7 +20,7 @@ mob/living/carbon/human/proc/horse()
 
 /proc/neigh(var/string) //This is it. This is the lowest point in my life.
 	var/modded = ""
-	var/list/text_tokens = dd_text2list(string, " ")
+	var/list/text_tokens = splittext(string, " ")
 	for(var/token in text_tokens)
 		modded += "NEIGH "
 	modded += "NEIGH!"
