@@ -477,7 +477,7 @@
 	
 /datum/bioEffect/emoter/linkedfart
 	name = "Psychic Fart Link"
-	desc = "Creates a neural fart linkage between all life-forms within 15 kilometers"
+	desc = "Creates a neural fart linkage between all life-forms within 15 kilometers."
 	id = "linkedfart"
 	msgGain = "You feel the gas of a thousand souls"
 	msgLose = "You no longer feel so gassy."
@@ -496,6 +496,24 @@
 			return
 		if (prob(emote_prob))
 			L.emote(emote_type)
+
+/datum/bioEffect/emoter/juggler
+	name = "Jugglemancer's Curse"
+	desc = "Places a mystical hex upon the subject that compels the subject to juggle."
+	id = "juggler"
+	msgGain = "You feel the need to juggle"
+	msgLose = "You no longer feel the need to juggle."
+	emote_type = "twirl"
+	emote_prob = 35
+	curable_by_mutadone = 0
+	occur_in_genepools = 0
+	can_scramble = 0 
+	can_reclaim = 0
+	
+	OnAdd()
+		..()
+		if (!(owner.can_juggle == 1))
+			owner.can_juggle = 1
 
 ////////////////////////////
 // Disabled for *Reasons* //
