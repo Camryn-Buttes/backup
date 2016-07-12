@@ -98,27 +98,28 @@ mob/living/carbon/human/proc/horse()
 		qdel(src)
 
 /obj/item/pen/fancy/satan
-	name = "infernal pen"
-	desc = "A pen once owned by Old Nick himself. About as sharp as the Devil's wit."
+	name = "demonic pen"
+	desc = "A pen once owned by Old Nick himself. The point is as sharp as the Devil's wit, so it makes an excellent improvised stabbing or throwing weapon."
 	force = 15
 	throwforce = 15
 	hit_type = DAMAGE_STAB
 	color = "#FF0000"
 	font_color = "#FF0000"
 
-/obj/item/storage/box/evil // the one you get in your backpack
-	name = "box of infernal pens"
+/obj/item/storage/box/evil // the one you get in your briefcase
+	name = "box of demonic pens"
 	desc = "Contains a set of seven pens, great for collectors."
 	spawn_contents = list(/obj/item/pen/fancy/satan = 7)
 
 /obj/item/paper/soul_selling_kit
 	color = "#FF0000"
-	name = "Paper-'Instructions'"
+	name = "Paper-'Soul Stealing 101'"
 	info = {"<center><b>SO YOU WANT TO STEAL SOULS?</b></center><ul>
-			<li>Step One: Grab a complimentary pen and your contract of choice.</li>
+			<li>Step One: Grab a complimentary extra-sharp demonic pen and your infernal contract of choice from your develish briefcase.</li>
 			<li>Step Two: Present your contract to your victim by clicking on them with said contract, but be sure you have your hellish writing utensil handy in your other hand!</li>
 			<li>Step Three: It takes about fifteen seconds for you to force your victim to sign their name, be sure not to move during this process or the ink will smear!</li></ul>
-			<b>Alternatively, you can just have people sign the contract willingly, but where's the fun in that?</b>"}
+			<b>Alternatively, you can just have people sign the contract willingly, but where's the fun in that?</b>
+			<li>Oh, and if you ever find a contract that talks about horses, use it in your hand. Just trust your old pal Nick on this one.</li>"}
 
 
 /obj/item/storage/briefcase/satan
@@ -133,7 +134,7 @@ mob/living/carbon/human/proc/horse()
 	throw_range = 4
 	w_class = 4.0
 	max_wclass = 3
-	desc = "A diabolical human leather-bound briefcase, capable of holding a number of small objects and tormented souls. All those tormented souls really weigh it down."
+	desc = "A diabolical human leather-bound briefcase, capable of holding a number of small objects and tormented souls. All those tormented souls give it a good deal of heft; you could use it as a great improvised bludgeoning weapon."
 	stamina_damage = 90 //is this a bad idea?
 	stamina_cost = 30
 	stamina_crit_chance = 45 //yes, yes it is.
@@ -144,7 +145,7 @@ mob/living/carbon/human/proc/horse()
 		if (prob(1)) //gotta be rare enough for it to not get stale
 			new /obj/item/contract/horse(src) //can't have it in normal loot pool
 
-		var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic,/obj/item/contract/mummy,/obj/item/contract/vampire,/obj/item/contract/hair,/obj/item/contract/wrestle,/obj/item/contract/macho,/obj/item/contract/satan,/obj/item/contract/greed)
+		var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/mummy/thorough,/obj/item/contract/vampire,/obj/item/contract/wrestle,/obj/item/contract/macho,/obj/item/contract/satan)
 		var/tempcontract = null
 
 		if (prob(1)) //gotta be rare enough for it to not get stale
@@ -159,7 +160,7 @@ mob/living/carbon/human/proc/horse()
 			new tempcontract(src)
 			contracts -= tempcontract
 
-		tempcontract = pick(contracts)
+/*		tempcontract = pick(contracts)
 		new tempcontract(src)
 		contracts -= tempcontract
 
@@ -169,7 +170,11 @@ mob/living/carbon/human/proc/horse()
 
 		tempcontract = pick(contracts)
 		new tempcontract(src)
-		contracts -= tempcontract
+		contracts -= tempcontract */
+		
+		new /obj/item/contract/random/weak(src)
+		new /obj/item/contract/random/weak(src)
+		new /obj/item/contract/random/weak(src)
 
 /obj/item/contract
 	name = "infernal contract"
@@ -183,11 +188,21 @@ mob/living/carbon/human/proc/horse()
 	throw_speed = 4
 	throw_range = 20
 	desc = "A blank contract that's gone missing from hell."
-	var/oneuse = 0
-	var/inuse = 0
+	var/oneuse = 0 //whether it has a limited number of uses. 1 is limited, 0 is unlimited.
+	var/inuse = 0 //is someone currently signing this thing?
+	var/used = 0 // how many times a limited use contract has been signed so far
+	var/contractlines = 3 //number of times it can be signed if oneuse is true
 
 	New()
 		src.color = random_color_hex()
+	
+	get_desc(dist)
+		if (src.oneuse == 0)
+			. += "Somehow, it seems like an endless number of signatures could fit on this thing."
+		else if (src.contractlines - src.used == 1)
+			. += "It looks like only one more signature will fit on this thing."
+		else
+			. += "It looks like [src.contractlines - src.used] more signautres will fit on this thing."
 
 	proc/MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //this calls the actual contract effect
 		if (!user) //oh god how did this happen? I don't know, but somehow it did.
@@ -200,6 +215,8 @@ mob/living/carbon/human/proc/horse()
 	proc/vanish()
 		src.visible_message("<span style=\"color:red\"><B>[src] suddenly vanishes!</B></span>")
 		spawn(0)
+		src.visible_message("<span style=\"color:red\"><B>A new contract appears in [src]'s place!</B></span>")
+		new /obj/item/contract/random/weak(src.loc)
 		qdel(src)
 
 	attack(mob/M as mob, mob/user as mob, def_zone)
@@ -245,7 +262,9 @@ mob/living/carbon/human/proc/horse()
 
 obj/item/contract/satan
 	desc = "A contract that promises to bestow upon whomever signs it near immortality, great power, and some other stuff you can't be bothered to read."
-
+	oneuse = 1
+	contractlines = 2 //I'm not sure about this one, might be okay to leave it at 3.
+	
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
@@ -254,12 +273,17 @@ obj/item/contract/satan
 		spawn(5)
 		user.satanclownize()
 		if (src.oneuse == 1)
-			src.vanish()
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
 		else
 			return
 
 obj/item/contract/macho
 	desc = "A contract that promises to bestow upon whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
+	oneuse = 1
+	contractlines = 4 //this is probably the weakest of the oneuse contracts
 
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
@@ -269,12 +293,17 @@ obj/item/contract/macho
 		spawn(5)
 		user.machoize(1)
 		if (src.oneuse == 1)
-			src.vanish()
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
 		else
 			return
 
 obj/item/contract/wrestle
 	desc = "A contract that promises to bestow upon whomever signs it athletic prowess, showmanship, and some other stuff you can't be bothered to read."
+	oneuse = 1
+	contractlines = 2 //addiction is crippling, but surmountable. Should not be 3.
 
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
@@ -288,14 +317,16 @@ obj/item/contract/wrestle
 		user.mind.special_role = "Faustian Wrestler"
 		ticker.mode.Agimmicks.Add(user)
 		if (src.oneuse == 1)
-			src.vanish()
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
 		else
 			return
 
 obj/item/contract/yeti
-	desc = "A contract that promises to bestow upon whomever signs it near infinite power, an unending hunger, and some other stuff you can't be bothered to read. Seems like it only has three signature lines."
+	desc = "A contract that promises to bestow upon whomever signs it near infinite power, an unending hunger, and some other stuff you can't be bothered to read."
 	oneuse = 1
-	var/used = 0
 
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
@@ -307,7 +338,7 @@ obj/item/contract/yeti
 		if (src.oneuse == 1)
 			src.used++
 			spawn(0)
-			if (src.used >= 3)
+			if (src.used >= src.contractlines)
 				src.vanish()
 		else
 			return
@@ -315,6 +346,7 @@ obj/item/contract/yeti
 obj/item/contract/admin
 	desc = "A contract that promises to bestow upon whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
 	oneuse = 1
+	contractlines = 1 //one macho man per customer
 
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
@@ -324,14 +356,17 @@ obj/item/contract/admin
 		spawn(5)
 		user.machoize()
 		if (src.oneuse == 1)
-			src.vanish()
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
 		else
 			return
 
 obj/item/contract/genetic
 	desc = "A contract that promises to unlock the hidden potential of whomever signs it."
 	oneuse = 0
-
+	
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
@@ -341,22 +376,28 @@ obj/item/contract/genetic
 		user.bioHolder.AddEffect("activator", 0, 0, 1)
 		user.bioHolder.AddEffect("mutagenic_field", 0, 0, 1)
 		boutput(user, "<span style=\"color:blue\">You have finally achieved your full potential! Mom would so proud!</span>")
-		if (prob(5))
+		if ((prob(1)) || (src.oneuse == 1)) //lowered probability from prob(5) to prob(1) but added dedicated oneuse check
 			spawn(10)
 			boutput(user, "<span style=\"color:green\">You feel an upwelling of additional power!</span>")
 			user.unkillable = 1 //This isn't nearly as much of a boon as one might think.
 			user.bioHolder.AddEffect("mutagenic_field_prenerf", 0, 0, 1) //The reason being that
 			spawn(2) //after they come back to life, all the powers they had activated by the activator
-			boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! Spread your gifts to the rest of the world!</span>")  //will no longer be considered as activated from their potential, so all the stability effects
+			boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! You must share your mutagenic godhood with others! Have them bask in your irradiating glow!</span>")  //will no longer be considered as activated from their potential, so all the stability effects
 			user.mind.special_role = "Genetic Demigod" //will kick in at that point and they'll
 			ticker.mode.Agimmicks.Add(user) // be reduced to a genetic monstrosity in short order.
-		if (src.oneuse == 1) //This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
-			src.vanish() //This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
+		if (src.oneuse == 1)
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()//This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
 		else
 			return
 
+obj/item/contract/genetic/demigod
+	oneuse = 1
+
 obj/item/contract/horse
-	desc = "A piece of parchment covered in nearly indecipherable scrawl. You can just barely make out something about horses and signatures."
+	desc = "A piece of parchment covered in nearly indecipherable scrawl. You can just barely make out something about horses, signatures, and souls. It seems like some kind of bizarre doomsday prophecy."
 
 	attack_self(mob/user as mob)
 		if (total_souls_value >= 20) //OKAY, SO THIS IS NOW BASICALLY WORKING?
@@ -383,7 +424,10 @@ obj/item/contract/horse
 		user.mind.special_role = "Faustian Horse" //neigh
 		ticker.mode.Agimmicks.Add(user)
 		if (src.oneuse == 1) //this particular contract should never be one use, but JUST IN CASE
-			src.vanish()
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
 		else
 			return
 
@@ -402,18 +446,26 @@ obj/item/contract/mummy
 				user.update_body()
 		if(user.reagents)
 			user.reagents.add_reagent("formaldehyde", 300) //embalming fluid for mummies
-		if(prob(10))
+		if((prob(10)) || (src.oneuse == 1))
 			boutput(user, "<span style=\"color:blue\">Wow, that contract did a really thorough job of mummifying you! It removed your organs and everything!</span>")
 			spawn(0)
 			user:organHolder.drop_organ("all")
 		if (src.oneuse == 1)
-			src.vanish()
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
 		else
 			return
 
+obj/item/contract/mummy/thorough
+	oneuse = 1
+
 obj/item/contract/vampire
 	desc = "A contract that promises to bestow upon whomever signs it near immortality, great power, and some other stuff you can't be bothered to read. There's some warning about not using this one in the chapel written on the back."
-
+	oneuse = 1
+	contractlines = 2 //this has the fewest drawbacks of the various badguy contracts.
+	
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
@@ -422,7 +474,10 @@ obj/item/contract/vampire
 		spawn(5)
 		user.make_vampire(1)
 		if (src.oneuse == 1)
-			src.vanish()
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
 		else
 			return
 
@@ -437,7 +492,10 @@ obj/item/contract/fart //for popecrunch
 		spawn(5)
 		user.bioHolder.AddEffect("linkedfart", 0, 0, 1)
 		if (src.oneuse == 1)
-			src.vanish()
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
 		else
 			return
 
@@ -456,7 +514,10 @@ obj/item/contract/hair //for Megapaco
 			else
 				H.bioHolder.mobAppearance.customization_first = "None"
 		if (src.oneuse == 1)
-			src.vanish()
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
 		else
 			return
 
@@ -477,6 +538,23 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 			boutput(user, "<span style=\"color:blue\">Well, you were right.</span>")
 			user.become_gold_statue()
 		if (src.oneuse == 1)
-			src.vanish()
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
 		else
 			return
+
+/obj/item/contract/random
+	desc = "YOU SHOULDN'T EVER SEE THIS."
+	var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/mummy/thorough,/obj/item/contract/vampire,/obj/item/contract/hair,/obj/item/contract/wrestle,/obj/item/contract/macho,/obj/item/contract/satan,/obj/item/contract/greed)
+	var/tempcontract = null
+	
+	New()
+		..()
+		tempcontract = pick(contracts)
+		new tempcontract(src.loc)
+		qdel(src)
+
+/obj/item/contract/random/weak
+	contracts = list(obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic) //TODO: ADD ADDITIONAL WEAK CONTRACTS.
