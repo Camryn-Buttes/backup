@@ -158,15 +158,28 @@
 	msgGain = "You feel drunk!"
 	msgLose = "You feel sober."
 	probability = 99
-	var/ethanol_threshold = 80
+	var/reagent_to_add = "ethanol"
+	var/reagent_threshold = 80
 	var/add_per_tick = 1
 
 	OnLife()
 		var/mob/living/L = owner
 		if (L.stat == 2)
 			return
-		if (L.reagents && L.reagents.get_reagent_amount("ethanol") < ethanol_threshold)
-			L.reagents.add_reagent("ethanol",add_per_tick)
+		if (L.reagents && L.reagents.get_reagent_amount(reagent_to_add) < reagent_threshold)
+			L.reagents.add_reagent(reagent_to_add,add_per_tick)
+
+datum/bioEffect/drunk/bee
+	name = "Bee Production"
+	desc = "Encourages growth of bees in the subject's body."
+	id = "drunk_bee"
+	msgGain = "Your stomach buzzes!"
+	msgLose = "The buzzing in your stomach stops."
+	occur_in_genepools = 0
+	reagent_to_add = "bee"
+	reagent_threshold = 40
+	add_per_tick = 1.2
+	
 
 /datum/bioEffect/bee
 	name = "Apidae Metabolism"
