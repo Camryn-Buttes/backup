@@ -320,7 +320,7 @@ proc/build_syndi_buylist_cache()
 /datum/syndicate_buylist/traitor/contract
 	name = "Faustian Bargain Kit"
 	item = /obj/item/storage/briefcase/satan
-	cost = 12
+	cost = 7
 	desc = "Comes complete with three soul binding contracts, three extra-pointy pens, and one suit provided by Lucifer himself."
 	job = list("Chaplain")
 	not_in_crates = 1
