@@ -481,6 +481,24 @@ obj/item/contract/vampire
 		else
 			return
 
+obj/item/contract/juggle //credit for idea goes to Mageziya
+	desc = "It's a piece of paper with a portait of a person juggling skulls. Something about this image is both vaguely familiar and deeply unsettling."
+
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+		..()
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
+		user.sellsoul()
+		spawn(5)
+		user.bioHolder.AddEffect("juggler", 0, 0, 1)
+		if (src.oneuse == 1)
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
+		else
+			return
+
 obj/item/contract/fart //for popecrunch
 	desc = "It's just a piece of paper with the word 'fart' written all over it."
 
@@ -557,4 +575,4 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 		qdel(src)
 
 /obj/item/contract/random/weak
-	contracts = list(obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic) //TODO: ADD ADDITIONAL WEAK CONTRACTS.
+	contracts = list(obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle) //TODO: ADD ADDITIONAL WEAK CONTRACTS.
