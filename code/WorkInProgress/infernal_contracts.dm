@@ -160,7 +160,7 @@ mob/living/carbon/human/proc/horse()
 			new tempcontract(src)
 			contracts -= tempcontract
 		
-		contracts = list(obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested) //weak, non-antagonist contracts.
+		contracts = list(obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal) //weak, non-antagonist contracts.
 		
 		tempcontract = pick(contracts)
 		new tempcontract(src)
@@ -553,6 +553,26 @@ obj/item/contract/rested //credit for idea goes to Sundance
 		else
 			return
 
+obj/item/contract/reversal //inspired by Vitatroll's idea
+	desc = "This contract promises to make the strong weak and the weak strong."
+
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+		..()
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
+		user.sellsoul()
+		spawn(5)
+		user.bioHolder.AddEffect("breathless_contract", 0, 0, 1)
+		user.traitHolder.addTrait("reversal")
+		boutput(user, "<span style=\"color:blue\">You feel like you could take a shotgun blast to the face without getting a scratch on you!</span>")
+		if (src.oneuse == 1)
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
+		else
+			return
+
 
 obj/item/contract/hair //for Megapaco
 	desc = "This contract promises to make the undersigned individual have the best hair of anybody within 10 kilometers."
@@ -612,4 +632,4 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 		qdel(src)
 
 /obj/item/contract/random/weak
-	contracts = list(obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested) //TODO: ADD ADDITIONAL WEAK CONTRACTS.
+	contracts = list(obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal) //TODO: ADD ADDITIONAL WEAK CONTRACTS.
