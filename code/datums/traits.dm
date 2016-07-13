@@ -673,7 +673,7 @@
 /obj/trait/reversal
 	name = "Damage Reversal"
 	cleanName = "Damage Reversal"
-	desc = "You now take damage from healing sources but are healed by damage sources."
+	desc = "You are now healed by things that would otherwise cause brute, burn, or toxin damage. On the flipside, you are harmed by medicines." //We can't have oxydamage in there, otherwise they'd immediately start suffocating.
 	id = "reversal"
 	points = -1
 	isPositive = 1
