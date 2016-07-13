@@ -94,13 +94,13 @@
 	name = "Extreme Narcolepsy"
 	desc = "Like narcolepsy, but worse and incurable."
 	id = "narcolepsy_super"
-	msgGain = "You feel incredibly sleepy."
+	msgGain = "You feel more tired than you've ever thought possible."
 	msgLose = "You feel more awake than you've ever been in your whole life."
 	curable_by_mutadone = 0
 	occur_in_genepools = 0
 	can_scramble = 0 
 	can_reclaim = 0
-	sleep_prob = 20
+	sleep_prob = 33
 
 /datum/bioEffect/coprolalia
 	name = "Coprolalia"
