@@ -670,6 +670,15 @@
 	isPositive = 1
 	unselectable = 1
 
+/obj/trait/reversal
+	name = "Damage Reversal"
+	cleanName = "Damage Reversal"
+	desc = "You now take damage from healing sources but are healed by damage sources."
+	id = "reversal"
+	points = -1
+	isPositive = 1
+	unselectable = 1
+
 /obj/trait/badgenes
 	name = "Bad Genes (+2) \[Genetics\]"
 	cleanName = "Bad Genes"
