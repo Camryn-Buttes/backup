@@ -183,7 +183,7 @@ datum/bioEffect/drunk/bee
 	reagent_threshold = 40
 	add_per_tick = 1.2
 
-datum/bioeffect/drunk/pentetic
+datum/bioEffect/drunk/pentetic
 	name = "Pentetic Acid Production"
 	desc = "This mutation somehow causes the subject's body to manufacture a potent chellating agent. How exactly it functions is completely unknown."
 	id = "drunk_pentetic"
@@ -195,7 +195,39 @@ datum/bioeffect/drunk/pentetic
 	can_reclaim = 0
 	reagent_to_add = "penteticacid"
 	reagent_threshold = 40
-	add_per_tick = 4
+	add_per_tick = 4 //enough to make it difficult to remove without using calomel or hunchback.
+
+datum/bioEffect/drunk/random
+	name = "Chemical Production Modification"
+	desc = {"This mutation somehow irreversibly alters the subject's body to function as an organic chemical factory, mass producing large quantities of seemingly random chemicals.
+	The mechanism for this modification is currently unknown to medical and genetic science."}
+	id = "drunk_random"
+	msgGain = "You begin to sense an odd chemical taste in your mouth."
+	msgLose = "The chemical taste in your mouth fades."
+	occur_in_genepools = 1 //this is going to be very goddamn rare and very fucking difficult to unlock.
+	mob_exclusive = /mob/living/carbon/human/
+	probability = 1
+	blockCount = 5
+	can_research = 0
+	lockProb = 100
+	blockGaps = 0
+	lockedGaps = 10
+	lockedDiff = 6
+	lockedChars = list("G","C","A","T","U")
+	lockedTries = 12 //reduce to 8 if it's still too easy
+	curable_by_mutadone = 0
+	can_scramble = 0 
+	can_reclaim = 0
+	reagent_to_add = "honey"
+	reagent_threshold = 500 //it never stops
+	add_per_tick = 5 //even more difficult to remove without calomel or hunchback
+	
+	New()
+		..()
+		if (all_functional_reagent_ids.len > 1)
+			reagent_to_add = pick(all_functional_reagent_ids)
+		else
+			reagent_to_add = "water"
 
 /datum/bioEffect/bee
 	name = "Apidae Metabolism"
