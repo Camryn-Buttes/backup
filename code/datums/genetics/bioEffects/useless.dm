@@ -176,6 +176,9 @@ datum/bioEffect/drunk/bee
 	msgGain = "Your stomach buzzes!"
 	msgLose = "The buzzing in your stomach stops."
 	occur_in_genepools = 0
+	curable_by_mutadone = 0
+	can_scramble = 0 
+	can_reclaim = 0
 	reagent_to_add = "bee"
 	reagent_threshold = 40
 	add_per_tick = 1.2
