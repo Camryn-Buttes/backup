@@ -293,7 +293,10 @@
 /mob/living/carbon/take_brain_damage(var/amount)
 	if (..())
 		return
-
+	
+	if (src.traitHolder && src.traitHolder.hasTrait("reversal"))
+		amount *= -1
+	
 	src.brainloss = max(0,min(src.brainloss + amount,120))
 
 	if (src.brainloss >= 120)
@@ -310,6 +313,9 @@
 
 	if (src.bioHolder && src.bioHolder.HasEffect("resist_toxic"))
 		return
+	
+	if (src.traitHolder && src.traitHolder.hasTrait("reversal"))
+		amount *= -1
 
 	src.toxloss = max(0,src.toxloss + amount)
 	return
