@@ -159,22 +159,20 @@ mob/living/carbon/human/proc/horse()
 			tempcontract = pick(contracts)
 			new tempcontract(src)
 			contracts -= tempcontract
-
-/*		tempcontract = pick(contracts)
-		new tempcontract(src)
-		contracts -= tempcontract
-
-		tempcontract = pick(contracts)
-		new tempcontract(src)
-		contracts -= tempcontract
-
-		tempcontract = pick(contracts)
-		new tempcontract(src)
-		contracts -= tempcontract */
 		
-		new /obj/item/contract/random/weak(src)
-		new /obj/item/contract/random/weak(src)
-		new /obj/item/contract/random/weak(src)
+		contracts = list(obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested) //weak, non-antagonist contracts.
+		
+		tempcontract = pick(contracts)
+		new tempcontract(src)
+		contracts -= tempcontract
+
+		tempcontract = pick(contracts)
+		new tempcontract(src)
+		contracts -= tempcontract
+
+		tempcontract = pick(contracts)
+		new tempcontract(src)
+		contracts -= tempcontract
 
 /obj/item/contract
 	name = "infernal contract"
@@ -517,6 +515,45 @@ obj/item/contract/fart //for popecrunch
 		else
 			return
 
+obj/item/contract/bee //credit for idea goes to Mageziya
+	desc = "This contract promises to bestow bees upon whomever signs it. Unlimited bees."
+
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+		..()
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
+		user.sellsoul()
+		spawn(5)
+		user.bioHolder.AddEffect("drunk_bee", 0, 0, 1)
+		if (src.oneuse == 1)
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
+		else
+			return
+
+obj/item/contract/rested //credit for idea goes to Sundance
+	desc = "This contract promises to keep whomever signs it healthy and well rested."
+
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+		..()
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
+		user.sellsoul()
+		spawn(5)
+		user.bioHolder.AddEffect("drunk_pentetic", 0, 0, 1)
+		user.bioHolder.AddEffect("regenerator_super", 0, 0, 1)
+		user.bioHolder.AddEffect("narcolepsy_super", 0, 0, 1) //basically, the signer's very vulnerable but exceptionally difficult to actually kill.
+		if (src.oneuse == 1)
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
+		else
+			return
+
+
 obj/item/contract/hair //for Megapaco
 	desc = "This contract promises to make the undersigned individual have the best hair of anybody within 10 kilometers."
 
@@ -575,4 +612,4 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 		qdel(src)
 
 /obj/item/contract/random/weak
-	contracts = list(obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle) //TODO: ADD ADDITIONAL WEAK CONTRACTS.
+	contracts = list(obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested) //TODO: ADD ADDITIONAL WEAK CONTRACTS.
