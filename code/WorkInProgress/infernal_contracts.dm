@@ -145,7 +145,7 @@ mob/living/carbon/human/proc/horse()
 		if (prob(1)) //gotta be rare enough for it to not get stale
 			new /obj/item/contract/horse(src) //can't have it in normal loot pool
 
-		var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/mummy/thorough,/obj/item/contract/vampire,/obj/item/contract/wrestle,/obj/item/contract/macho,/obj/item/contract/satan)
+		var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/mummy/thorough,/obj/item/contract/vampire,/obj/item/contract/wrestle,/obj/item/contract/satan)
 		var/tempcontract = null
 
 		if (prob(1)) //gotta be rare enough for it to not get stale
@@ -160,7 +160,7 @@ mob/living/carbon/human/proc/horse()
 			new tempcontract(src)
 			contracts -= tempcontract
 		
-		contracts = list(obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal) //weak, non-antagonist contracts.
+		contracts = list(obj/item/contract/macho,obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal,obj/item/contract/chemical) //weak, non-antagonist contracts.
 		
 		tempcontract = pick(contracts)
 		new tempcontract(src)
@@ -228,12 +228,12 @@ mob/living/carbon/human/proc/horse()
 				return
 			else if (src.inuse != 1)
 				src.inuse = 1
-				M.visible_message("<span style=\"color:red\"><B>[user] is guiding [M]'s hand to the signature field of a contract!</B></span>")
+				M.visible_message("<span style=\"color:red\"><B>[user] is guiding [M]'s hand to the signature field of an [src]!</B></span>")
 				if (!do_mob(user, M, 150))
 					if (user && ismob(user))
 						user.show_text("You were interrupted!", "red")
 						return
-				M.visible_message("<span style=\"color:red\">[user] forces [M] to sign a contract!</span>")
+				M.visible_message("<span style=\"color:red\">[user] forces [M] to sign an [src]!</span>")
 				logTheThing("combat", user, M, "forces %M% to sign a [src] at [log_loc(user)].")
 				spawn(0)
 				MagicEffect(M, user)
@@ -280,8 +280,8 @@ obj/item/contract/satan
 
 obj/item/contract/macho
 	desc = "A contract that promises to bestow upon whomever signs it everlasting machismo, drugs, and some other stuff you can't be bothered to read."
-	oneuse = 1
-	contractlines = 4 //this is probably the weakest of the oneuse contracts
+//	oneuse = 1
+	//contractlines = 4 //actually, this works better if it's not an antagonist contract since the only power the person gets is macho healing.
 
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
@@ -395,8 +395,11 @@ obj/item/contract/genetic/demigod
 	oneuse = 1
 
 obj/item/contract/horse
-	desc = "A piece of parchment covered in nearly indecipherable scrawl. You can just barely make out something about horses, signatures, and souls. It seems like some kind of bizarre doomsday prophecy."
-
+	name = "eldritch tome"
+	desc = "An ancient tome filled with nearly indecipherable scrawl. You can just barely make out something about horses, signatures, and souls. It seems like it might be some kind of bizarre doomsday prophecy."
+	icon_state = "necrobook" //makes it more distinctive
+	item_state = "spellbook" //ditto
+	
 	attack_self(mob/user as mob)
 		if (total_souls_value >= 20) //OKAY, SO THIS IS NOW BASICALLY WORKING?
 			src.endtimes()
@@ -412,7 +415,7 @@ obj/item/contract/horse
 
 	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
 		..()
-		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name with [his_or_her(user)] own blood inside the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding horse contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(5)
@@ -573,6 +576,23 @@ obj/item/contract/reversal //inspired by Vitatroll's idea
 		else
 			return
 
+obj/item/contract/chemical //inspired by Vitatroll's idea
+	desc = "This contract is adorned with a crude drawing of a werewolf imploding into a pile flaming spiders. What the hell?"
+
+	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+		..()
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
+		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
+		user.sellsoul()
+		spawn(5)
+		user.bioHolder.AddEffect("drunk_random", 0, 0, 1)
+		if (src.oneuse == 1)
+			src.used++
+			spawn(0)
+			if (src.used >= src.contractlines)
+				src.vanish()
+		else
+			return
 
 obj/item/contract/hair //for Megapaco
 	desc = "This contract promises to make the undersigned individual have the best hair of anybody within 10 kilometers."
@@ -622,7 +642,7 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 
 /obj/item/contract/random
 	desc = "YOU SHOULDN'T EVER SEE THIS."
-	var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/mummy/thorough,/obj/item/contract/vampire,/obj/item/contract/hair,/obj/item/contract/wrestle,/obj/item/contract/macho,/obj/item/contract/satan,/obj/item/contract/greed)
+	var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/mummy/thorough,/obj/item/contract/vampire,/obj/item/contract/hair,/obj/item/contract/wrestle,/obj/item/contract/satan,/obj/item/contract/greed)
 	var/tempcontract = null
 	
 	New()
@@ -632,4 +652,4 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 		qdel(src)
 
 /obj/item/contract/random/weak
-	contracts = list(obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal) //TODO: ADD ADDITIONAL WEAK CONTRACTS.
+	contracts = list(obj/item/contract/macho,obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal,obj/item/contract/chemical) //TODO: ADD ADDITIONAL WEAK CONTRACTS.
