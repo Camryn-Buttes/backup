@@ -467,6 +467,10 @@
 
 /mob/living/carbon/human/TakeDamage(zone, brute, burn, tox, damage_type, disallow_limb_loss)
 	if (src.nodamage) return
+	
+	if (src.traitHolder && src.traitHolder.hasTrait("reversal"))
+		brute *= -1
+		burn *= -1
 
 	if (src.traitHolder && src.traitHolder.hasTrait("deathwish"))
 		brute *= 2
@@ -554,6 +558,11 @@
 	TakeDamage(zone, max(brute, 0), max(burn, 0), 0, damage_type)
 
 /mob/living/carbon/human/HealDamage(zone, brute, burn, tox)
+	if (src.traitHolder && src.traitHolder.hasTrait("reversal"))
+		brute *= -1
+		burn *= -1
+		tox *= -1
+	
 	if (zone == "All")
 		var/bruteOrganCount = 0 	//How many organs have brute damage?
 		var/burnOrganCount = 0		//How many organs have burn damage?
