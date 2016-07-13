@@ -90,6 +90,18 @@
 		if (prob(sleep_prob))
 			L.sleeping = 1
 
+/datum/bioEffect/narcolepsy/super
+	name = "Extreme Narcolepsy"
+	desc = "Like narcolepsy, but worse and incurable."
+	id = "narcolepsy_super"
+	msgGain = "You feel incredibly sleepy."
+	msgLose = "You feel more awake than you've ever been in your whole life."
+	curable_by_mutadone = 0
+	occur_in_genepools = 0
+	can_scramble = 0 
+	can_reclaim = 0
+	sleep_prob = 20
+
 /datum/bioEffect/coprolalia
 	name = "Coprolalia"
 	desc = "Causes involuntary outbursts from the subject."
