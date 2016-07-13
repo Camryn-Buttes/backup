@@ -182,7 +182,20 @@ datum/bioEffect/drunk/bee
 	reagent_to_add = "bee"
 	reagent_threshold = 40
 	add_per_tick = 1.2
-	
+
+datum/bioeffect/drunk/pentetic
+	name = "Pentetic Acid Production"
+	desc = "This mutation somehow causes the subject's body to manufacture a potent chellating agent. How exactly it functions is completely unknown."
+	id = "drunk_pentetic"
+	msgGain = "You feel detoxified"
+	msgLose = "You feel toxic."
+	occur_in_genepools = 0
+	curable_by_mutadone = 0
+	can_scramble = 0 
+	can_reclaim = 0
+	reagent_to_add = "penteticacid"
+	reagent_threshold = 40
+	add_per_tick = 4
 
 /datum/bioEffect/bee
 	name = "Apidae Metabolism"
