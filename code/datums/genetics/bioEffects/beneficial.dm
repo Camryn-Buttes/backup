@@ -184,6 +184,20 @@
 			if (H.limbs)
 				H.limbs.mend(1)
 
+/datum/bioEffect/regenerator/super
+	name = "Super Regeneration"
+	desc = "Subject's cells are capable of repairing immense trauama at an unbelievably rapid rate."
+	id = "regenerator_super"
+	curable_by_mutadone = 0
+	occur_in_genepools = 0
+	can_scramble = 0 
+	can_reclaim = 0
+	stability_loss = 0 //necessary to prevent issues with existing mutants who sign the contract. We want the sleep to be their downfall, not their genes.
+	msgGain = "You begin to feel your flesh mending back together." //heh, resembles changeling's fast regenerate
+	msgLose = "Your flesh stops mending itself together."
+	heal_per_tick = 7 // decrease to 5 if extreme narcolepsy doesn't counterbalance this enough
+	regrow_prob = 50 //increase to 100 if not counterbalanced
+	
 /datum/bioEffect/detox
 	name = "Natural Anti-Toxins"
 	desc = "Enables the subject's bloodstream to purge foreign substances more rapidly."
