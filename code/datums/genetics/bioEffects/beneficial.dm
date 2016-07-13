@@ -143,6 +143,16 @@
 	msgGain = "Your lungs feel strangely empty."
 	msgLose = "You start gasping for air."
 
+/datum/bioEffect/breathless/contract
+	id = "breathless_contract"
+	msgGain = ""
+	msgLose = ""
+	curable_by_mutadone = 0
+	occur_in_genepools = 0
+	can_scramble = 0 
+	can_reclaim = 0
+	stability_loss = 0 
+
 /datum/bioEffect/psychic_resist
 	name = "Meta-Neural Enhancement"
 	desc = "Boosts efficiency in sectors of the brain commonly associated with resisting meta-mental energies."
