@@ -232,12 +232,12 @@ mob/living/carbon/human/proc/horse()
 				return
 			else if (src.inuse != 1)
 				src.inuse = 1
-				M.visible_message("<span style=\"color:red\"><B>[user] is guiding [M]'s hand to the signature field of an [src]!</B></span>")
+				M.visible_message("<span style=\"color:red\"><B>[user] is guiding [M]'s hand to the signature field of /a [src]!</B></span>")
 				if (!do_mob(user, M, 150))
 					if (user && ismob(user))
 						user.show_text("You were interrupted!", "red")
 						return
-				M.visible_message("<span style=\"color:red\">[user] forces [M] to sign an [src]!</span>")
+				M.visible_message("<span style=\"color:red\">[user] forces [M] to sign /a [src]!</span>")
 				logTheThing("combat", user, M, "forces %M% to sign a [src] at [log_loc(user)].")
 				spawn(0)
 				MagicEffect(M, user)
