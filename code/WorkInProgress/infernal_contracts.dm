@@ -139,40 +139,44 @@ mob/living/carbon/human/proc/horse()
 	stamina_cost = 30
 	stamina_crit_chance = 45 //yes, yes it is.
 	spawn_contents = list(/obj/item/paper/soul_selling_kit, /obj/item/storage/box/evil, /obj/item/clothing/under/misc/lawyer/red)
+	var/merchant = null
 
 	make_my_stuff() //hijacking this from space loot secure safes
 		..()
-		if (prob(1)) //gotta be rare enough for it to not get stale
-			new /obj/item/contract/horse(src) //can't have it in normal loot pool
-
-		var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/mummy/thorough,/obj/item/contract/vampire,/obj/item/contract/wrestle,/obj/item/contract/satan)
-		var/tempcontract = null
-
-		if (prob(1)) //gotta be rare enough for it to not get stale
-			var/loot = rand(1,2)
-			switch(loot)
-				if (1)
-					new /obj/item/contract/horse(src) //can't have it in normal loot pool
-				else if (2)
-					new /obj/item/contract/fart(src) //ditto, it's way too ridiculous and would get old fast if it were common.
-		else
+		spawn(5) //to give the buylist enough time to assign a merchant var to the briefcase
+			var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/mummy/thorough,/obj/item/contract/vampire,/obj/item/contract/wrestle,/obj/item/contract/satan)
+			var/tempcontract = null
+			if (prob(1)) //gotta be rare enough for it to not get stale
+				var/loot = rand(1,2)
+				switch(loot)
+					if (1)
+						var/obj/item/contract/horse/H = new /obj/item/contract/horse(src)
+						H.merchant = src.merchant
+					else if (2)
+						var/obj/item/contract/fart/F = new /obj/item/contract/fart(src)
+						F.merchant = src.merchant
+			else
+				tempcontract = pick(contracts)
+				var/obj/item/I = new tempcontract(src)
+				I.merchant = src.merchant
+				contracts -= tempcontract
+			
+			contracts = list(obj/item/contract/macho,obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal,obj/item/contract/chemical) //weak, non-antagonist contracts.
+			
 			tempcontract = pick(contracts)
-			new tempcontract(src)
+			var/obj/item/C = new tempcontract(src)
+			C.merchant = src.merchant
 			contracts -= tempcontract
-		
-		contracts = list(obj/item/contract/macho,obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal,obj/item/contract/chemical) //weak, non-antagonist contracts.
-		
-		tempcontract = pick(contracts)
-		new tempcontract(src)
-		contracts -= tempcontract
-
-		tempcontract = pick(contracts)
-		new tempcontract(src)
-		contracts -= tempcontract
-
-		tempcontract = pick(contracts)
-		new tempcontract(src)
-		contracts -= tempcontract
+	
+			tempcontract = pick(contracts)
+			var/obj/item/P = new tempcontract(src)
+			P.merchant = src.merchant
+			contracts -= tempcontract
+	
+			tempcontract = pick(contracts)
+			var/obj/item/Z = new tempcontract(src)
+			Z.merchant = src.merchant
+			contracts -= tempcontract
 
 /obj/item/contract
 	name = "infernal contract"
@@ -190,6 +194,7 @@ mob/living/carbon/human/proc/horse()
 	var/inuse = 0 //is someone currently signing this thing?
 	var/used = 0 // how many times a limited use contract has been signed so far
 	var/contractlines = 3 //number of times it can be signed if oneuse is true
+	var/merchant = null
 
 	New()
 		src.color = random_color_hex()
@@ -210,15 +215,18 @@ mob/living/carbon/human/proc/horse()
 			return
 		return
 
-	proc/vanish()
-		var/turf/contractlocation = get_turf(src.loc)
-		src.visible_message("<span style=\"color:red\"><B>[src] suddenly vanishes!</B></span>")
-		spawn(5)
-			qdel(src)
-		src.visible_message("<span style=\"color:red\"><B>A new contract appears in [src]'s place!</B></span>")
-		spawn(5)
-			var/obj/item/contract/random/weak/U = new /obj/item/contract/random/weak
-			U.set_loc(contractlocation)
+	proc/vanish(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+		var/list/replacementcontracts = list(obj/item/contract/macho,obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal,obj/item/contract/chemical)
+		var/tempcontract = pick(replacementcontracts)
+		boutput(user, "<span style=\"color:blue\"><b>The depleted contract vanishes in a puff of smoke!</b></span>")
+		var/obj/item/contract/U = new tempcontract(badguy)
+		U.merchant = badguy
+		if (!badguy.put_in_hand(U))
+			U.set_loc(get_turf(badguy))
+			badguy.show_text("<h3>A new contract suddenly appears at your feet!</h3>", "blue")
+		else
+			badguy.show_text("<h3>A new contract suddenly appears in your hand!</h3>", "blue")
+		qdel(src)
 
 	attack(mob/M as mob, mob/user as mob, def_zone)
 		if (!ismob(M))
@@ -254,7 +262,7 @@ mob/living/carbon/human/proc/horse()
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
-				MagicEffect(user)
+				MagicEffect(user, src.merchant)
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
 				return
@@ -271,13 +279,13 @@ obj/item/contract/satan
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.satanclownize()
 		if (src.oneuse == 1)
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -291,13 +299,13 @@ obj/item/contract/macho
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.machoize(1)
 		if (src.oneuse == 1)
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -311,7 +319,7 @@ obj/item/contract/wrestle
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in cocaine upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding cocaine contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.make_wrestler(1)
 		user.traitHolder.addTrait("addict") //HEH
 		boutput(user, "<span style=\"color:blue\">Oh cripes, looks like your years of drug abuse caught up with you! </span>")
@@ -321,7 +329,7 @@ obj/item/contract/wrestle
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -334,13 +342,13 @@ obj/item/contract/yeti
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.makesuperyeti()
 		if (src.oneuse == 1)
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -354,13 +362,13 @@ obj/item/contract/admin
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.machoize()
 		if (src.oneuse == 1)
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -373,7 +381,7 @@ obj/item/contract/genetic
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding genetic modifiying contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.bioHolder.AddEffect("activator", 0, 0, 1)
 		user.bioHolder.AddEffect("mutagenic_field", 0, 0, 1)
 		boutput(user, "<span style=\"color:blue\">You have finally achieved your full potential! Mom would so proud!</span>")
@@ -390,7 +398,7 @@ obj/item/contract/genetic
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()//This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
+				src.vanish(user, badguy)//This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
 		else
 			return
 
@@ -421,7 +429,7 @@ obj/item/contract/horse
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name with [his_or_her(user)] own blood inside the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding horse contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.horse()
 		user.traitHolder.addTrait("soggy") //to spread the curse around
 		boutput(user, "<span style=\"color:red\"><font size=6><B>NEIGH</b></font></span>")
@@ -431,7 +439,7 @@ obj/item/contract/horse
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -458,7 +466,7 @@ obj/item/contract/mummy
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -475,13 +483,13 @@ obj/item/contract/vampire
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.make_vampire(1)
 		if (src.oneuse == 1)
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -493,13 +501,13 @@ obj/item/contract/juggle //credit for idea goes to Mageziya
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.bioHolder.AddEffect("juggler", 0, 0, 1)
 		if (src.oneuse == 1)
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -511,13 +519,13 @@ obj/item/contract/fart //for popecrunch
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.bioHolder.AddEffect("linkedfart", 0, 0, 1)
 		if (src.oneuse == 1)
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -529,13 +537,13 @@ obj/item/contract/bee //credit for idea goes to Mageziya
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.bioHolder.AddEffect("drunk_bee", 0, 0, 1)
 		if (src.oneuse == 1)
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -547,7 +555,7 @@ obj/item/contract/rested //credit for idea goes to Sundance
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.bioHolder.AddEffect("drunk_pentetic", 0, 0, 1)
 		user.bioHolder.AddEffect("regenerator_super", 0, 0, 1)
 		user.bioHolder.AddEffect("narcolepsy_super", 0, 0, 1) //basically, the signer's very vulnerable but exceptionally difficult to actually kill.
@@ -555,7 +563,7 @@ obj/item/contract/rested //credit for idea goes to Sundance
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -567,7 +575,7 @@ obj/item/contract/reversal //inspired by Vitatroll's idea
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.bioHolder.AddEffect("breathless_contract", 0, 0, 1)
 		user.traitHolder.addTrait("reversal")
 		boutput(user, "<span style=\"color:blue\">You feel like you could take a shotgun blast to the face without getting a scratch on you!</span>")
@@ -575,7 +583,7 @@ obj/item/contract/reversal //inspired by Vitatroll's idea
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -587,13 +595,13 @@ obj/item/contract/chemical //inspired by Vitatroll's idea
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		user.bioHolder.AddEffect("drunk_random", 0, 0, 1)
 		if (src.oneuse == 1)
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -605,7 +613,7 @@ obj/item/contract/hair //for Megapaco
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		for(var/mob/living/carbon/human/H in mobs)
 			if (H == user)
 				continue
@@ -615,7 +623,7 @@ obj/item/contract/hair //for Megapaco
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
@@ -627,10 +635,22 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
-		spawn(5)
+		spawn(1)
 		new /obj/item/spacecash/random(user.loc)
 		boutput(user, "<span style=\"color:blue\">Some money appears at your feet. What, did you expect some sort of catch or trick?</span>")
 		var/wealthy = rand(1,2)
+		if (wealthy == 1)
+			spawn(100)
+			boutput(user, "<span style=\"color:blue\">What, not enough for you? Fine.</span>")
+			var/turf/T = get_turf(user)
+			if (T)
+				playsound(user.loc, "sound/misc/coindrop.ogg", 100, 1)
+				new /obj/item/coin(T)
+				for (var/i = 1; i<= 8; i= i*2)
+					if (istype(get_turf(get_step(T,i)),/turf/simulated/floor))
+						new /obj/item/coin (get_step(T,i))
+					else
+						new /obj/item/coin(T)
 		if (wealthy == 2)
 			spawn(100)
 			boutput(user, "<span style=\"color:blue\">Well, you were right.</span>")
@@ -639,7 +659,7 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				src.vanish(user, badguy)
 		else
 			return
 
