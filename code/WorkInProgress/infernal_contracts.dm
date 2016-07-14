@@ -210,13 +210,15 @@ mob/living/carbon/human/proc/horse()
 			return
 		return
 
-	proc/vanish()
-		src.visible_message("<span style=\"color:red\"><B>[src] suddenly vanishes!</B></span>")
+	proc/vanish(var/mob/living/carbon/human/user as mob)
+		user.visible_message("<span style=\"color:red\"><B>[src] suddenly vanishes!</B></span>")
 		spawn(0)
-			src.visible_message("<span style=\"color:red\"><B>A new contract appears in [src]'s place!</B></span>")
+			user.visible_message("<span style=\"color:red\"><B>A new contract appears in [src]'s place!</B></span>")
 			spawn(0)
-				new /obj/item/contract/random/weak(src.loc)
-				spawn(0)
+				var/turf/location = get_turf(src.loc)
+				var/obj/item/contract/random/weak/U = new /obj/item/contract/random/weak
+				U.set_loc(location)
+				spawn(1)
 					qdel(src)
 
 	attack(mob/M as mob, mob/user as mob, def_zone)
@@ -276,7 +278,7 @@ obj/item/contract/satan
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -296,7 +298,7 @@ obj/item/contract/macho
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -320,7 +322,7 @@ obj/item/contract/wrestle
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -339,7 +341,7 @@ obj/item/contract/yeti
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -359,7 +361,7 @@ obj/item/contract/admin
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -389,7 +391,7 @@ obj/item/contract/genetic
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()//This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
+				spawn(5) src.vanish(user)//This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
 		else
 			return
 
@@ -430,7 +432,7 @@ obj/item/contract/horse
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -457,7 +459,7 @@ obj/item/contract/mummy
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -480,7 +482,7 @@ obj/item/contract/vampire
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -498,7 +500,7 @@ obj/item/contract/juggle //credit for idea goes to Mageziya
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -516,7 +518,7 @@ obj/item/contract/fart //for popecrunch
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -534,7 +536,7 @@ obj/item/contract/bee //credit for idea goes to Mageziya
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -554,7 +556,7 @@ obj/item/contract/rested //credit for idea goes to Sundance
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -574,7 +576,7 @@ obj/item/contract/reversal //inspired by Vitatroll's idea
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -592,7 +594,7 @@ obj/item/contract/chemical //inspired by Vitatroll's idea
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -614,7 +616,7 @@ obj/item/contract/hair //for Megapaco
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
@@ -638,7 +640,7 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				spawn(5) src.vanish()
+				spawn(5) src.vanish(user)
 		else
 			return
 
