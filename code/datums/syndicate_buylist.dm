@@ -325,9 +325,10 @@ proc/build_syndi_buylist_cache()
 	job = list("Chaplain")
 	not_in_crates = 1
 	
-	run_on_spawn(var/obj/item/storage/briefcase/satan,var/mob/living/owner)
-		if (istype(satan) && owner)
+	run_on_spawn(var/obj/item/storage/briefcase/satan/Q,var/mob/living/owner)
+		if (istype(Q) && owner)
 			owner.mind.diabolical = 1 //can't sell souls to ourselves now can we?
+			Q.merchant = owner
 
 /datum/syndicate_buylist/traitor/mailsuit
 	name = "Mailman Suit"
