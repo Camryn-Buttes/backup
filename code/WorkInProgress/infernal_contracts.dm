@@ -215,6 +215,7 @@ mob/living/carbon/human/proc/horse()
 		spawn(0)
 		src.visible_message("<span style=\"color:red\"><B>A new contract appears in [src]'s place!</B></span>")
 		new /obj/item/contract/random/weak(src.loc)
+		spawn(0)
 		qdel(src)
 
 	attack(mob/M as mob, mob/user as mob, def_zone)
