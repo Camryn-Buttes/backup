@@ -1,3 +1,23 @@
+/* ._.-'~'-._.-'~'-._.-'~'-._.-'~'-._.-'~'-._.-'~'-._.-'~'-._. */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=NOTES=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
+/* '~'-._.-'~'-._.-'~'-._.-'~'-._.-'~'-._.-'~'-._.-'~'-._.-'~' */
+
+/*I'm adding more soul based scaling because a lot of people were complaining about not having a use for souls.
+I really don't want this to turn into artbox 2.0, so I'm trying to come up with thematically appropriate and somewhat unique ways of implementing scaling
+I want it to work like a gradual build up.
+The chaplain starts out weak, so he has to get people to voluntarily sign contracts in the beginning.
+As he gains more souls, he can start using his weapons to force people to sign contracts, if he so chooses.
+On the other hand, I don't want things to get out of hand, so I'm trying to either cap the scaling or making the scaling very slow.
+
+I'm capping the direct damage increase at a max of 30 and scaling it off the total soul value, so it can decrease if you spend any souls.
+
+The non-direct damage scaling is based on total_souls_sold and sort of represents experience/evilness. It does not decrease when souls are expended. 
+
+The other main difference between this and the artbox is that you don't HAVE to kill anyone, technically, so there's not gonna be nearly as much whining in deadchat.
+TODO: add soul exchange, where you can sell some souls to get more contracts; add soul tracker to dedicated tab ala changelings/vampires; finish scaling; other stuff.
+TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a dumb global var. Seriously what the hell was I thinking?
+*/
+
 mob/living/carbon/human/proc/horse()
 	var/mob/living/carbon/human/H = src
 
@@ -99,27 +119,49 @@ mob/living/carbon/human/proc/horse()
 
 /obj/item/pen/fancy/satan
 	name = "demonic pen"
-	desc = "A pen once owned by Old Nick himself. The point is as sharp as the Devil's wit, so it makes an excellent improvised stabbing or throwing weapon."
+	desc = "A pen once owned by Old Nick himself. The point is as sharp as the Devil's wit, so it makes an excellent improvised throwing or stabbing weapon."
 	force = 15
 	throwforce = 15
+	burn_possible = 0 //Only makes sense since it's from hell.
 	hit_type = DAMAGE_STAB
 	color = "#FF0000"
 	font_color = "#FF0000"
+	
+	throw_impact(atom/A)
+		if(iscarbon(A))
+			if (istype(usr, /mob))
+				A:lastattacker = usr
+				A:lastattackertime = world.time
+			A:weakened += total_souls_sold //scales with souls stolen
+			take_bleeding_damage(A, null, total_souls_sold, DAMAGE_STAB)
+	
+	attack(target as mob, mob/user as mob)
+		src.force = src.force = min((15 + total_souls_value), 30)
+		playsound(target, "sound/effects/bloody_stab.ogg", 60, 1)
+		if(iscarbon(target))
+			if(target:stat != 2)
+				take_bleeding_damage(target, user, total_souls_sold, DAMAGE_STAB) //scales with souls
+		..()
+
+	
+	
 
 /obj/item/storage/box/evil // the one you get in your briefcase
 	name = "box of demonic pens"
 	desc = "Contains a set of seven pens, great for collectors."
 	spawn_contents = list(/obj/item/pen/fancy/satan = 7)
+	burn_possible = 0 //Only makes sense since it's from hell.
 
 /obj/item/paper/soul_selling_kit
 	color = "#FF0000"
 	name = "Paper-'Soul Stealing 101'"
+	burn_possible = 0 //Only makes sense since it's from hell.
 	info = {"<center><b>SO YOU WANT TO STEAL SOULS?</b></center><ul>
 			<li>Step One: Grab a complimentary extra-sharp demonic pen and your infernal contract of choice from your develish briefcase.</li>
 			<li>Step Two: Present your contract to your victim by clicking on them with said contract, but be sure you have your hellish writing utensil handy in your other hand!</li>
 			<li>Step Three: It takes about fifteen seconds for you to force your victim to sign their name, be sure not to move during this process or the ink will smear!</li></ul>
 			<b>Alternatively, you can just have people sign the contract willingly, but where's the fun in that?</b>
-			<li>Oh, and if you ever find a contract that talks about horses, use it in your hand. Just trust your old pal Nick on this one.</li>"}
+			<li>Oh, and if you ever find something that talks about horses, use it in your hand. Just trust your old pal Nick on this one.</li>"}
 
 
 /obj/item/storage/briefcase/satan
@@ -132,6 +174,7 @@ mob/living/carbon/human/proc/horse()
 	throwforce = 15
 	throw_speed = 1
 	throw_range = 4
+	burn_possible = 0 //Only makes sense since it's from hell.
 	w_class = 4.0
 	max_wclass = 3
 	desc = "A diabolical human leather-bound briefcase, capable of holding a number of small objects and tormented souls. All those tormented souls give it a good deal of heft; you could use it as a great improvised bludgeoning weapon."
@@ -178,6 +221,16 @@ mob/living/carbon/human/proc/horse()
 			Z.merchant = src.merchant
 			contracts -= tempcontract
 
+	attack(mob/M as mob, mob/user as mob, def_zone)
+		src.force = min((15 + total_souls_value), 30) //capped at 30 max force
+		..()
+		if (total_souls_sold >= 5)
+			var/mob/living/L = M
+			if(istype(L))
+				L.update_burning(total_souls_sold) //sets people on fire above 5 souls sold, scales with souls.
+		if (total_souls_sold >= 10)
+			wrestler_backfist(user, M) //throws people above 10 souls sold, does not scale with souls.
+
 /obj/item/contract
 	name = "infernal contract"
 	icon = 'icons/obj/wizard.dmi'
@@ -190,6 +243,7 @@ mob/living/carbon/human/proc/horse()
 	throw_speed = 4
 	throw_range = 20
 	desc = "A blank contract that's gone missing from hell."
+	burn_possible = 0 //Only makes sense since it's from hell.
 	var/oneuse = 0 //whether it has a limited number of uses. 1 is limited, 0 is unlimited.
 	var/inuse = 0 //is someone currently signing this thing?
 	var/used = 0 // how many times a limited use contract has been signed so far
@@ -240,7 +294,7 @@ mob/living/carbon/human/proc/horse()
 			else if (src.inuse != 1)
 				src.inuse = 1
 				M.visible_message("<span style=\"color:red\"><B>[user] is guiding [M]'s hand to the signature field of /a [src]!</B></span>")
-				if (!do_mob(user, M, 150))
+				if (!do_mob(user, M, 50)) //150 (or 15 seconds) was way too long to actually be useful
 					if (user && ismob(user))
 						user.show_text("You were interrupted!", "red")
 						return
@@ -412,7 +466,7 @@ obj/item/contract/horse
 	item_state = "spellbook" //ditto
 	
 	attack_self(mob/user as mob)
-		if (total_souls_value >= 20) //OKAY, SO THIS IS NOW BASICALLY WORKING?
+		if (total_souls_value >= 24 && total_souls_sold >= 12) //OKAY, SO THIS IS NOW BASICALLY WORKING?
 			src.endtimes()
 			return
 		else
