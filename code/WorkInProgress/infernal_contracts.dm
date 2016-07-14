@@ -274,7 +274,7 @@ obj/item/contract/satan
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -294,7 +294,7 @@ obj/item/contract/macho
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -318,7 +318,7 @@ obj/item/contract/wrestle
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -337,7 +337,7 @@ obj/item/contract/yeti
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -357,7 +357,7 @@ obj/item/contract/admin
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -387,7 +387,7 @@ obj/item/contract/genetic
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()//This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
+				spawn(5) src.vanish()//This is coming from personal experience as a solnerd. Trust me, superpowers and soul based shields don't mix.
 		else
 			return
 
@@ -425,7 +425,7 @@ obj/item/contract/horse
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -452,7 +452,7 @@ obj/item/contract/mummy
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -475,7 +475,7 @@ obj/item/contract/vampire
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -493,7 +493,7 @@ obj/item/contract/juggle //credit for idea goes to Mageziya
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -511,7 +511,7 @@ obj/item/contract/fart //for popecrunch
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -529,7 +529,7 @@ obj/item/contract/bee //credit for idea goes to Mageziya
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -549,7 +549,7 @@ obj/item/contract/rested //credit for idea goes to Sundance
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -572,7 +572,7 @@ obj/item/contract/hair //for Megapaco
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
@@ -596,7 +596,7 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 			src.used++
 			spawn(0)
 			if (src.used >= src.contractlines)
-				src.vanish()
+				spawn(5) src.vanish()
 		else
 			return
 
