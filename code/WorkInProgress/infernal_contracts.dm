@@ -9,9 +9,7 @@ The chaplain starts out weak, so he has to get people to voluntarily sign contra
 As he gains more souls, he can start using his weapons to force people to sign contracts, if he so chooses.
 On the other hand, I don't want things to get out of hand, so I'm trying to either cap the scaling or making the scaling very slow.
 
-I'm capping the direct damage increase at a max of 30 and scaling it off the total soul value, so it can decrease if you spend any souls.
-
-The non-direct damage scaling is based on total_souls_sold and sort of represents experience/evilness. It does not decrease when souls are expended. 
+scaling is based on total_souls_sold and sort of represents experience/evilness. It does not decrease when souls are expended. 
 
 The other main difference between this and the artbox is that you don't HAVE to kill anyone, technically, so there's not gonna be nearly as much whining in deadchat.
 TODO: add soul exchange, where you can sell some souls to get more contracts; add soul tracker to dedicated tab ala changelings/vampires; finish scaling; other stuff.
@@ -60,10 +58,10 @@ mob/living/carbon/human/proc/horse()
 		else if ((src.mind.sold_soul == 0))
 			src.mind.sold_soul = 1
 			total_souls_sold++
-			if (src.mind.assigned_role == "Head of Security" || src.mind.assigned_role == "Security Officer")
-				total_souls_value += 2 //security jobs are worth more, because they presumably have a more virtuous soul (pffft)
-			else
-				total_souls_value++
+			//if (src.mind.assigned_role == "Head of Security" || src.mind.assigned_role == "Security Officer")
+		//		total_souls_value += 2 //security jobs are worth more, because they presumably have a more virtuous soul (pffft)
+		//	else
+			total_souls_value++ //ACTUALLY, THE ABOVE WAS DUMB AND INCONSISTENT.
 		else
 			boutput(src, "<span style=\"color:blue\">Something has gone horribly wrong with your soul! Report this to the nearest coder as soon as possible!</span>") //oh god, you've got like half a soul, how does that even WORK?
 			return
@@ -132,11 +130,11 @@ mob/living/carbon/human/proc/horse()
 			if (istype(usr, /mob))
 				A:lastattacker = usr
 				A:lastattackertime = world.time
-			A:weakened += total_souls_sold //scales with souls stolen
+			A:weakened += min((total_souls_sold), 15) //scales with souls stolen, up to 15
 			take_bleeding_damage(A, null, total_souls_sold, DAMAGE_STAB)
 	
 	attack(target as mob, mob/user as mob)
-		src.force = src.force = min((15 + total_souls_value), 30)
+		src.force = src.force = min((15 + total_souls_sold), 30)
 		playsound(target, "sound/effects/bloody_stab.ogg", 60, 1)
 		if(iscarbon(target))
 			if(target:stat != 2)
@@ -157,10 +155,11 @@ mob/living/carbon/human/proc/horse()
 	name = "Paper-'Soul Stealing 101'"
 	burn_possible = 0 //Only makes sense since it's from hell.
 	info = {"<center><b>SO YOU WANT TO STEAL SOULS?</b></center><ul>
-			<li>Step One: Grab a complimentary extra-sharp demonic pen and your infernal contract of choice from your develish briefcase.</li>
+			<li>Step One: Grab a complimentary extra-sharp demonic pen and your infernal contract of choice from your devilish briefcase.</li>
 			<li>Step Two: Present your contract to your victim by clicking on them with said contract, but be sure you have your hellish writing utensil handy in your other hand!</li>
 			<li>Step Three: It takes about fifteen seconds for you to force your victim to sign their name, be sure not to move during this process or the ink will smear!</li></ul>
 			<b>Alternatively, you can just have people sign the contract willingly, but where's the fun in that?</b>
+			<li>As you collect more souls, your briefcase and pens will grow stronger.</li>
 			<li>Oh, and if you ever find something that talks about horses, use it in your hand. Just trust your old pal Nick on this one.</li>"}
 
 
@@ -466,7 +465,7 @@ obj/item/contract/horse
 	item_state = "spellbook" //ditto
 	
 	attack_self(mob/user as mob)
-		if (total_souls_value >= 24 && total_souls_sold >= 12) //OKAY, SO THIS IS NOW BASICALLY WORKING?
+		if (total_souls_value >= 20) //20 souls needed to start the end-times. Sufficiently difficult?
 			src.endtimes()
 			return
 		else
