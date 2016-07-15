@@ -462,7 +462,7 @@
 					) //they can keep macho heal
 				W.verbs -= dangerousVerbs //this is just diabolical
 			//	W.reagents.add_reagent("anti_fart", 800) I'm not sure this even works
-			boutput(W, "<span style=\"color:blue\">You weren't able to absorb all the macho waves you were bombarded with! You have been left an incomplete macho man, with almost no stamina, a frail body that takes double damage, and only one macho power. However, you are a glass cannon as you inflict double damage with most melee weapons and no longer need to expend stamina to attack or suplex people. Use your newfound form wisely to prove your worthy as a macho champion of justice. </span>")
+			boutput(W, "<span style=\"color:blue\">You weren't able to absorb all the macho waves you were bombarded with! You have been left an incomplete macho man, with almost no stamina, a frail body that takes double damage, and only one macho power. However, you are a glass cannon as you inflict double damage with most melee weapons and no longer need to expend stamina to attack or suplex people. Use your newfound form wisely to prove your worth as a macho champion of justice. </span>")
 		else
 			boutput(W, "<span style=\"color:blue\">You are now a macho man!</span>")
 
