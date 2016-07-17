@@ -113,8 +113,9 @@
 				A:lastattacker = usr
 				A:lastattackertime = world.time
 			var/Q = min(max(round(head.throwforce / 5), 1), 10)
+			var/B = max(max(round(head.throwforce / 5), 1), 3)
 			A:weakened += Q
-			take_bleeding_damage(A, null, Q, DAMAGE_STAB)
+			take_bleeding_damage(A, null, B, DAMAGE_STAB)
 		return head.throw_impact(A) //A lot of things break if I don't do this.
 
 
