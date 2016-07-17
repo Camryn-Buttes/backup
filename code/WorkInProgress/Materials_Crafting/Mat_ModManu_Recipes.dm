@@ -420,7 +420,7 @@
 		var/obj/item/headobj = head.slot_object
 
 		var/list/long_stuff = list(/obj/item/rods, /obj/item/rods/steel, /obj/item/baton, /obj/item/crowbar, /obj/item/slag_shovel, /obj/item/clothing/head/plunger, /obj/item/c_tube, /obj/item/kitchen/rollingpin, /obj/item/mop, /obj/item/parts/robot_parts/arm, /obj/item/plank)
-		var/list/sharp_stuff = list(/obj/item/raw_material/shard, /obj/item/raw_material/shard/plasmacrystal, /obj/item/raw_material/shard/glass, /obj/item/scalpel, /obj/item/wirecutters, /obj/item/screwdriver, /obj/item/scissors, /obj/item/razor_blade, /obj/item/kitchen/utensil/knife, /obj/item/kitchen/utensil/fork, /obj/item/kitchen/utensil/spoon, /obj/item/dagger, obj/item/circular_saw)
+		var/list/sharp_stuff = list(/obj/item/raw_material/shard, /obj/item/raw_material/shard/plasmacrystal, /obj/item/raw_material/shard/glass, /obj/item/scalpel, /obj/item/wirecutters, /obj/item/screwdriver, /obj/item/scissors, /obj/item/razor_blade, /obj/item/kitchen/utensil/knife, /obj/item/kitchen/utensil/fork, /obj/item/kitchen/utensil/spoon, /obj/item/dagger, /obj/item/circular_saw)
 
 		if(long_stuff.Find(coreobj.type) && sharp_stuff.Find(headobj.type)) //I guess this makes a spear.
 			var/obj/item/craftedmelee/spear/spear = new/obj/item/craftedmelee/spear(bench.loc)
