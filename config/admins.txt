@@ -4,6 +4,7 @@ stuntwaffle - Host
 pantaloons - Host
 darsant - Host
 nannek - Host
+powmonkey - Host
 
 exadv1 - Coder
 0staf - Coder
@@ -40,3 +41,4 @@ herrspyguy - Coder
 daeren - Coder
 conor12 - Coder
 convair880 - Coder
+powmonkey - Coder
