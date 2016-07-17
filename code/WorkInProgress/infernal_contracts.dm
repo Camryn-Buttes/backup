@@ -12,11 +12,38 @@ On the other hand, I don't want things to get out of hand, so I'm trying to eith
 scaling is based on total_souls_sold and sort of represents experience/evilness. It does not decrease when souls are expended. 
 
 The other main difference between this and the artbox is that you don't HAVE to kill anyone, technically, so there's not gonna be nearly as much whining in deadchat.
-TODO: add soul exchange, where you can sell some souls to get more contracts; add soul tracker to dedicated tab ala changelings/vampires; finish scaling; other stuff.
+TODO: add soul tracker to dedicated tab ala changelings/vampires; finish scaling; other stuff.
 TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a dumb global var. Seriously what the hell was I thinking?
+REALLY GODDAMN IMPORTANT: add soul exchange, where you can sell some souls to get more contracts
 */
 
-mob/living/carbon/human/proc/horse()
+/proc/spawncontract(var/mob/badguy as mob, var/strong = 0, var/pen = 0) //I use this for both the vanish proc and the WIP contract market.
+	if(strong)
+		var/list/replacementcontracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/vampire,/obj/item/contract/wrestle,/obj/item/contract/satan)
+	else
+		var/list/replacementcontracts = list(obj/item/contract/macho,obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal,obj/item/contract/chemical,/obj/item/contract/mummy/thorough)
+	var/tempcontract = pick(replacementcontracts)
+	var/obj/item/contract/U = new tempcontract(badguy)
+	U.merchant = badguy
+	if (!badguy.put_in_hand(U))
+		U.set_loc(get_turf(badguy))
+		if(pen)
+			var/obj/item/pen/fancy/satan/P = new /obj/item/pen/fancy/satan(badguy)
+			P.set_loc(get_turf(badguy))
+			badguy.show_text("<h3>A new contract suddenly appears at your feet along with a free pen for being such an evil customer!</h3>", "blue")
+		else
+			badguy.show_text("<h3>A new contract suddenly appears at your feet!</h3>", "blue")
+	else
+		badguy.show_text("<h3>A new contract suddenly appears in your hand!</h3>", "blue")
+		if(pen)
+			var/obj/item/pen/fancy/satan/Q = new /obj/item/pen/fancy/satan(badguy)
+			if (!badguy.put_in_hand(Q))
+				Q.set_loc(get_turf(badguy))
+				badguy.show_text("<h3>And a new pen appears at your feet!</h3>", "blue")
+			else
+				badguy.show_text("<h3>And a new pen appears in your other hand!</h3>", "blue")
+
+/mob/living/carbon/human/proc/horse()
 	var/mob/living/carbon/human/H = src
 
 	if(H.mind && (H.mind.assigned_role != "Horse") || (!H.mind || !H.client)) //I am shamelessly copying this from the wizard cluwne spell
@@ -70,6 +97,7 @@ mob/living/carbon/human/proc/horse()
 
 /mob/proc/makesuperyeti() //this is my magnum opus
 	new /obj/critter/yeti/super(src.loc)
+	src.unequip_all()
 	src.partygib() //it brings a tear to my eye
 
 /mob/proc/satanclownize()
@@ -132,9 +160,10 @@ mob/living/carbon/human/proc/horse()
 				A:lastattackertime = world.time
 			A:weakened += min((total_souls_sold), 15) //scales with souls stolen, up to 15
 			take_bleeding_damage(A, null, total_souls_sold, DAMAGE_STAB)
+		..()
 	
 	attack(target as mob, mob/user as mob)
-		src.force = src.force = min((15 + total_souls_sold), 30)
+		src.force = min((15 + total_souls_sold), 30)
 		playsound(target, "sound/effects/bloody_stab.ogg", 60, 1)
 		if(iscarbon(target))
 			if(target:stat != 2)
@@ -186,7 +215,7 @@ mob/living/carbon/human/proc/horse()
 	make_my_stuff() //hijacking this from space loot secure safes
 		..()
 		spawn(5) //to give the buylist enough time to assign a merchant var to the briefcase
-			var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/mummy/thorough,/obj/item/contract/vampire,/obj/item/contract/wrestle,/obj/item/contract/satan)
+			var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/vampire,/obj/item/contract/wrestle,/obj/item/contract/satan)
 			var/tempcontract = null
 			if (prob(1)) //gotta be rare enough for it to not get stale
 				var/loot = rand(1,2)
@@ -203,7 +232,7 @@ mob/living/carbon/human/proc/horse()
 				I.merchant = src.merchant
 				contracts -= tempcontract
 			
-			contracts = list(obj/item/contract/macho,obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal,obj/item/contract/chemical) //weak, non-antagonist contracts.
+			contracts = list(obj/item/contract/macho,obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal,obj/item/contract/chemical,/obj/item/contract/mummy/thorough) //weak, non-antagonist contracts.
 			
 			tempcontract = pick(contracts)
 			var/obj/item/C = new tempcontract(src)
@@ -221,14 +250,14 @@ mob/living/carbon/human/proc/horse()
 			contracts -= tempcontract
 
 	attack(mob/M as mob, mob/user as mob, def_zone)
-		src.force = min((15 + total_souls_value), 30) //capped at 30 max force
+		src.force = min((15 + total_souls_sold), 30) //capped at 30 max force
 		..()
 		if (total_souls_sold >= 5)
 			var/mob/living/L = M
 			if(istype(L))
 				L.update_burning(total_souls_sold) //sets people on fire above 5 souls sold, scales with souls.
 		if (total_souls_sold >= 10)
-			wrestler_backfist(user, M) //throws people above 10 souls sold, does not scale with souls.
+			wrestler_backfist(user, M) //sends people flying above 10 souls sold, does not scale with souls.
 
 /obj/item/contract
 	name = "infernal contract"
@@ -258,7 +287,7 @@ mob/living/carbon/human/proc/horse()
 		else if (src.contractlines - src.used == 1)
 			. += "It looks like only one more signature will fit on this thing."
 		else
-			. += "It looks like [src.contractlines - src.used] more signautres will fit on this thing."
+			. += "It looks like [src.contractlines - src.used] more signatures will fit on this thing."
 
 	proc/MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //this calls the actual contract effect
 		if (!user) //oh god how did this happen? I don't know, but somehow it did.
@@ -269,17 +298,11 @@ mob/living/carbon/human/proc/horse()
 		return
 
 	proc/vanish(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
-		var/list/replacementcontracts = list(obj/item/contract/macho,obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal,obj/item/contract/chemical)
-		var/tempcontract = pick(replacementcontracts)
-		boutput(user, "<span style=\"color:blue\"><b>The depleted contract vanishes in a puff of smoke!</b></span>")
-		var/obj/item/contract/U = new tempcontract(badguy)
-		U.merchant = badguy
-		if (!badguy.put_in_hand(U))
-			U.set_loc(get_turf(badguy))
-			badguy.show_text("<h3>A new contract suddenly appears at your feet!</h3>", "blue")
-		else
-			badguy.show_text("<h3>A new contract suddenly appears in your hand!</h3>", "blue")
-		qdel(src)
+		if(user)
+			boutput(user, "<span style=\"color:blue\"><b>The depleted contract vanishes in a puff of smoke!</b></span>")
+		spawncontract(badguy, 0, 0) //huzzah for efficient code
+		spawn(0)
+			qdel(src)
 
 	attack(mob/M as mob, mob/user as mob, def_zone)
 		if (!ismob(M))
@@ -396,6 +419,7 @@ obj/item/contract/yeti
 		logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(1)
+		us
 		user.makesuperyeti()
 		if (src.oneuse == 1)
 			src.used++
@@ -438,14 +462,14 @@ obj/item/contract/genetic
 		user.bioHolder.AddEffect("activator", 0, 0, 1)
 		user.bioHolder.AddEffect("mutagenic_field", 0, 0, 1)
 		boutput(user, "<span style=\"color:blue\">You have finally achieved your full potential! Mom would so proud!</span>")
-		if ((prob(1)) || (src.oneuse == 1)) //lowered probability from prob(5) to prob(1) but added dedicated oneuse check
+		if ((prob(5)) || (src.oneuse == 1)) //added dedicated oneuse check
 			spawn(10)
 			boutput(user, "<span style=\"color:green\">You feel an upwelling of additional power!</span>")
 			user.unkillable = 1 //This isn't nearly as much of a boon as one might think.
 			user.bioHolder.AddEffect("mutagenic_field_prenerf", 0, 0, 1) //The reason being that
 			spawn(2) //after they come back to life, all the powers they had activated by the activator
-			boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! You must share your mutagenic godhood with others! Have them bask in your irradiating glow!</span>")  //will no longer be considered as activated from their potential, so all the stability effects
-			user.mind.special_role = "Genetic Demigod" //will kick in at that point and they'll
+			boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! You must share your mutagenic godhood with others! Have them bask in your irradiating glow!</span>")
+			user.mind.special_role = "Genetic Demigod" //will no longer be considered as activated from their potential, so all the instability effects will kick in at that point and they'll
 			ticker.mode.Agimmicks.Add(user) // be reduced to a genetic monstrosity in short order.
 		if (src.oneuse == 1)
 			src.used++
@@ -707,7 +731,7 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 		if (wealthy == 2)
 			spawn(100)
 			boutput(user, "<span style=\"color:blue\">Well, you were right.</span>")
-			user.become_gold_statue()
+			user.become_gold_statue(1)
 		if (src.oneuse == 1)
 			src.used++
 			spawn(0)
