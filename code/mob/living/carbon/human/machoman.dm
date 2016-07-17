@@ -1292,7 +1292,7 @@ var/list/snd_macho_idle = list('sound/voice/macho/macho_alert16.ogg', 'sound/voi
 		else
 			..()
 
-/mob/living/proc/become_gold_statue()
+/mob/living/proc/become_gold_statue(var/drop_items = 0)
 	var/obj/overlay/goldman = new /obj/overlay(get_turf(src))
 	src.pixel_x = 0
 	src.pixel_y = 0
@@ -1313,6 +1313,8 @@ var/list/snd_macho_idle = list('sound/voice/macho/macho_alert16.ogg', 'sound/voi
 		composite.Blend(icon(I.icon, I.icon_state, null, 1), ICON_OVERLAY)
 	composite.ColorTone( rgb(255,215,0) ) // gold
 	goldman.icon = composite
+	if(drop_items == 1)
+		src.unequip_all()
 	src.take_toxin_damage(9999)
 	src.ghostize()
 
