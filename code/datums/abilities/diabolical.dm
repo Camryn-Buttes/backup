@@ -190,6 +190,6 @@
 			boutput(M, __red("Also, you should probably contact a coder because something has gone horribly wrong."))
 			return 1
 		total_souls_value -= 5
-		boutput(M, __red("You spend five souls and summon a brand new contract along with a pen!"))
+		boutput(M, __red("You spend five souls and summon a brand new contract along with a pen! However, losing the power of those souls has weakened your weapons."))
 		spawncontract(M, 1, 1) //strong contract + pen
 		return 0
