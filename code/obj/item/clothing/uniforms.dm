@@ -552,6 +552,11 @@
 		icon_state = "lawyerR"
 		item_state = "lawyerR"
 
+/obj/item/clothing/under/misc/lawyer/red/demonic
+	body_parts_covered = TORSO|LEGS|ARMS
+	armor_value_bullet = 2
+	armor_value_melee = 6
+
 /obj/item/clothing/under/misc/syndicate
 	name = "tactical turtleneck"
 	desc = "Non-descript, slightly suspicious civilian clothing."
