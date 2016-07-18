@@ -9,12 +9,11 @@ The chaplain starts out weak, so he has to get people to voluntarily sign contra
 As he gains more souls, he can start using his weapons to force people to sign contracts, if he so chooses.
 On the other hand, I don't want things to get out of hand, so I'm trying to either cap the scaling or making the scaling very slow.
 
-scaling is based on total_souls_sold and sort of represents experience/evilness. It does not decrease when souls are expended. 
+scaling is based on total_souls_sold and sort of represents experience/evilness. It decreases when souls are expended.
 
 The other main difference between this and the artbox is that you don't HAVE to kill anyone, technically, so there's not gonna be nearly as much whining in deadchat.
 TODO: add soul tracker to dedicated tab ala changelings/vampires; finish scaling; other stuff.
 TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a dumb global var. Seriously what the hell was I thinking?
-REALLY GODDAMN IMPORTANT: add soul exchange, where you can sell some souls to get more contracts
 */
 
 /proc/spawncontract(var/mob/badguy as mob, var/strong = 0, var/pen = 0) //I use this for both the vanish proc and the WIP contract market.
@@ -158,16 +157,16 @@ REALLY GODDAMN IMPORTANT: add soul exchange, where you can sell some souls to ge
 			if (istype(usr, /mob))
 				A:lastattacker = usr
 				A:lastattackertime = world.time
-			A:weakened += min((total_souls_sold), 15) //scales with souls stolen, up to 15
-			take_bleeding_damage(A, null, total_souls_sold, DAMAGE_STAB)
+			A:weakened += min((total_souls_value), 15) //scales with souls stolen, up to 15
+			take_bleeding_damage(A, null, total_souls_value, DAMAGE_STAB)
 		..()
 	
 	attack(target as mob, mob/user as mob)
-		src.force = min((15 + total_souls_sold), 30)
+		src.force = min((15 + total_souls_value), 30)
 		playsound(target, "sound/effects/bloody_stab.ogg", 60, 1)
 		if(iscarbon(target))
 			if(target:stat != 2)
-				take_bleeding_damage(target, user, total_souls_sold, DAMAGE_STAB) //scales with souls
+				take_bleeding_damage(target, user, total_souls_value, DAMAGE_STAB) //scales with souls
 		..()
 
 	
@@ -189,6 +188,7 @@ REALLY GODDAMN IMPORTANT: add soul exchange, where you can sell some souls to ge
 			<li>Step Three: It takes about fifteen seconds for you to force your victim to sign their name, be sure not to move during this process or the ink will smear!</li></ul>
 			<b>Alternatively, you can just have people sign the contract willingly, but where's the fun in that?</b>
 			<li>As you collect more souls, your briefcase and pens will grow stronger.</li>
+			<li>You can expend five collected souls to summon another major contract, but your weapons will weaken as a result.</li>
 			<li>Oh, and if you ever find something that talks about horses, use it in your hand. Just trust your old pal Nick on this one.</li>"}
 
 
@@ -250,18 +250,29 @@ REALLY GODDAMN IMPORTANT: add soul exchange, where you can sell some souls to ge
 			contracts -= tempcontract
 
 	attack(mob/M as mob, mob/user as mob, def_zone)
-		src.force = min((15 + total_souls_sold), 30) //capped at 30 max force
+		src.force = min((15 + total_souls_value), 30) //capped at 30 max force
 		..()
-		if (total_souls_sold >= 5)
+		if (total_souls_value >= 5)
 			var/mob/living/L = M
 			if(istype(L))
-				L.update_burning(total_souls_sold) //sets people on fire above 5 souls sold, scales with souls.
-		if (total_souls_sold >= 10)
+				L.update_burning(total_souls_value) //sets people on fire above 5 souls sold, scales with souls.
+		if (total_souls_value >= 10)
 			wrestler_backfist(user, M) //sends people flying above 10 souls sold, does not scale with souls.
 
 	throw_impact(atom/A)
-		src.throwforce = min((15 + total_souls_sold), 30) //capped at 30 max throwforce.
+		src.throwforce = min((15 + total_souls_value), 30) //capped at 30 max throwforce.
 		..()
+
+/obj/item/storage/briefcase/satan/verb/summon_contract()
+	set name = "Summon Contract"
+	set desc = "Spend five souls to summon another major contract."
+	set category = "Local"
+	set src in usr
+	
+	if (total_souls_value >= 5)
+		total_souls_value -= 5
+		spawncontract(usr, 1, 1)
+		boutput(usr, "<span style=\"color:blue\">You have spent five souls to summon another contract! Your weapons are weaker as a result!</span>")
 
 /obj/item/contract
 	name = "infernal contract"
