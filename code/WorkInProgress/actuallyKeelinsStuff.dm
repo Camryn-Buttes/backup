@@ -100,9 +100,9 @@
 		head.force += core.force
 		head.throwforce += core.force
 		head.name = src.name
-		src.throwforce = head.throwforce //even though we don't actually use these, things break in bizarre ways if we don't make them the same.
-		src.force = head.force //Don't ask me why because I have no goddamn clue.
-		return
+		src.throwforce = head.throwforce //we have to set these so we don't get weird behavior in afterattack
+		src.force = head.force //calling head.afterattack causes really odd things to happen with things like tables, disposal chutes, and such.
+		return //so we have to use the spear itself for those cases.
 
 	attack(mob/M as mob, mob/user as mob)
 		return head.attack(M, user) //spears are just ways to use the same weapon with a handle, so for mob calls we can do this, which is kind of hilarious since it lets us do SPEAR surgery.
