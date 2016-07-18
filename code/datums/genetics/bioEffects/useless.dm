@@ -38,6 +38,9 @@
 			overlay_image = image("icon" = 'icons/effects/genetics.dmi', "icon_state" = "horns", layer = MOB_LAYER)
 		..()
 
+/datum/bioEffect/horns/evil //this is just for /proc/soulcheck
+	id = "demon_horns" //heh
+
 /datum/bioEffect/particles
 	name = "Dermal Glitter"
 	desc = "Causes the subject's skin to shine and gleam."
@@ -293,3 +296,6 @@ datum/bioEffect/drunk/random
 			overlay_image = image("icon" = 'icons/effects/genetics.dmi', "icon_state" = "fireaura", layer = MOB_LIMB_LAYER)
 			overlay_image.color = color_hex
 		..()
+
+/datum/bioEffect/fire_aura/evil //this is just for /proc/soulcheck
+	id = "hell_fire" //heh
