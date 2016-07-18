@@ -327,7 +327,7 @@ proc/build_syndi_buylist_cache()
 	
 	run_on_spawn(var/obj/item/storage/briefcase/satan/Q,var/mob/living/owner)
 		if (istype(Q) && owner)
-			owner.mind.diabolical = 1 //can't sell souls to ourselves now can we?
+			owner.make_merchant() //give them the power to summon more contracts
 			Q.merchant = owner
 
 /datum/syndicate_buylist/traitor/mailsuit
