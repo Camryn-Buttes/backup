@@ -311,6 +311,8 @@ REALLY GODDAMN IMPORTANT: add soul exchange, where you can sell some souls to ge
 	attack(mob/M as mob, mob/user as mob, def_zone)
 		if (!ismob(M))
 			return
+		if (!istype(M, mob/living))
+			return
 		if (!user.find_type_in_hand(/obj/item/pen/fancy/satan))
 			return
 		else if (user.mind.diabolical == 1)
@@ -340,6 +342,8 @@ REALLY GODDAMN IMPORTANT: add soul exchange, where you can sell some souls to ge
 				return
 			else if (user.mind.sold_soul == 1)
 				boutput(user, "<span style=\"color:blue\">You don't have a soul to sell!</span>")
+				return
+			else if (!istype(user, mob/living))
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
 				MagicEffect(user, src.merchant)
