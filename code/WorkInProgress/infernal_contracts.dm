@@ -75,7 +75,7 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 
 /mob/proc/sellsoul()
 	if (src.mind)
-		if (src.mind.diabolical == 1)
+		if (isdiabolical(src))
 			boutput(src, "<span style=\"color:blue\">You can't sell a soul to yourself!</span>")
 			return
 		else if (src.mind.sold_soul == 1) //even though this check is already in the individual contracts, it's good to take precautions
@@ -307,7 +307,7 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 	proc/MagicEffect(var/mob/user as mob, var/mob/badguy as mob) //this calls the actual contract effect
 		if (!user) //oh god how did this happen? I don't know, but somehow it did.
 			return
-		if (user.mind.diabolical == 1)
+		if (isdiabolical(user))
 			boutput(user, "<span style=\"color:blue\">You can't sell your soul to yourself!</span>")
 			return
 		return
@@ -324,7 +324,7 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 			return
 		if (!user.find_type_in_hand(/obj/item/pen/fancy/satan))
 			return
-		else if (user.mind.diabolical == 1)
+		else if (isdiabolical(user))
 			if (M == user)
 				boutput(user, "<span style=\"color:blue\">You can't sell your soul to yourself!</span>")
 				return
@@ -346,7 +346,7 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/pen))
-			if (user.mind.diabolical == 1)
+			if (isdiabolical(user))
 				boutput(user, "<span style=\"color:blue\">You can't sell your soul to yourself!</span>")
 				return
 			else if (user.mind.sold_soul == 1)
