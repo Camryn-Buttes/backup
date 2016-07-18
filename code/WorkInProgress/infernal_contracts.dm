@@ -11,9 +11,11 @@ On the other hand, I don't want things to get out of hand, so I'm trying to eith
 
 scaling is based on total_souls_sold and sort of represents experience/evilness. It decreases when souls are expended.
 
+Souls can be spent to get more contracts by either using the ability under the Souls tab or using the verb on the briefcase.
+
 The other main difference between this and the artbox is that you don't HAVE to kill anyone, technically, so there's not gonna be nearly as much whining in deadchat.
-TODO: add soul tracker to dedicated tab ala changelings/vampires; finish scaling; other stuff.
-TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a dumb global var. Seriously what the hell was I thinking?
+Unfortunately, putting the soul totals on an ability stat will break some things, so for now, they're gonna have to be global vars.
+If anyone can figure out a way to track the souls without a global var, please let me know since everything I've tried so far has either caused runtimes or somehow caused every mob to die spontaneously five minutes after roundstart.
 */
 
 /proc/spawncontract(var/mob/badguy as mob, var/strong = 0, var/pen = 0) //I use this for both the vanish proc and the WIP contract market.
@@ -44,7 +46,6 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 
 /mob/proc/horse()
 	var/mob/H = src
-
 	if(H.mind && (H.mind.assigned_role != "Horse") || (!H.mind || !H.client)) //I am shamelessly copying this from the wizard cluwne spell
 		boutput(H, "<span style=\"color:red\"><B>You NEIGH painfully!</B></span>")
 		H.take_brain_damage(80)
@@ -98,6 +99,23 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 	new /obj/critter/yeti/super(src.loc)
 	src.unequip_all()
 	src.partygib() //it brings a tear to my eye
+
+/proc/soulcheck(var/mob/M as mob)
+	if ((ishuman(M)) && (isdiabolical(M)))
+		if (total_souls_value >= 10)
+			if (!M.bioHolder.HasEffect("demon_horns"))
+				M.bioHolder.AddEffect("demon_horns", 0, 0, 1)
+			if (!M.bioHolder.HasEffect("hell_fire"))
+				M.bioHolder.AddEffect("hell_fire", 0, 0, 1)
+			return
+		else if (!(total_souls_value >= 10))
+			if (M.bioHolder.HasEffect("demon_horns"))
+				M.bioHolder.RemoveEffect("demon_horns", 0, 0, 1)
+			if (M.bioHolder.HasEffect("hell_fire"))
+				M.bioHolder.RemoveEffect("hell_fire", 0, 0, 1)
+			return
+	else
+		return
 
 /mob/proc/satanclownize()
 	src.transforming = 1
@@ -187,9 +205,11 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 			<li>Step Two: Present your contract to your victim by clicking on them with said contract, but be sure you have your hellish writing utensil handy in your other hand!</li>
 			<li>Step Three: It takes about fifteen seconds for you to force your victim to sign their name, be sure not to move during this process or the ink will smear!</li></ul>
 			<b>Alternatively, you can just have people sign the contract willingly, but where's the fun in that?</b>
-			<li>As you collect more souls, your briefcase and pens will grow stronger.</li>
+			<li>Your lawyer suit, in addition to looking stylish, doubles as a suit of body armor. Similarly, your briefcase is a great bludgeoning tool, and your pens make excellent throwing daggers.</li>
+			<li>As you collect more souls, your briefcase and pens will grow stronger and will gain unique powers.</li>
 			<li>You can expend five collected souls to summon another major contract, but your weapons will weaken as a result.</li>
-			<li>Oh, and if you ever find something that talks about horses, use it in your hand. Just trust your old pal Nick on this one.</li>"}
+			<li>To do so, click on the Summon Contract ability under the tab labeled Souls. Alternatively, right click on your briefcase while holding it in your hand and then select the option labelled Summon Contract.</li>
+			<b><li>Oh, and if you ever find something that talks about horses, use it in your hand. Just trust your old pal Nick on this one.</li></b>"}
 
 
 /obj/item/storage/briefcase/satan
@@ -209,7 +229,7 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 	stamina_damage = 90 //is this a bad idea?
 	stamina_cost = 30
 	stamina_crit_chance = 45 //yes, yes it is.
-	spawn_contents = list(/obj/item/paper/soul_selling_kit, /obj/item/storage/box/evil, /obj/item/clothing/under/misc/lawyer/red)
+	spawn_contents = list(/obj/item/paper/soul_selling_kit, /obj/item/storage/box/evil, /obj/item/clothing/under/misc/lawyer/red/demonic)
 	var/merchant = null
 
 	make_my_stuff() //hijacking this from space loot secure safes
@@ -269,10 +289,21 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 	set category = "Local"
 	set src in usr
 	
-	if (total_souls_value >= 5)
+	if (!(isdiabolical(usr)))
+		boutput(usr, "<span style=\"color:blue\">You aren't evil enough to buy an infernal contract!</span>")
+		return
+	if (!(total_souls_value >= 5))
+		bouput(usr, "<span style=\"color:blue\">You don't have enough souls to summon another contract! You need [5 - total_souls_value] more to afford it.</span>")
+		return
+	else if ((total_souls_value >= 5) && (isdiabolical(usr)))
 		total_souls_value -= 5
 		spawncontract(usr, 1, 1)
-		boutput(usr, "<span style=\"color:blue\">You have spent five souls to summon another contract! Your weapons are weaker as a result!</span>")
+		boutput(usr, "<span style=\"color:blue\">You have spent five souls to summon another contract! Your weapons are weaker as a result.</span>")
+		soulcheck(usr)
+		return
+	else
+		boutput(usr, "<span style=\"color:red\">Something is horribly broken. Please report this to a coder.</span>")
+		return
 
 /obj/item/contract
 	name = "infernal contract"
@@ -316,7 +347,7 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 		if(user)
 			boutput(user, "<span style=\"color:blue\"><b>The depleted contract vanishes in a puff of smoke!</b></span>")
 		spawncontract(badguy, 0, 0) //huzzah for efficient code
-		spawn(0)
+		spawn(1)
 			qdel(src)
 
 	attack(mob/M as mob, mob/user as mob, def_zone)
@@ -337,10 +368,10 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 						return
 				M.visible_message("<span style=\"color:red\">[user] forces [M] to sign /a [src]!</span>")
 				logTheThing("combat", user, M, "forces %M% to sign a [src] at [log_loc(user)].")
-				spawn(0)
 				MagicEffect(M, user)
-				spawn(0)
+				spawn(1)
 					src.inuse = 0
+					soulcheck(user)
 		else
 			return
 
@@ -356,6 +387,8 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 				return
 			else if (istype(W, /obj/item/pen/fancy/satan))
 				MagicEffect(user, src.merchant)
+				spawn(1)
+					soulcheck(src.merchant)
 			else
 				user.visible_message("<span style=\"color:red\"><b>[user] looks puzzled as [he_or_she(user)] realizes [his_or_her(user)] pen isn't evil enough to sign the [src]!</b></span>")
 				return
@@ -506,11 +539,17 @@ obj/item/contract/horse
 	item_state = "spellbook" //ditto
 	
 	attack_self(mob/user as mob)
-		if (total_souls_value >= 20) //20 souls needed to start the end-times. Sufficiently difficult?
-			src.endtimes()
-			return
+		if((ishuman(user)) && (isdiabolical(user)))
+			if (total_souls_value >= 20) //20 souls needed to start the end-times. Sufficiently difficult?
+				boutput(user, "<span style=\"color:red\"><font size=6><B>NEIGH!</b></font></span>")
+				src.endtimes()
+				spawn(1)
+					soulcheck(user)
+				return
+			else
+				boutput(user, "<span style=\"color:red\"><font size=3><B>You currently have [total_souls_value] souls. You need 20 soul points to begin the end times. </b></font></span>")
 		else
-			boutput(user, "<span style=\"color:red\"><font size=3><B>You currently have [total_souls_sold] souls, the total worth of which is [total_souls_value] soul points. You need 20 soul points to begin the end times. </b></font></span>")
+			boutput(user, "<span style=\"color:blue\">Nothing happens.</span>")
 
 	proc/endtimes()
 		total_souls_value -= 20 //The last thing we need is endless horseman drones.
