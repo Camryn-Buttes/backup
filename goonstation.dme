@@ -141,6 +141,7 @@ var/datum/preMapLoad/preMapLoad = new
 #include "code\datums\abilities\changeling.dm"
 #include "code\datums\abilities\critter.dm"
 #include "code\datums\abilities\cruiser.dm"
+#include "code\datums\abilities\diabolical.dm"
 #include "code\datums\abilities\grinch.dm"
 #include "code\datums\abilities\predator.dm"
 #include "code\datums\abilities\revenant.dm"
