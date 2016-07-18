@@ -42,7 +42,7 @@ TODO ASAP: get the stats of the souls sold into an onAbilityStat rather than a d
 			else
 				badguy.show_text("<h3>And a new pen appears in your other hand!</h3>", "blue")
 
-/mob/horse()
+/mob/proc/horse()
 	var/mob/H = src
 
 	if(H.mind && (H.mind.assigned_role != "Horse") || (!H.mind || !H.client)) //I am shamelessly copying this from the wizard cluwne spell
