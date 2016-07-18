@@ -43,8 +43,8 @@ REALLY GODDAMN IMPORTANT: add soul exchange, where you can sell some souls to ge
 			else
 				badguy.show_text("<h3>And a new pen appears in your other hand!</h3>", "blue")
 
-/mob/living/carbon/human/proc/horse()
-	var/mob/living/carbon/human/H = src
+/mob/horse()
+	var/mob/H = src
 
 	if(H.mind && (H.mind.assigned_role != "Horse") || (!H.mind || !H.client)) //I am shamelessly copying this from the wizard cluwne spell
 		boutput(H, "<span style=\"color:red\"><B>You NEIGH painfully!</B></span>")
@@ -259,6 +259,10 @@ REALLY GODDAMN IMPORTANT: add soul exchange, where you can sell some souls to ge
 		if (total_souls_sold >= 10)
 			wrestler_backfist(user, M) //sends people flying above 10 souls sold, does not scale with souls.
 
+	throw_impact(atom/A)
+		src.throwforce = min((15 + total_souls_sold), 30) //capped at 30 max throwforce.
+		..()
+
 /obj/item/contract
 	name = "infernal contract"
 	icon = 'icons/obj/wizard.dmi'
@@ -289,7 +293,7 @@ REALLY GODDAMN IMPORTANT: add soul exchange, where you can sell some souls to ge
 		else
 			. += "It looks like [src.contractlines - src.used] more signatures will fit on this thing."
 
-	proc/MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob) //this calls the actual contract effect
+	proc/MagicEffect(var/mob/user as mob, var/mob/badguy as mob) //this calls the actual contract effect
 		if (!user) //oh god how did this happen? I don't know, but somehow it did.
 			return
 		if (user.mind.diabolical == 1)
@@ -297,7 +301,7 @@ REALLY GODDAMN IMPORTANT: add soul exchange, where you can sell some souls to ge
 			return
 		return
 
-	proc/vanish(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	proc/vanish(var/mob/user as mob, var/mob/badguy as mob)
 		if(user)
 			boutput(user, "<span style=\"color:blue\"><b>The depleted contract vanishes in a puff of smoke!</b></span>")
 		spawncontract(badguy, 0, 0) //huzzah for efficient code
@@ -350,7 +354,7 @@ obj/item/contract/satan
 	oneuse = 1
 	contractlines = 2 //I'm not sure about this one, might be okay to leave it at 3.
 	
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -370,7 +374,7 @@ obj/item/contract/macho
 //	oneuse = 1
 	//contractlines = 4 //actually, this works better if it's not an antagonist contract since the only power the person gets is macho healing.
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!")
@@ -390,7 +394,7 @@ obj/item/contract/wrestle
 	oneuse = 1
 	contractlines = 2 //addiction is crippling, but surmountable. Should not be 3.
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in cocaine upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding cocaine contract at [log_loc(user)]!")
@@ -413,7 +417,7 @@ obj/item/contract/yeti
 	desc = "A contract that promises to bestow upon whomever signs it near infinite power, an unending hunger, and some other stuff you can't be bothered to read."
 	oneuse = 1
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!")
@@ -434,7 +438,7 @@ obj/item/contract/admin
 	oneuse = 1
 	contractlines = 1 //one macho man per customer
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in slim jims upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding slim jim contract at [log_loc(user)]!")
@@ -453,7 +457,7 @@ obj/item/contract/genetic
 	desc = "A contract that promises to unlock the hidden potential of whomever signs it."
 	oneuse = 0
 	
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding genetic modifiying contract at [log_loc(user)]!")
@@ -501,7 +505,7 @@ obj/item/contract/horse
 			var/turf/spawn_turf = get_turf(src)
 			new /obj/effects/ydrone_summon/horseman(spawn_turf)
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name with [his_or_her(user)] own blood inside the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding horse contract at [log_loc(user)]!")
@@ -523,7 +527,7 @@ obj/item/contract/horse
 obj/item/contract/mummy
 	desc = "A contract that promises to turn whomever signs it into a mummy. That's it. No tricks."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!")
@@ -555,7 +559,7 @@ obj/item/contract/vampire
 	oneuse = 1
 	contractlines = 2 //this has the fewest drawbacks of the various badguy contracts.
 	
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -573,7 +577,7 @@ obj/item/contract/vampire
 obj/item/contract/juggle //credit for idea goes to Mageziya
 	desc = "It's a piece of paper with a portait of a person juggling skulls. Something about this image is both vaguely familiar and deeply unsettling."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -591,7 +595,7 @@ obj/item/contract/juggle //credit for idea goes to Mageziya
 obj/item/contract/fart //for popecrunch
 	desc = "It's just a piece of paper with the word 'fart' written all over it."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -609,7 +613,7 @@ obj/item/contract/fart //for popecrunch
 obj/item/contract/bee //credit for idea goes to Mageziya
 	desc = "This contract promises to bestow bees upon whomever signs it. Unlimited bees."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -627,7 +631,7 @@ obj/item/contract/bee //credit for idea goes to Mageziya
 obj/item/contract/rested //credit for idea goes to Sundance
 	desc = "This contract promises to keep whomever signs it healthy and well rested."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -647,7 +651,7 @@ obj/item/contract/rested //credit for idea goes to Sundance
 obj/item/contract/reversal //inspired by Vitatroll's idea
 	desc = "This contract promises to make the strong weak and the weak strong."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -667,7 +671,7 @@ obj/item/contract/reversal //inspired by Vitatroll's idea
 obj/item/contract/chemical //inspired by Vitatroll's idea
 	desc = "This contract is adorned with a crude drawing of a werewolf imploding into a pile flaming spiders. What the hell?"
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -685,7 +689,7 @@ obj/item/contract/chemical //inspired by Vitatroll's idea
 obj/item/contract/hair //for Megapaco
 	desc = "This contract promises to make the undersigned individual have the best hair of anybody within 10 kilometers."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -707,7 +711,7 @@ obj/item/contract/hair //for Megapaco
 obj/item/contract/greed //how the fuck did I not think of this yet
 	desc = "This contract is positively covered in dollar signs."
 
-	MagicEffect(var/mob/living/carbon/human/user as mob, var/mob/badguy as mob)
+	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
 		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon the [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
@@ -739,17 +743,3 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 				src.vanish(user, badguy)
 		else
 			return
-
-/obj/item/contract/random
-	desc = "YOU SHOULDN'T EVER SEE THIS."
-	var/list/contracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/mummy/thorough,/obj/item/contract/vampire,/obj/item/contract/hair,/obj/item/contract/wrestle,/obj/item/contract/satan,/obj/item/contract/greed)
-	var/tempcontract = null
-	
-	New()
-		..()
-		tempcontract = pick(contracts)
-		new tempcontract(src.loc)
-		qdel(src)
-
-/obj/item/contract/random/weak
-	contracts = list(obj/item/contract/macho,obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal,obj/item/contract/chemical) //TODO: ADD ADDITIONAL WEAK CONTRACTS.
