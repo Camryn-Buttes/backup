@@ -40,7 +40,7 @@
 // Why the separate mask check? NPCs don't use assigned_role and we still wanna play the cluwne-specific sound effects.
 #define iscluwne(x) (istype(x, /mob/living/carbon/human) && ((x:mind && x:mind.assigned_role && x:mind:assigned_role == "Cluwne") || istype(x:wear_mask, /obj/item/clothing/mask/cursedclown_hat)))
 #define ishorse(x) (istype(x, /mob/living/carbon/human) && ((x:mind && x:mind.assigned_role && x:mind:assigned_role == "Horse") || istype(x:wear_mask, /obj/item/clothing/mask/horse_mask/cursed)))
-#define isdiabolical(x) (istype(x, /mob/living) && x:mind && x:mind:diabolical == 1)
+#define isdiabolical(x) (istype(x, /mob/living/carbon/human) && x:mind && x:mind:diabolical == 1)
 
 #define ishellbanned(x) istype(x, /mob) && x:client && x:client.hellbanned
 
