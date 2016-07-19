@@ -402,9 +402,9 @@ var/list/datum/bioEffect/bioEffectList = list()
 				newEffect.can_scramble = 0
 				newEffect.can_reclaim = 0
 				if(hasvar(newEffect, "safety"))
-					newEffect.safety = 1
+					newEffect:safety = 1
 				if(hasvar(newEffect, "power"))
-					newEffect.power = 1
+					newEffect:power = 1
 
 			effects[newEffect.id] = newEffect
 			newEffect.owner = owner
