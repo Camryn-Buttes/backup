@@ -21,31 +21,51 @@ If anyone can figure out a way to track the souls without a global var, please l
 /proc/spawncontract(var/mob/badguy as mob, var/strong = 0, var/pen = 0) //I use this for both the vanish proc and the WIP contract market.
 	if(strong)
 		var/list/replacementcontracts = list(/obj/item/contract/yeti,/obj/item/contract/genetic/demigod,/obj/item/contract/vampire,/obj/item/contract/wrestle,/obj/item/contract/satan)
-	else
-		var/list/replacementcontracts = list(obj/item/contract/macho,obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal,obj/item/contract/chemical,/obj/item/contract/mummy/thorough)
-	var/tempcontract = pick(replacementcontracts)
-	var/obj/item/contract/U = new tempcontract(badguy)
-	U.merchant = badguy
-	if (!badguy.put_in_hand(U))
-		U.set_loc(get_turf(badguy))
-		if(pen)
-			var/obj/item/pen/fancy/satan/P = new /obj/item/pen/fancy/satan(badguy)
-			P.set_loc(get_turf(badguy))
-			badguy.show_text("<h3>A new contract suddenly appears at your feet along with a free pen for being such an evil customer!</h3>", "blue")
-		else
-			badguy.show_text("<h3>A new contract suddenly appears at your feet!</h3>", "blue")
-	else
-		badguy.show_text("<h3>A new contract suddenly appears in your hand!</h3>", "blue")
-		if(pen)
-			var/obj/item/pen/fancy/satan/Q = new /obj/item/pen/fancy/satan(badguy)
-			if (!badguy.put_in_hand(Q))
-				Q.set_loc(get_turf(badguy))
-				badguy.show_text("<h3>And a new pen appears at your feet!</h3>", "blue")
+		var/tempcontract = pick(replacementcontracts)
+		var/obj/item/contract/U = new tempcontract(badguy)
+		U.merchant = badguy
+		if (!badguy.put_in_hand(U))
+			U.set_loc(get_turf(badguy))
+			if(pen)
+				var/obj/item/pen/fancy/satan/P = new /obj/item/pen/fancy/satan(badguy)
+				P.set_loc(get_turf(badguy))
+				badguy.show_text("<h3>A new contract suddenly appears at your feet along with a free pen for being such an evil customer!</h3>", "blue")
 			else
-				badguy.show_text("<h3>And a new pen appears in your other hand!</h3>", "blue")
+				badguy.show_text("<h3>A new contract suddenly appears at your feet!</h3>", "blue")
+		else
+			badguy.show_text("<h3>A new contract suddenly appears in your hand!</h3>", "blue")
+			if(pen)
+				var/obj/item/pen/fancy/satan/Q = new /obj/item/pen/fancy/satan(badguy)
+				if (!badguy.put_in_hand(Q))
+					Q.set_loc(get_turf(badguy))
+					badguy.show_text("<h3>And a new pen appears at your feet!</h3>", "blue")
+				else
+					badguy.show_text("<h3>And a new pen appears in your other hand!</h3>", "blue")
+	else
+		var/list/replacementcontracts = list(/obj/item/contract/macho,/obj/item/contract/greed,/obj/item/contract/mummy,/obj/item/contract/hair,/obj/item/contract/genetic,/obj/item/contract/juggle,/obj/item/contract/bee,/obj/item/contract/rested,/obj/item/contract/reversal,/obj/item/contract/chemical,/obj/item/contract/mummy/thorough)
+		var/tempcontract = pick(replacementcontracts)
+		var/obj/item/contract/U = new tempcontract(badguy)
+		U.merchant = badguy
+		if (!badguy.put_in_hand(U))
+			U.set_loc(get_turf(badguy))
+			if(pen)
+				var/obj/item/pen/fancy/satan/P = new /obj/item/pen/fancy/satan(badguy)
+				P.set_loc(get_turf(badguy))
+				badguy.show_text("<h3>A new contract suddenly appears at your feet along with a free pen for being such an evil customer!</h3>", "blue")
+			else
+				badguy.show_text("<h3>A new contract suddenly appears at your feet!</h3>", "blue")
+		else
+			badguy.show_text("<h3>A new contract suddenly appears in your hand!</h3>", "blue")
+			if(pen)
+				var/obj/item/pen/fancy/satan/Q = new /obj/item/pen/fancy/satan(badguy)
+				if (!badguy.put_in_hand(Q))
+					Q.set_loc(get_turf(badguy))
+					badguy.show_text("<h3>And a new pen appears at your feet!</h3>", "blue")
+				else
+					badguy.show_text("<h3>And a new pen appears in your other hand!</h3>", "blue")
 
 /mob/proc/horse()
-	var/mob/H = src
+	var/mob/living/carbon/human/H = src
 	if(H.mind && (H.mind.assigned_role != "Horse") || (!H.mind || !H.client)) //I am shamelessly copying this from the wizard cluwne spell
 		boutput(H, "<span style=\"color:red\"><B>You NEIGH painfully!</B></span>")
 		H.take_brain_damage(80)
@@ -249,24 +269,24 @@ If anyone can figure out a way to track the souls without a global var, please l
 			else
 				tempcontract = pick(contracts)
 				var/obj/item/I = new tempcontract(src)
-				I.merchant = src.merchant
+				I:merchant = src.merchant
 				contracts -= tempcontract
 			
-			contracts = list(obj/item/contract/macho,obj/item/contract/greed,obj/item/contract/mummy,obj/item/contract/hair,obj/item/contract/genetic,obj/item/contract/juggle,obj/item/contract/bee,obj/item/contract/rested,obj/item/contract/reversal,obj/item/contract/chemical,/obj/item/contract/mummy/thorough) //weak, non-antagonist contracts.
+			contracts = list(/obj/item/contract/macho,/obj/item/contract/greed,/obj/item/contract/mummy,/obj/item/contract/hair,/obj/item/contract/genetic,/obj/item/contract/juggle,/obj/item/contract/bee,/obj/item/contract/rested,/obj/item/contract/reversal,/obj/item/contract/chemical,/obj/item/contract/mummy/thorough)
 			
 			tempcontract = pick(contracts)
 			var/obj/item/C = new tempcontract(src)
-			C.merchant = src.merchant
+			C:merchant = src.merchant
 			contracts -= tempcontract
 	
 			tempcontract = pick(contracts)
 			var/obj/item/P = new tempcontract(src)
-			P.merchant = src.merchant
+			P:merchant = src.merchant
 			contracts -= tempcontract
 	
 			tempcontract = pick(contracts)
 			var/obj/item/Z = new tempcontract(src)
-			Z.merchant = src.merchant
+			Z:merchant = src.merchant
 			contracts -= tempcontract
 
 	attack(mob/M as mob, mob/user as mob, def_zone)
@@ -293,7 +313,7 @@ If anyone can figure out a way to track the souls without a global var, please l
 		boutput(usr, "<span style=\"color:blue\">You aren't evil enough to buy an infernal contract!</span>")
 		return
 	if (!(total_souls_value >= 5))
-		bouput(usr, "<span style=\"color:blue\">You don't have enough souls to summon another contract! You need [5 - total_souls_value] more to afford it.</span>")
+		boutput(usr, "<span style=\"color:blue\">You don't have enough souls to summon another contract! You need [5 - total_souls_value] more to afford it.</span>")
 		return
 	else if ((total_souls_value >= 5) && (isdiabolical(usr)))
 		total_souls_value -= 5
@@ -469,7 +489,6 @@ obj/item/contract/yeti
 		logTheThing("admin", user, null, "signed a soul-binding yeti contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(1)
-		us
 		user.makesuperyeti()
 		if (src.oneuse == 1)
 			src.used++
@@ -515,7 +534,7 @@ obj/item/contract/genetic
 		if ((prob(5)) || (src.oneuse == 1)) //added dedicated oneuse check
 			spawn(10)
 			boutput(user, "<span style=\"color:green\">You feel an upwelling of additional power!</span>")
-			user.unkillable = 1 //This isn't nearly as much of a boon as one might think.
+			user:unkillable = 1 //This isn't nearly as much of a boon as one might think.
 			user.bioHolder.AddEffect("mutagenic_field_prenerf", 0, 0, 1) //The reason being that
 			spawn(2) //after they come back to life, all the powers they had activated by the activator
 			boutput(user, "<span style=\"color:blue\">You have ascended beyond mere humanity! You must share your mutagenic godhood with others! Have them bask in your irradiating glow!</span>")
@@ -586,8 +605,8 @@ obj/item/contract/mummy
 		user.sellsoul()
 		var/list/limbs = list("l_arm","r_arm","l_leg","r_leg","head","chest")
 		for (var/target in limbs)
-			if (!user.bandaged.Find(target))
-				user.bandaged += target
+			if (!user:bandaged.Find(target))
+				user:bandaged += target
 				user.update_body()
 		if(user.reagents)
 			user.reagents.add_reagent("formaldehyde", 300) //embalming fluid for mummies
@@ -787,7 +806,8 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 		if (wealthy == 2)
 			spawn(100)
 			boutput(user, "<span style=\"color:blue\">Well, you were right.</span>")
-			user.become_gold_statue(1)
+			var/mob/living/carbon/human/H = user
+			H.become_gold_statue(1)
 		if (src.oneuse == 1)
 			src.used++
 			spawn(0)
