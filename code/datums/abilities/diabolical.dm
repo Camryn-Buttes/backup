@@ -19,7 +19,6 @@
 /obj/screen/ability/merchant
 	clicked(params)
 		var/datum/targetable/merchant/spell = owner
-		var/datum/abilityHolder/holder = owner.holder
 		if (!istype(spell))
 			return
 		if (!spell.holder)
@@ -178,7 +177,6 @@
 		if (!holder)
 			return 1
 		var/mob/living/M = holder.owner
-		var/datum/abilityHolder/merchant/H = holder
 		if (!M)
 			return 1
 		if (!(total_souls_value >= 5))
