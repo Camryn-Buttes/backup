@@ -525,8 +525,9 @@
 	OnAdd()
 		..()
 		var/mob/living/L = owner
-		if (!(L:can_juggle == 1))
-			L:can_juggle = 1
+		if (ishuman(L))
+			if (!(L:can_juggle == 1))
+				L:can_juggle = 1
 
 ////////////////////////////
 // Disabled for *Reasons* //
