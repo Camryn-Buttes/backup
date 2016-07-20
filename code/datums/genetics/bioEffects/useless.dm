@@ -38,6 +38,9 @@
 			overlay_image = image("icon" = 'icons/effects/genetics.dmi', "icon_state" = "horns", layer = MOB_LAYER)
 		..()
 
+/datum/bioEffect/horns/evil //this is just for /proc/soulcheck
+	id = "demon_horns" //heh
+
 /datum/bioEffect/particles
 	name = "Dermal Glitter"
 	desc = "Causes the subject's skin to shine and gleam."
@@ -158,15 +161,76 @@
 	msgGain = "You feel drunk!"
 	msgLose = "You feel sober."
 	probability = 99
-	var/ethanol_threshold = 80
+	var/reagent_to_add = "ethanol"
+	var/reagent_threshold = 80
 	var/add_per_tick = 1
 
 	OnLife()
 		var/mob/living/L = owner
 		if (L.stat == 2)
 			return
-		if (L.reagents && L.reagents.get_reagent_amount("ethanol") < ethanol_threshold)
-			L.reagents.add_reagent("ethanol",add_per_tick)
+		if (L.reagents && L.reagents.get_reagent_amount(reagent_to_add) < reagent_threshold)
+			L.reagents.add_reagent(reagent_to_add,add_per_tick)
+
+datum/bioEffect/drunk/bee
+	name = "Bee Production"
+	desc = "Encourages growth of bees in the subject's body."
+	id = "drunk_bee"
+	msgGain = "Your stomach buzzes!"
+	msgLose = "The buzzing in your stomach stops."
+	occur_in_genepools = 0
+	curable_by_mutadone = 0
+	can_scramble = 0 
+	can_reclaim = 0
+	reagent_to_add = "bee"
+	reagent_threshold = 40
+	add_per_tick = 1.2
+
+datum/bioEffect/drunk/pentetic
+	name = "Pentetic Acid Production"
+	desc = "This mutation somehow causes the subject's body to manufacture a potent chellating agent. How exactly it functions is completely unknown."
+	id = "drunk_pentetic"
+	msgGain = "You feel detoxified"
+	msgLose = "You feel toxic."
+	occur_in_genepools = 0
+	curable_by_mutadone = 0
+	can_scramble = 0 
+	can_reclaim = 0
+	reagent_to_add = "penteticacid"
+	reagent_threshold = 40
+	add_per_tick = 4 //enough to make it difficult to remove without using calomel or hunchback.
+
+datum/bioEffect/drunk/random
+	name = "Chemical Production Modification"
+	desc = {"This mutation somehow irreversibly alters the subject's body to function as an organic chemical factory, mass producing large quantities of seemingly random chemicals.
+	The mechanism for this modification is currently unknown to medical and genetic science."}
+	id = "drunk_random"
+	msgGain = "You begin to sense an odd chemical taste in your mouth."
+	msgLose = "The chemical taste in your mouth fades."
+	occur_in_genepools = 1 //this is going to be very goddamn rare and very fucking difficult to unlock.
+	mob_exclusive = /mob/living/carbon/human/
+	probability = 1
+	blockCount = 5
+	can_research = 0
+	lockProb = 100
+	blockGaps = 0
+	lockedGaps = 10
+	lockedDiff = 6
+	lockedChars = list("G","C","A","T","U")
+	lockedTries = 12 //reduce to 8 if it's still too easy
+	curable_by_mutadone = 0
+	can_scramble = 0 
+	can_reclaim = 0
+	reagent_to_add = "honey"
+	reagent_threshold = 500 //it never stops
+	add_per_tick = 5 //even more difficult to remove without calomel or hunchback
+	
+	New()
+		..()
+		if (all_functional_reagent_ids.len > 1)
+			reagent_to_add = pick(all_functional_reagent_ids)
+		else
+			reagent_to_add = "water"
 
 /datum/bioEffect/bee
 	name = "Apidae Metabolism"
@@ -232,3 +296,6 @@
 			overlay_image = image("icon" = 'icons/effects/genetics.dmi', "icon_state" = "fireaura", layer = MOB_LIMB_LAYER)
 			overlay_image.color = color_hex
 		..()
+
+/datum/bioEffect/fire_aura/evil //this is just for /proc/soulcheck
+	id = "hell_fire" //heh

@@ -575,7 +575,6 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /datum/bioEffect/power/superfart
 	name = "High-Pressure Intestines"
 	desc = "Vastly increases the gas capacity of the subject's digestive tract."
@@ -655,10 +654,11 @@
 			 		new /obj/effects/fart_cloud(owner,owner)
 
 			SF.farting = 0
-			if (gib_user)
-				owner.gib()
+			if (linked_power.power)
 				for (var/turf/T in range(owner,6))
 					animate_shake(T,5,rand(3,8),rand(3,8))
+			if (gib_user)
+				owner.gib()
 		else
 			boutput(owner, "<span style=\"color:red\">You were interrupted and couldn't fart! Rude!</span>")
 			SF.farting = 0
@@ -666,6 +666,20 @@
 
 		return
 
+/datum/bioEffect/power/superfart/griff
+	name = "Very-High-Pressure Intestines"
+	desc = "Immensely increases the gas capacity of the subject's digestive tract to near infinite levels."
+	id = "superfartgriff"
+	msgGain = "You feel INCREDIBLY bloated and gassy."
+	msgLose = "You no longer feel INCREDIBLY gassy. What a relief!"
+	curable_by_mutadone = 0 //help griff
+	stability_loss = 0 //yep
+	can_scramble = 0 //I'm doing this
+	can_reclaim = 0 //this is not a good idea
+	occur_in_genepools = 0 //but it must be done
+	cooldown = 200 //yep
+	safety = 1 //YEP
+	power = 1 //YEEEEEEEEP
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////

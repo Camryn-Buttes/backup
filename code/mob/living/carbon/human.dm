@@ -1889,6 +1889,13 @@
 							message = "<span style=\"color:red\"><B>[src] [pick("unleashes","rips","blasts")] \a [pick("truly","utterly","devastatingly","shockingly")] [pick("hideous","horrendous","horrific","heinous","horrible")] fart!</B></span>"
 							spawn(0)
 								new /obj/effects/fart_cloud(get_turf(src),src)
+						if (src.bioHolder && src.bioHolder.HasEffect("linkedfart"))
+							message = "<span style=\"color:red\"><B>[src] [pick("unleashes","rips","blasts")] \a [pick("truly","utterly","devastatingly","shockingly")] [pick("hideous","horrendous","horrific","heinous","horrible")] fart!</B></span>"
+							spawn(0)
+								new /obj/effects/fart_cloud(get_turf(src),src)
+							for(var/mob/living/H in mobs)
+								if (H.bioHolder && H.bioHolder.HasEffect("linkedfart")) continue
+								H.emote("fart")
 						if (iscluwne(src))
 							playsound(src.loc, 'sound/misc/Poo.ogg', 50, 1)
 						else if (src.organHolder && src.organHolder.butt && istype(src.organHolder.butt, /obj/item/clothing/head/butt/cyberbutt))

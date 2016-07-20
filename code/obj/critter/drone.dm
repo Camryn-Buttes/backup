@@ -25,6 +25,8 @@
 	var/obj/item/droploot = null
 	var/damaged = 0 // 1, 2, 3
 	var/dying = 0
+	var/beeptext = "beeps"
+	var/beepsound = 'sound/machines/twobeep.ogg'
 	var/alertsound1 = 'sound/machines/whistlealert.ogg'
 	var/alertsound2 = 'sound/machines/whistlebeep.ogg'
 	var/projectile_type = /datum/projectile/laser/light
@@ -266,8 +268,8 @@
 		check_health()
 
 		if(prob(7))
-			src.visible_message("<b>[src] beeps.</b>")
-			playsound(src, "sound/machines/twobeep.ogg", 55, 1)
+			src.visible_message("<b>[src] [beeptext].</b>")
+			playsound(src, beepsound, 55, 1)
 
 		if(task == "following path")
 			follow_path()
@@ -1013,3 +1015,78 @@
 		spawn(6)
 			for (var/obj/O in lineObjs)
 				pool(O)*/
+
+/obj/critter/gunbot/drone/iridium/whydrone/horse
+	name = "Horseman"
+	desc = "What the hell is this thing!? Oh God, is that a MOUTH?" //changed to reference the sprite
+	health = 8000 //glitch drone tough
+	maxhealth = 8000 // you aren't killing the apocalypse easily
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "horsedrone" // YEP, I FINALLY MADE SPRITES
+	bound_height = 96
+	bound_width = 96
+	attack_range = 14 //evil
+	score = 45000 //let's just go whole hog on this
+	dead_state = "horsedrone-dead" //dream maker for worst sprite art program 2k16
+	droploot = /obj/item/clothing/mask/horse_mask/cursed //neigh
+	beeptext = "neighs"
+	beepsound = 'sound/vox/na.ogg' //how is nay or neigh not a thing in vox?
+	alertsound1 = 'sound/effects/mag_pandroar.ogg'
+	alertsound2 = 'sound/misc/wendigo_roar.ogg'
+	projectile_type = /datum/projectile/bullet/autocannon/huge
+	current_projectile = new/datum/projectile/bullet/autocannon/huge
+	sphere_projectile = new/datum/projectile/laser/precursor/sphere
+	generic = 0
+	smashes_shit = 1
+
+	process()
+		..()
+		if(prob(3))
+			playsound(src,"sound/effects/heartbeat.ogg", 60, 0) //for the spooky effect
+		return
+
+	New()
+		..()
+		name = "[pick("War", "Death", "Pestilence", "Famine")]"
+
+	ex_act(severity)
+		return //immune to our own explosions
+
+	check_health()
+		..()
+		if(health == maxhealth) return
+		var/percent_damage = src.health/src.maxhealth * 100
+		switch(percent_damage)
+			if(75 to 100)
+				return
+			if(50 to 74)
+				if(damaged == 1) return
+				damaged = 1
+				desc = "[src] looks lightly [pick("injured", "hurt", "bruised", "cut")]."
+			if(25 to 49)
+				if(damaged == 2) return
+				damaged = 2
+				desc = "[src] looks [pick("quite", "pretty", "rather")] [pick("injured", "wounded", "messed up", "beaten up", "hurt", "haggard")]."
+			if(0 to 24)
+				if(damaged == 3) return
+				damaged = 3
+				desc = "[src] looks [pick("really", "totally", "very", "all sorts of", "super", "grievously")] [pick("mangled", "wounded", "messed up", "injured", "hurt", "haggard", "beaten down", "bloodied")]."
+		return
+
+	CritterDeath() //Yeah thanks for only supporting a single item, loot variable.
+		if(dying) return
+		var/area/A = get_area(src)
+		if (A && A.virtual)
+			droploot = /obj/item/device/key/iridium/virtual //we don't want this loot in vr do we???
+		else
+			new/obj/item/fiddle(src.loc)
+			new/obj/item/trumpet/dootdoot(src.loc)
+			new/obj/item/rubber_hammer(src.loc)
+			new/obj/item/bagpipe(src.loc)
+			new/obj/item/storage/belt/macho_belt(src.loc)
+			new/obj/item/stimpack/large_dose(src.loc)
+			new/obj/item/stimpack/large_dose(src.loc)
+			new/obj/item/stimpack/large_dose(src.loc)
+			new/obj/item/stimpack/large_dose(src.loc)
+			new/obj/item/stimpack/large_dose(src.loc)
+		..()

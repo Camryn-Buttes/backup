@@ -271,19 +271,20 @@
 		if (!fiddling)
 			fiddling++
 			user.visible_message("<B>[user]</B> lays down a [pick("devilish","hellish","satanic", "enviable")] tune on \his fiddle!")
-			//playsound(src.loc, pick(src.sounds_fiddle), 50, 1)
+			playsound(get_turf(src), 'sound/vox/fiddle.ogg', 100, 1)
 			for(var/obj/critter/dog/george/G in range(user,6))
 				if (prob(60))
 					G.howl()
 			src.add_fingerprint(user)
 			spawn(100)
 				fiddling = 0
+				charge += 10 //can build up charges
 
 	proc/satanic_home_run(var/mob/living/some_poor_fucker)
 		if (!istype(some_poor_fucker) || !some_poor_fucker.mind || charge < CHARGE_REQUIRED)
 			return
 
-		charge = 0
+		charge -= 10 //can build up charges
 		src.icon_state = "fiddle"
 		. = get_edge_target_turf(usr, get_dir(usr, some_poor_fucker))
 		var/mob/dead/observer/ghost_to_toss = some_poor_fucker.ghostize()

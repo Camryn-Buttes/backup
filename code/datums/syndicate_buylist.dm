@@ -316,6 +316,19 @@ proc/build_syndi_buylist_cache()
 	desc = "We understand it can be difficult to carry out some of our missions. Here is some spiritual counsel in a small package."
 	job = list("Assistant","Technical Assistant","Medical Assistant","Staff Assistant", "Chaplain", "Clown")
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
+	
+/datum/syndicate_buylist/traitor/contract
+	name = "Faustian Bargain Kit"
+	item = /obj/item/storage/briefcase/satan
+	cost = 8
+	desc = "Comes complete with three soul binding contracts, three extra-pointy pens, and one suit provided by Lucifer himself."
+	job = list("Chaplain")
+	not_in_crates = 1
+	
+	run_on_spawn(var/obj/item/storage/briefcase/satan/Q,var/mob/living/owner)
+		if (istype(Q) && owner)
+			owner.make_merchant() //give them the power to summon more contracts
+			Q.merchant = owner
 
 /datum/syndicate_buylist/traitor/mailsuit
 	name = "Mailman Suit"

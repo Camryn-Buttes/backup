@@ -3,50 +3,60 @@
 
 /////////////////////////////////////////////////// Setup //////////////////////////////////////////
 
-/mob/proc/make_vampire()
-	if (ishuman(src) || iscritter(src))
-		if (ishuman(src))
-			var/datum/abilityHolder/vampire/A = src.get_ability_holder(/datum/abilityHolder/vampire)
-			if (A && istype(A))
-				return
+/mob/proc/make_vampire(var/shitty = 0)
+    if (ishuman(src) || iscritter(src))
+        if (ishuman(src))
+            var/datum/abilityHolder/vampire/A = src.get_ability_holder(/datum/abilityHolder/vampire)
+            if (A && istype(A))
+                return
 
-			var/datum/abilityHolder/vampire/V = src.add_ability_holder(/datum/abilityHolder/vampire)
-			V.addAbility(/datum/targetable/vampire/vampire_bite)
-			V.addAbility(/datum/targetable/vampire/blood_tracking)
-			V.addAbility(/datum/targetable/vampire/cancel_stuns)
-			V.addAbility(/datum/targetable/vampire/glare)
-			V.addAbility(/datum/targetable/vampire/hypnotize)
+            var/datum/abilityHolder/vampire/V = src.add_ability_holder(/datum/abilityHolder/vampire)
 
-			if (src.mind)
-				src.mind.is_vampire = V
+            if(shitty) // Infernal vampire.
+                V.addAbility(/datum/targetable/vampire/blood_tracking)
+            else
+                V.addAbility(/datum/targetable/vampire/vampire_bite)
+                V.addAbility(/datum/targetable/vampire/blood_tracking)
+                V.addAbility(/datum/targetable/vampire/cancel_stuns)
+                V.addAbility(/datum/targetable/vampire/glare)
+                V.addAbility(/datum/targetable/vampire/hypnotize)
 
-			spawn (25) // Don't remove.
-				if (src) src.assign_gimmick_skull()
+            if (src.mind)
+                src.mind.is_vampire = V
 
-		else if (iscritter(src)) // For testing. Just give them all abilities that are compatible.
-			var/mob/living/critter/C = src
+            spawn (25) // Don't remove.
+                if (src) src.assign_gimmick_skull()
 
-			if (isnull(C.abilityHolder)) // They do have a critter AH by default...or should.
-				var/datum/abilityHolder/vampire/A2 = C.add_ability_holder(/datum/abilityHolder/vampire)
-				if (!A2 || !istype(A2, /datum/abilityHolder/))
-					return
+        else if (iscritter(src)) // For testing. Just give them all abilities that are compatible.
+            var/mob/living/critter/C = src
 
-			C.abilityHolder.addAbility(/datum/targetable/vampire/cancel_stuns/mk2)
-			C.abilityHolder.addAbility(/datum/targetable/vampire/glare)
-			C.abilityHolder.addAbility(/datum/targetable/vampire/hypnotize)
-			C.abilityHolder.addAbility(/datum/targetable/vampire/plague_touch)
-			C.abilityHolder.addAbility(/datum/targetable/vampire/phaseshift_vampire)
-			C.abilityHolder.addAbility(/datum/targetable/vampire/call_bats)
-			C.abilityHolder.addAbility(/datum/targetable/vampire/vampire_scream)
-			C.abilityHolder.addAbility(/datum/targetable/vampire/enthrall)
+            if (isnull(C.abilityHolder)) // They do have a critter AH by default...or should.
+                var/datum/abilityHolder/vampire/A2 = C.add_ability_holder(/datum/abilityHolder/vampire)
+                if (!A2 || !istype(A2, /datum/abilityHolder/))
+                    return
 
-			if (C.mind)
-				C.mind.is_vampire = C.abilityHolder
+            if(shitty) // Infernal vampire.
+                C.abilityHolder.addAbility(/datum/targetable/vampire/blood_tracking)
+            else
+                C.abilityHolder.addAbility(/datum/targetable/vampire/cancel_stuns/mk2)
+                C.abilityHolder.addAbility(/datum/targetable/vampire/glare)
+                C.abilityHolder.addAbility(/datum/targetable/vampire/hypnotize)
+                C.abilityHolder.addAbility(/datum/targetable/vampire/plague_touch)
+                C.abilityHolder.addAbility(/datum/targetable/vampire/phaseshift_vampire)
+                C.abilityHolder.addAbility(/datum/targetable/vampire/call_bats)
+                C.abilityHolder.addAbility(/datum/targetable/vampire/vampire_scream)
+                C.abilityHolder.addAbility(/datum/targetable/vampire/enthrall)
 
-		if (src.mind && src.mind.special_role != "omnitraitor")
-			src << browse(grabResource("html/traitorTips/vampireTips.html"),"window=antagTips;titlebar=1;size=600x400;can_minimize=0;can_resize=0")
+            if (C.mind)
+                C.mind.is_vampire = C.abilityHolder
 
-	else return
+        if (src.mind && src.mind.special_role != "omnitraitor")
+            if(shitty)
+                boutput(src, "<span style=\"color:blue\">Oh shit, your fangs just broke off! Looks like you'll have to get blood the HARD way.</span>")
+
+            src << browse(grabResource("html/traitorTips/vampireTips.html"),"window=antagTips;titlebar=1;size=600x400;can_minimize=0;can_resize=0")
+
+    else return
 
 ////////////////////////////////////////////////// Helper procs ////////////////////////////////////////////////
 

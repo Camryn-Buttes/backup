@@ -397,10 +397,15 @@
 		return make_blob()
 	return 0
 
-/mob/proc/machoize()
+/mob/proc/machoize(var/shitty = 0)
 	if (src.mind || src.client)
-		message_admins("[key_name(usr)] made [key_name(src)] a macho man.")
-		logTheThing("admin", usr, src, "made %target% a macho man.")
+		boutput(src, "<span style=\"color:blue\">You are being bombarded by energetic macho waves!</span>")
+		if (shitty)
+			message_admins("[key_name(src)] has been made a faustian macho man.")
+			logTheThing("admin", null, src, "%target% has been made a faustian macho man.")
+		else
+			message_admins("[key_name(usr)] made [key_name(src)] a macho man.")
+			logTheThing("admin", usr, src, "made %target% a macho man.")
 		var/mob/living/carbon/human/machoman/W = new/mob/living/carbon/human/machoman(src)
 
 		var/turf/T = get_turf(src)
@@ -414,8 +419,13 @@
 			W.set_loc(T)
 
 		if (src.mind)
-			src.mind.transfer_to(W)
-			src.mind.special_role = "macho man"
+			if (shitty)
+				src.mind.transfer_to(W)
+				W.mind.special_role = "faustian macho man"
+				ticker.mode.Agimmicks.Add(W)
+			else
+				src.mind.transfer_to(W)
+				src.mind.special_role = "macho man"
 		else
 			var/key = src.client.key
 			if (src.client)
@@ -429,7 +439,32 @@
 		spawn (25) // Don't remove.
 			if (W) W.assign_gimmick_skull()
 
-		boutput(W, "<span style=\"color:blue\">You are now a macho man!</span>")
+		if(shitty)
+			if (W)
+				W.traitHolder.addTrait("deathwish") //evil
+				W.traitHolder.addTrait("glasscannon") //what good will those stimulants do you now?
+			if (W)
+				var/list/dangerousVerbs = list(\
+					/mob/living/carbon/human/machoman/verb/macho_offense,\
+					/mob/living/carbon/human/machoman/verb/macho_defense,\
+					/mob/living/carbon/human/machoman/verb/macho_normal,\
+					/mob/living/carbon/human/machoman/verb/macho_grasp,\
+					/mob/living/carbon/human/machoman/verb/macho_headcrunch,\
+					/mob/living/carbon/human/machoman/verb/macho_chestcrunch,\
+					/mob/living/carbon/human/machoman/verb/macho_leap,\
+					/mob/living/carbon/human/machoman/verb/macho_rend,\
+					/mob/living/carbon/human/machoman/verb/macho_touch,\
+					/mob/living/carbon/human/machoman/verb/macho_piledriver,\
+					/mob/living/carbon/human/machoman/verb/macho_superthrow,\
+					/mob/living/carbon/human/machoman/verb/macho_soulsteal,\
+					/mob/living/carbon/human/machoman/verb/macho_stare,\
+					/mob/living/carbon/human/machoman/verb/macho_heartpunch\
+					) //they can keep macho heal
+				W.verbs -= dangerousVerbs //this is just diabolical
+			//	W.reagents.add_reagent("anti_fart", 800) I'm not sure this even works
+			boutput(W, "<span style=\"color:blue\">You weren't able to absorb all the macho waves you were bombarded with! You have been left an incomplete macho man, with almost no stamina, a frail body that takes double damage, and only one macho power. However, you are a glass cannon as you inflict double damage with most melee weapons and no longer need to expend stamina to attack or suplex people. Use your newfound form wisely to prove your worth as a macho champion of justice. </span>")
+		else
+			boutput(W, "<span style=\"color:blue\">You are now a macho man!</span>")
 
 		return W
 	return 0
