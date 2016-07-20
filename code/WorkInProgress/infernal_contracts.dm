@@ -382,9 +382,10 @@ If anyone can figure out a way to track the souls without a global var, please l
 			else if (src.inuse != 1)
 				src.inuse = 1
 				M.visible_message("<span style=\"color:red\"><B>[user] is guiding [M]'s hand to the signature field of [src]!</B></span>")
-				if (!do_mob(user, M, 50)) //150 (or 15 seconds) was way too long to actually be useful
+				if (!do_mob(user, M, 70)) //150 (or 15 seconds) was way too long to actually be useful
 					if (user && ismob(user))
 						user.show_text("You were interrupted!", "red")
+						src.inuse = 0
 						return
 				M.visible_message("<span style=\"color:red\">[user] forces [M] to sign [src]!</span>")
 				logTheThing("combat", user, M, "forces %M% to sign a [src] at [log_loc(user)].")
