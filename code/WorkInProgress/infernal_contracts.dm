@@ -423,7 +423,7 @@ obj/item/contract/satan
 	
 	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
-		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon [src]!</b></span>")
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(1)
@@ -633,7 +633,7 @@ obj/item/contract/vampire
 	
 	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
-		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon [src]!</b></span>")
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(1)
@@ -651,7 +651,7 @@ obj/item/contract/juggle //credit for idea goes to Mageziya
 
 	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
-		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon [src]!</b></span>")
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(1)
@@ -669,7 +669,7 @@ obj/item/contract/fart //for popecrunch
 
 	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
-		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon [src]!</b></span>")
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(1)
@@ -687,7 +687,7 @@ obj/item/contract/bee //credit for idea goes to Mageziya
 
 	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
-		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon [src]!</b></span>")
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(1)
@@ -705,7 +705,7 @@ obj/item/contract/rested //credit for idea goes to Sundance
 
 	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
-		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon [src]!</b></span>")
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(1)
@@ -725,7 +725,7 @@ obj/item/contract/reversal //inspired by Vitatroll's idea
 
 	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
-		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon [src]!</b></span>")
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(1)
@@ -745,7 +745,7 @@ obj/item/contract/chemical //inspired by Vitatroll's idea
 
 	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
-		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon [src]!</b></span>")
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(1)
@@ -763,7 +763,7 @@ obj/item/contract/hair //for Megapaco
 
 	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
-		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon [src]!</b></span>")
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(1)
@@ -785,7 +785,7 @@ obj/item/contract/greed //how the fuck did I not think of this yet
 
 	MagicEffect(var/mob/user as mob, var/mob/badguy as mob)
 		..()
-		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)]name in blood upon [src]!</b></span>")
+		user.visible_message("<span style=\"color:red\"><b>[user] signs [his_or_her(user)] name in blood upon [src]!</b></span>")
 		logTheThing("admin", user, null, "signed a soul-binding contract at [log_loc(user)]!")
 		user.sellsoul()
 		spawn(1)
