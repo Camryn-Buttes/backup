@@ -77,6 +77,8 @@
 	desc = "it's an improvised spear."
 	hit_type = DAMAGE_STAB
 	icon = null
+	throw_speed = 6 //both of these
+	throw_range = 10  //are the same as a predator spear
 
 	rebuild()
 		..()
@@ -99,10 +101,16 @@
 		src.material = head.material
 		head.force += core.force
 		head.throwforce += core.force
+		head.stamina_damage += core.stamina_damage
+		head.stamina_cost += core.stamina_cost
+		head.stamina_crit_chance += core.stamina_crit_chance //This worked fine in testing, but it may be unbalanced on a live server. The only real way to find out is to give it a shot. 
 		head.name = src.name
 		src.throwforce = head.throwforce //we have to set these so we don't get weird behavior in afterattack
 		src.force = head.force //calling head.afterattack causes really odd things to happen with things like tables, disposal chutes, and such.
-		return //so we have to use the spear itself for those cases.
+		src.stamina_damage = head.stamina_damage //so we have to use the spear itself for those cases.
+		src.stamina_cost = head.stamina_cost
+		src.stamina_crit_chance = head.stamina_crit_chance
+		return
 
 	attack(mob/M as mob, mob/user as mob)
 		return head.attack(M, user) //spears are just ways to use the same weapon with a handle, so for mob calls we can do this, which is kind of hilarious since it lets us do SPEAR surgery.
