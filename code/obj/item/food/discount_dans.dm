@@ -73,7 +73,7 @@
 				R.add_reagent("venom",2)
 
 			if (10)
-				name = "Rabatt Dan's Snabb-Nudlar - Inkokt Lax Smörgåsbord Smak"
+				name = "Rabatt Dan's Snabb-Nudlar - Inkokt Lax SmÃ¶rgÃ¥sbord Smak"
 				R.add_reagent("cleaner",2)
 				R.add_reagent("mercury",2)
 				R.add_reagent("swedium",6)
@@ -132,6 +132,8 @@
 	doants = 0 //Ants aren't dumb enough to try to eat these.
 	var/activated = 0
 	initial_volume = 50
+	brewable = 1
+	brew_result = list("sewage", "ethanol")
 
 	New()
 		..()
@@ -254,12 +256,15 @@
 	heal_amt = 2
 	var/color_prob = 100
 	initial_volume = 50
+	brewable = 1
+	brew_result = list("sewage", "yuck")
 
 	golden
 		name = "Little Danny's Legally-Distinct Creme-Filled Snack Loaf"
 		desc = "A highly-processed miniature sponge cake, filled with some manner of creme."
 		icon_state = "snackcake2"
 		color_prob = 10
+		brew_result = list("sewage", "mucus")
 
 	New()
 		..()
