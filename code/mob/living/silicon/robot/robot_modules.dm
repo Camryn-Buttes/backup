@@ -68,8 +68,9 @@
 		src.cosmetic_mods = new /datum/robot_cosmetic/medical(src)
 
 		src.modules += new /obj/item/robodefibrilator(src)
-		src.modules += new /obj/item/scalpel(src)
-		src.modules += new /obj/item/circular_saw(src)
+		//src.modules += new /obj/item/scalpel(src)
+		//src.modules += new /obj/item/circular_saw(src)
+		src.modules += new /obj/item/surgical_laser(src)
 		src.modules += new /obj/item/hemostat(src)
 		src.modules += new /obj/item/suture(src)
 		src.modules += new /obj/item/reagent_containers/iv_drip/blood(src)

@@ -271,23 +271,23 @@ MATERIAL COLLECTOR
 	name = "surgical laser"
 	icon = 'icons/obj/device.dmi' //once again, all sprite references are placeholders until sundance finishes his sprites
 	inhand_image_icon = 'icons/mob/inhand/hand_tools.dmi'
-	icon_state = "multitool" //defaults to multitool mode
+	icon_state = "scalpel" //defaults to scalpel mode
 	flags = FPRINT | TABLEPASS | CONDUCT
-	force = 5.0 //same as a multitool
-	w_class = 2.0
-	hit_type = DAMAGE_BLUNT
-	hitsound = 'sound/weapons/genhit1.ogg'
+	force = 3.0 //same as a multitool
+	w_class = 1.0
+	hit_type = DAMAGE_CUT
+	hitsound = 'sound/weapons/slashcut.ogg'
 	throwforce = 5.0
 	throw_speed = 3
-	throw_range = 15
-	desc = "An amazing piece of technology that function as five tools in one."
+	throw_range = 5
+	desc = "An amazing piece of medical technology that function as three tools in one."
 	stamina_damage = 5
 	stamina_cost = 5
-	stamina_crit_chance = 1
+	stamina_crit_chance = 35
 	module_research = list("tools" = 8, "metals" = 5, "devices" = 5)
 	rand_pos = 1
-	var/omni_mode = OMNITOOL_MULTITOOL
-	var/temp_mode = "multitool"
+	var/omni_mode = LASER_SCALPEL
+	var/temp_mode = "scalpel"
 	var/powerusage = 100 //amount of cell charge used per switch, I would do per tool usage, but that's way too hard to gauge in this case.
 
 // WELDING TOOL

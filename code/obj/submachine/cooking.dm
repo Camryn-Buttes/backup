@@ -561,7 +561,10 @@ var/list/oven_recipes = list()
 		src.updateUsrDialog()
 
 	MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
-		src.attackby(O, user)
+		if(istype(O, /obj/item)) //might need to implement some kind of mob type check for the user, not sure. Need advice.
+			src.attackby(O, user)
+		else
+			boutput(user, "<span style=\"color:red\">You can't put that in the oven!</span>")
 
 	proc/OVEN_checkitem(var/recipeitem, var/recipecount)
 		if (!locate(recipeitem) in src.contents) return 0

@@ -241,7 +241,7 @@
 			I.reagents.trans_to(src, I.reagents.total_volume)
 			qdel(I)
 
-		else if (istype(I, /obj/item/scalpel) || istype(I, /obj/item/circular_saw) || istype(I, /obj/item/surgical_spoon))
+		else if (istype(I, /obj/item/scalpel) || istype(I, /obj/item/circular_saw) || istype(I, /obj/item/surgical_spoon)) //do not replace with isscalpel(), etc. 
 			if (src.reagents && I.reagents)
 				I:Poisoner = user
 				src.reagents.trans_to(I, 5)

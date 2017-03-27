@@ -17,9 +17,9 @@
 		if (!W) return
 		if (!user) return
 		if (istype(W, /obj/item/axe)) qdel(src)
-		else if (istype(W, /obj/item/circular_saw)) qdel(src)
+		else if (issaw(W)) qdel(src)
 		else if (istype(W, /obj/item/kitchen/utensil/knife)) qdel(src)
-		else if (istype(W, /obj/item/scalpel)) qdel(src)
+		else if (isscalpel(W)) qdel(src)
 		else if (isscrewdriver(W))(qdel src)
 		else if (istype(W, /obj/item/shard)) qdel(src)
 		else if (istype(W, /obj/item/sword)) qdel(src)

@@ -64,6 +64,10 @@
 #define LASER_SAW 2
 #define LASER_SPOON 4
 
+#define isscalpel(x) ((istype(x, /obj/item/scalpel) || istype(x, /obj/item/raw_material/shard) || istype(x, /obj/item/kitchen/utensil/knife) || istype(x, /obj/item/knife_butcher) || istype(x, /obj/item/razor_blade)) || (istype(x, /obj/item/surgical_laser) && x.omni_mode == LASER_SCALPEL))
+#define issaw(x) ((istype(x, /obj/item/circular_saw) || istype(x, /obj/item/saw) || istype(x, /obj/item/kitchen/utensil/fork)) || (istype(x, /obj/item/surgical_laser) && x.omni_mode == LASER_SAW)
+#define isspoon(x) ((istype(x, /obj/item/surgical_spoon) || istype(x, /obj/item/kitchen/utensil/spoon)) || (istype(x, /obj/item/surgical_laser) && x.omni_mode == LASER_SPOON))
+
 // pick strings from cache-- code/procs/string_cache.dm
 #define pick_string(filename, key) pick(strings(filename, key))
 
