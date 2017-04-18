@@ -3,6 +3,9 @@ CONTAINS:
 TOILET
 
 */
+
+var/list/all_toilets = new/list()
+
 /obj/item/storage/toilet
 	name = "toilet"
 	w_class = 4.0
@@ -15,6 +18,50 @@ TOILET
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "toilet"
 	rand_pos = 0
+
+	New()
+		..()
+		all_toilets.Add(src)
+
+	suicide(var/mob/user as mob)
+		if(!hasvar(user,"organHolder")) return 0
+
+		user.visible_message("<span style=\"color:red\"><b>[user] sticks \his head into the [src.name] and flushes it, giving \himself an atomic swirlie!</b></span>")
+		var/obj/head = user:organHolder.drop_organ("head")
+		var/list/emergeplaces = new/list()
+		if ((src.clogged >= 1) || (src.contents.len >= 7))
+			head.set_loc(get_turf(src.loc))
+			playsound(src.loc, "sound/effects/slosh.ogg", 50, 1)
+			src.visible_message("<span style=\"color:blue\">[head.name] floats up out of the clogged [src]!</span>")
+			for (var/mob/O in AIviewers(head, null))
+				if (prob(33) && ishuman(O) && !(O == user))
+					O.show_message("<span style=\"color:red\">You feel ill from watching that.</span>")
+					for (var/mob/V in viewers(O, null))
+						V.show_message("<span style=\"color:red\">[O] pukes all over \himself.</span>", 1)
+						playsound(O.loc, "sound/effects/splat.ogg", 50, 1)
+						new /obj/decal/cleanable/vomit(O.loc)
+		else
+			for(var/obj/item/storage/toilet/T in all_toilets)
+				if(T == src || !isturf(T.loc) || T.z != src.z  || isrestrictedz(T.z)) continue
+				emergeplaces.Add(T)
+			if(emergeplaces.len)
+				var/atom/picked = pick(emergeplaces)
+				head.set_loc(get_turf(picked.loc))
+				playsound(picked.loc, "sound/effects/slosh.ogg", 50, 1)
+				head.visible_message("<span style=\"color:blue\">[head.name] emerges from the toilet!</span>")
+			for (var/mob/O in AIviewers(head, null))
+				if (prob(33) && ishuman(O))
+					O.show_message("<span style=\"color:red\">You feel ill from watching that.</span>")
+					for (var/mob/V in viewers(O, null))
+						V.show_message("<span style=\"color:red\">[O] pukes all over \himself.</span>", 1)
+						playsound(O.loc, "sound/effects/splat.ogg", 50, 1)
+						new /obj/decal/cleanable/vomit(O.loc)
+		playsound(src.loc, 'sound/effects/slosh.ogg', 50, 1)
+		user.updatehealth()
+		spawn(100)
+			if (user)
+				user.suiciding = 0
+		return 1
 
 /obj/item/storage/toilet/attackby(obj/item/W as obj, mob/user as mob)
 
@@ -42,7 +89,25 @@ TOILET
 		return
 	if ((!( istype(M, /mob) ) || get_dist(src, user) > 1 || M.loc != src.loc || user.restrained() || usr.stat))
 		return
-	if (M == usr)
+	if ((M == usr) && (istype(M:w_uniform, /obj/item/clothing/under/gimmick/mario)) && (istype(M:head, /obj/item/clothing/head/mario)))
+		user.visible_message("<span style=\"color:blue\">[user] dives into the toilet!</span>", "<span style=\"color:blue\">You dive into the toilet!</span>")
+		particleMaster.SpawnSystem(new /datum/particleSystem/tpbeam(get_turf(src.loc)))
+		playsound(src.loc, "sound/effects/slosh.ogg", 50, 1)
+		var/list/destinations = new/list()
+
+		for(var/obj/item/storage/toilet/T in all_toilets)
+			if(T == src || !isturf(T.loc) || T.z != src.z  || isrestrictedz(T.z)) continue
+			destinations.Add(T)
+
+		if(destinations.len)
+			var/atom/picked = pick(destinations)
+			particleMaster.SpawnSystem(new /datum/particleSystem/tpbeam(get_turf(picked.loc)))
+			M.set_loc(get_turf(picked.loc))
+			playsound(picked.loc, "sound/effects/slosh.ogg", 50, 1)
+			user.visible_message("<span style=\"color:blue\">[user] emerges from the toilet!</span>", "<span style=\"color:blue\">You emerge from the toilet!</span>")
+			M.unlock_medal("It'sa me, Mario", 1)
+		return
+	else if (M == usr)
 		user.visible_message("<span style=\"color:blue\">[user] sits on the toilet.</span>", "<span style=\"color:blue\">You sit on the toilet.</span>")
 	else
 		user.visible_message("<span style=\"color:blue\">[M] is seated on the toilet by [user]!</span>")
