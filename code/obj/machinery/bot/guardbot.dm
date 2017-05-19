@@ -214,7 +214,7 @@
 
 		vaquero
 			name = "El Vaquero"
-			desc = "The side label reads 'Fabricado en México'"
+			desc = "The side label reads 'Fabricado en Mýxico'"
 			setup_unique_name = 1
 			setup_default_startup_task = /datum/computer/file/guardbot_task/security/patrol
 			setup_charge_percentage = 98

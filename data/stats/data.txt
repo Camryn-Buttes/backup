@@ -1,0 +1,5 @@
+
+data_type=deaths&data_status=insert&data_timestamp=2017-05-18+21%3a07%3a24&mob_name=Chase+Ann&mob_job=Staff+Assistant&mob_byond_key=Powmonkey&x=188&y=147&z=1&bruteloss=0&fireloss=0&toxloss=0&oxyloss=0&gibbed=1
+data_type=deaths&data_status=insert&data_timestamp=2017-05-18+21%3a13%3a23&mob_name=Chase+Ann&mob_job=Staff+Assistant&mob_byond_key=Powmonkey&x=112&y=187&z=1&bruteloss=0&fireloss=0&toxloss=0&oxyloss=0&gibbed=1
+data_type=deaths&data_status=insert&data_timestamp=2017-05-18+21%3a27%3a53&mob_name=Chase+Ann&mob_job=Staff+Assistant&mob_byond_key=Powmonkey&x=111&y=105&z=1&bruteloss=0&fireloss=0&toxloss=0&oxyloss=0&gibbed=1
+data_type=deaths&data_status=insert&data_timestamp=2017-05-18+21%3a32%3a09&mob_name=Chase+Ann+the+Clown&mob_job=Clown&mob_byond_key=Powmonkey&x=217&y=187&z=1&bruteloss=0&fireloss=168&toxloss=0&oxyloss=0&gibbed=0

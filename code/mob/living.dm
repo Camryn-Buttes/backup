@@ -97,7 +97,7 @@
 				emergency_shuttle.incall()
 				boutput(world, "<span style=\"color:blue\"><B>Alert: Due to crew shortages and fatalities, the emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.</B></span>")
 
-	if (deathConfettiActive) //Active if XMAS or manually toggled
+	if ((deathConfettiActive)||((src.mind) && (mind.assigned_role == "Clown"))) //Active if XMAS or manually toggled or clown
 		src.deathConfetti()
 
 	return ..(gibbed)

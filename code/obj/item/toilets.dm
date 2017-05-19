@@ -26,6 +26,7 @@ TOILET
 	if (istype(W, /obj/item/grab))
 		playsound(src.loc, "sound/effects/slosh.ogg", 50, 1)
 		user.visible_message("<span style=\"color:blue\">[user] gives [W:affecting] a swirlie!</span>", "<span style=\"color:blue\">You give [W:affecting] a swirlie. It's like Middle School all over again!</span>")
+		W:affecting.abuse_clown()
 		return
 
 	return ..()

@@ -42,8 +42,8 @@
 					C.visible_message("<span style=\"color:red\"><b>[C]<b> gets hit in the face by [src]!</span>")
 					if (hasvar(src, "throwforce"))
 						C.TakeDamage("head", src:throwforce, 0)
-						if (ishuman(C) && C.job == "Clown")
-							score_clownabuse++
+						if (ishuman(C))
+							C.abuse_clown()
 				else
 					if (prob(C.juggling.len * 5)) // might drop stuff while already juggling things
 						C.drop_juggle()
@@ -59,8 +59,7 @@
 				if(src.vars.Find("throwforce"))
 					random_brute_damage(C, src:throwforce)
 					if (ishuman(C))
-						if (C.job == "Clown")
-							score_clownabuse++
+						C.abuse_clown()
 
 			#ifdef DATALOGGER
 				game_stats.Increment("violence")
@@ -87,7 +86,7 @@
 			if(src.vars.Find("throwforce"))
 				random_brute_damage(C, src:throwforce)
 				if (istype(C, /mob/living/carbon/human))
-					if (C.job == "Clown") score_clownabuse++
+					C.abuse_clown()
 
 		#ifdef DATALOGGER
 			game_stats.Increment("violence")
