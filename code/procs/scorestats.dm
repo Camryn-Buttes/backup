@@ -78,7 +78,8 @@
 	else if (profit < 0) dat += "<B>Station Deficit:</B> [num2text(profit,50)]<BR>"
 	dat += {"<B>Food Eaten:</b> [score_foodeaten]<BR>
 	<B>Shots Fired:</B> [game_stats.GetStat("gunfire")]<BR>
-	<B>Times a Clown was Abused:</B> [score_clownabuse]<BR><BR>"}
+	<B>Times a Clown was Abused:</B> [score_clownabuse]<BR>
+	<B>Times a Cluwne was Abused:</B> [score_cluwneabuse]<BR><BR>"}
 	if (score_escapees)
 		dat += {"<B>Richest Escapee:</B> [score_richestname], [score_richestjob]: $[num2text(score_richestcash,50)] ([score_richestkey])<BR>
 		<B>Most Battered Escapee:</B> [score_dmgestname], [score_dmgestjob]: [score_dmgestdamage] damage ([score_dmgestkey])<BR>"}

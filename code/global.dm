@@ -483,6 +483,7 @@ var/global
 
 	score_foodeaten = 0
 	score_clownabuse = 0
+	score_cluwneabuse = 0
 
 	score_richestname = null
 	score_richestjob = null

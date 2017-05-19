@@ -252,6 +252,8 @@
 
 		// Stun the target mob.
 		if (type == "harm_classic")
+			if (ishuman(dude_to_stun))
+				dude_to_stun.abuse_clown()
 			if ((dude_to_stun.weakened < src.stun_harm_weakened) && !hulk)
 				dude_to_stun.weakened = src.stun_harm_weakened
 			random_brute_damage(dude_to_stun, src.force) // Necessary since the item/attack() parent wasn't called.
@@ -263,6 +265,8 @@
 			if (dude_to_stun.bioHolder && dude_to_stun.bioHolder.HasEffect("resist_electric") && src.uses_electricity != 0)
 				boutput(dude_to_stun, "<span style=\"color:blue\">Thankfully, electricity doesn't do much to you in your current state.</span>")
 			else
+				if (ishuman(dude_to_stun))
+					dude_to_stun.abuse_clown()
 				if (!src.use_stamina_stun() || (src.use_stamina_stun() && ismob(dude_to_stun) && !hasvar(dude_to_stun, "stamina")))
 					if ((dude_to_stun.weakened < src.stun_normal_weakened) && !hulk)
 						dude_to_stun.weakened = src.stun_normal_weakened

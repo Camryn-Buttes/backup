@@ -1124,6 +1124,14 @@
 	return
 
 /mob/living/carbon/human/abuse_clown()
-	if (mind)
-		if (mind.assigned_role == "Clown")
-			score_clownabuse++
+	if (iscluwne(src))
+		score_cluwneabuse++
+		playsound(get_turf(src), pick('sound/voice/cluwnelaugh1.ogg','sound/voice/cluwnelaugh2.ogg','sound/voice/cluwnelaugh3.ogg'), 100, 1)
+		return
+	if ((mind) && (mind.assigned_role == "Clown"))
+		score_clownabuse++
+		playsound(get_turf(src), 'sound/items/bikehorn.ogg', 100, 1)
+		return
+	else if (src.wear_mask && istype(src.wear_mask, /obj/item/clothing/mask/clown_hat))
+		playsound(get_turf(src), 'sound/items/bikehorn.ogg', 100, 1)
+		return
