@@ -3779,19 +3779,19 @@ var/global/noir = 0
 		alert("You cannot perform this action. You must be of a higher administrative rank!", null, null, null, null, null)
 		return
 
-/client/proc/customgrenade(var/turf/T in world)
+/client/proc/customgrenade()
 	set name = "Create Custom Grenade"
 	set category = "Special Verbs"
 	set desc = "Create a custom object spewing grenade"
 	
-	var/path = input("Enter the path of the obj you want to make grenades of", "Custom Grenades", /obj/item/bananapeel) as obj
+	var/path = input("Enter the path of the obj you want to make grenades of", "Custom Grenades", /obj/item/bananapeel) as anything
 	if (!(istype(path, /obj)))
 		return
 	var/nameinput = input("Enter the name you would like for the grenade", "Custom Grenades", "banana grenade") as text
 	var/obj/item/old_grenade/banana/nade = new /obj/item/old_grenade/banana
 	nade.payload = path
 	nade.name = nameinput
-	nade.loc = T
+	nade.loc = src.loc
 	
 	
 	logTheThing("admin", src, null, "spawned a custom grenade at [nade.loc]")
