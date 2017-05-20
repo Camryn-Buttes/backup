@@ -154,7 +154,7 @@ var/list/admin_verbs = list(
 // LEVEL_PA, primary administrator
 /datum/admins/proc/togglesuicide,\
 /datum/admins/proc/pixelexplosion,\
-/datum/admins/proc/customgrenade,\
+/client/proc/customgrenade,\
 /client/proc/play_sound,\
 /client/proc/play_music,\
 /client/proc/cmd_admin_djmode,\
