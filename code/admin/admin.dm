@@ -3791,7 +3791,7 @@ var/global/noir = 0
 	var/obj/item/old_grenade/banana/nade = new /obj/item/old_grenade/banana
 	nade.payload = path
 	nade.name = nameinput
-	nade.loc = src.loc
+	nade.loc = usr.loc
 	
 	
 	logTheThing("admin", src, null, "spawned a custom grenade at [nade.loc]")
