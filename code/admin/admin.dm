@@ -3785,18 +3785,18 @@ var/global/noir = 0
 	set desc = "Create a custom object spewing grenade"
 	
 	var/path = input("Enter the path of the obj you want to make grenades of", "Custom Grenades", /obj/item/bananapeel) as obj
-	if !(istype(path, /obj))
+	if (!(istype(path, /obj)))
 		return
 	var/nameinput = input("Enter the name you would like for the grenade", "Custom Grenades", "banana grenade") as text
-	var/nade = new /obj/item/old_grenade/banana
+	var/obj/item/old_grenade/banana/nade = new /obj/item/old_grenade/banana
 	nade.payload = path
 	nade.name = nameinput
 	nade.loc = T
 	
 	
-	logTheThing("admin", src, null, "spawned a custom grenade at")
-	logTheThing("diary", src, null, "respawned %target%.", "admin")
-	message_admins("[key_name(src)] respawned [key_name(M)].")
+	logTheThing("admin", src, null, "spawned a custom grenade at [nade.loc]")
+	logTheThing("diary", src, null, "spawned a custom grenade at [nade.loc]", "admin")
+	message_admins("[key_name(src)] spawned a custom grenade at [nade.loc].")
 	
 
 /client/proc/respawn_target(mob/M as mob in world)
