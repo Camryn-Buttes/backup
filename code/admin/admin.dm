@@ -3788,11 +3788,13 @@ var/global/noir = 0
 		var/obj/item/old_grenade/banana/nade = new /obj/item/old_grenade/banana
 		nade.payload = path
 		nade.loc = usr.loc
+		nade.name = "mysterious grenade"
+		nade.desc = "There could be anything inside this."
+		logTheThing("admin", src, null, "spawned a custom grenade at [nade.loc]")
+		logTheThing("diary", src, null, "spawned a custom grenade at [nade.loc]", "admin")
+		message_admins("[key_name(src)] spawned a custom grenade at [nade.loc].")
 	if (!(ispath(path, /obj)))
 		return
-	logTheThing("admin", src, null, "spawned a custom grenade at [nade.loc]")
-	logTheThing("diary", src, null, "spawned a custom grenade at [nade.loc]", "admin")
-	message_admins("[key_name(src)] spawned a custom grenade at [nade.loc].")
 	
 	
 
