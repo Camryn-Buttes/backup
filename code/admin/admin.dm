@@ -3778,29 +3778,18 @@ var/global/noir = 0
 	else
 		alert("You cannot perform this action. You must be of a higher administrative rank!", null, null, null, null, null)
 		return
-/client/proc/customgrenade()
+/client/proc/customgrenade(var/object as text)
 	set name = "Create Custom Grenade"
 	set category = "Special Verbs"
 	set desc = "Create a custom object spewing grenade"
 	
-	var/path = input("Enter the path of the obj you want to make grenades of. Leave blank to cancel.", "Custom Grenades") as null
-	if (path == null)
-		return
+	var/path = get_one_match(object)
+	if (path)
+		var/obj/item/old_grenade/banana/nade = new /obj/item/old_grenade/banana
+		nade.payload = path
+		nade.loc = usr.loc
 	if (!(ispath(path, /obj)))
 		return
-	var/nameinput = input("Enter the name you would like for the grenade. Leave blank to cancel.", "Custom Grenades") as null|text
-	if (nameinput == null)
-		return
-	var/descinput = input("Enter the description you would like for the grenade. Leave blank to cancel.", "Custom Grenades") as null|text
-	if (descinput == null)
-		return
-	var/obj/item/old_grenade/banana/nade = new /obj/item/old_grenade/banana
-	nade.payload = path
-	nade.name = nameinput
-	nade.desc = descinput
-	nade.loc = usr.loc
-	
-	
 	logTheThing("admin", src, null, "spawned a custom grenade at [nade.loc]")
 	logTheThing("diary", src, null, "spawned a custom grenade at [nade.loc]", "admin")
 	message_admins("[key_name(src)] spawned a custom grenade at [nade.loc].")
