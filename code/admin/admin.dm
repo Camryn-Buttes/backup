@@ -3784,8 +3784,10 @@ var/global/noir = 0
 	set category = "Special Verbs"
 	set desc = "Create a custom object spewing grenade"
 	
-	var/path = input("Enter the path of the obj you want to make grenades of", "Custom Grenades", /obj/item/bananapeel) as anything
-	if (!(istype(path, /obj)))
+	var/path = input("Enter the path of the obj you want to make grenades of", "Custom Grenades") as null|anything
+	if (path == null)
+		return
+	if (!(ispath(path, /obj)))
 		return
 	var/nameinput = input("Enter the name you would like for the grenade", "Custom Grenades", "banana grenade") as text
 	var/obj/item/old_grenade/banana/nade = new /obj/item/old_grenade/banana
